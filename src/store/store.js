@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { authSlice } from "./authSlice.js"
+import { roomSlice } from "./roomSlice.js"
 
 
 /**
@@ -14,7 +15,8 @@ export const store = configureStore({
 
     //reducer is a function, receives state, action, decide how to change the state if necessary, and returns the new state.
     reducer: {
-        auth: authSlice
+        auth: authSlice,
+        room: roomSlice
     }
 
 })
