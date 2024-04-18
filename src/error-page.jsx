@@ -4,7 +4,7 @@ export default function ErrorPage() {
 
     const error = useRouteError();
     const navigate = useNavigate();
-    console.log(`Error : (${error.status})  ${error.error.message}`);
+    console.log(`%c  FOR DEVELOPER `, 'background: #555; color: yellow', { error });
 
 
     return (
