@@ -29,7 +29,7 @@ export default function ErrorPage() {
                 </div>
 
 
-                <button className="bg-white text-black py-3 px-6 rounded-lg mt-10 font-semibold" onClick={() => { navigate("/") }}>Go Back!</button>
+                <button className="bg-white text-black py-3 px-6 rounded-lg mt-10 font-semibold shadow-md shadow-slate-500 " onClick={() => { navigate("/") }}>Go Back!</button>
 
             </div>
 
