@@ -9,9 +9,9 @@ export default function ErrorPage() {
 
     return (
 
-        <div className="h-screen flex justify-center items-center bg-slate-500">
+        <div className="h-screen flex justify-center items-center bg-slate-300">
 
-            <div id="error-page" className=" text-white bg-black rounded-lg p-20 flex justify-center items-center flex-col gap-4">
+            <div id="error-page" className=" text-white rounded-lg p-20 flex justify-center items-center flex-col gap-4">
 
                 <div className="text-3xl">
 
@@ -23,8 +23,8 @@ export default function ErrorPage() {
 
                 <div className="flex flex-col border-2 p-5 font-medium">
 
-                    <i>Error : {error.status} - {error.statusText}</i>
-                    <i>Reason : {error.error.message}</i>
+                    <i> Error : {error.status} - {error.statusText} </i>
+                    <i> Reason : {error.error.message} </i>
 
                 </div>
 
