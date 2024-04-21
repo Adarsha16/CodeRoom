@@ -9,22 +9,21 @@ import Output from './components/Home/Output'
 function App() {
 
   return (
+    <>
+      <div className='w-full fixed no-scrollbar scrollbar-gutter-stable'>
+        <Header />
 
-    <div className='h-screen no-scrollbar overflow-hidden scrollbar-gutter-stable'>
-      <Header />
+        <main>
+          <div className="flex flex-row no-scrollbar scrollbar-gutter-stable my-0">
+            <Explore />
+            <Input />
+            <Output />
+            <Outlet />
+          </div>
+        </main>
+      </div>
 
-      <main>
-        <div className="flex flex-row">
-          <Explore />
-          <Input />
-          <Output />
-          <Outlet />
-        </div>
-      </main>
-
-    </div>
-
-
+    </>
   )
 }
 

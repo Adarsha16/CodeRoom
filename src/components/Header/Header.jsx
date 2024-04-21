@@ -3,7 +3,7 @@ import React from 'react'
 function Header() {
     return (
 
-        <div className={`w-full h-24 bg-tertiary text-customWhite flex justify-between  items-center`}>
+        <div className={`w-full h-24 bg-tertiary text-customWhite flex justify-between  items-center `}>
 
             {/* Left */}
             <div className='flex flex-row gap-10 mx-5'>
