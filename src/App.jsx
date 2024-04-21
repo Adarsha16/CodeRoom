@@ -13,14 +13,8 @@ function App() {
       <div className='w-full fixed no-scrollbar scrollbar-gutter-stable'>
         <Header />
 
-        <main>
-          <div className="flex flex-row no-scrollbar scrollbar-gutter-stable my-0">
-            <Explore />
-            <Input />
-            <Output />
-            <Outlet />
-          </div>
-        </main>
+
+        <Outlet />
       </div>
 
     </>

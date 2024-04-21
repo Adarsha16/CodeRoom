@@ -1,8 +1,20 @@
 import React from 'react'
+import Explore from '../components/Home/Explore'
+import Input from '../components/Home/Input'
+import Output from '../components/Home/Output'
 
 function Home() {
     return (
-        <div></div>
+        <>
+            <main>
+                <div className="flex flex-row no-scrollbar scrollbar-gutter-stable my-0">
+                    <Explore />
+                    <Input />
+                    <Output />
+                </div>
+            </main>
+
+        </>
     )
 }
 
