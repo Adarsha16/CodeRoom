@@ -17,7 +17,8 @@ export default {
       'customWhite': '#D6D6D6', //almost white
       'slate': {
         300: '#cbd5e1'
-      }
+      },
+
 
     }
   },
