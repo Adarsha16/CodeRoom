@@ -22,7 +22,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.PAT_TOKEN }}
-          branch: main  # Adjust this according to your main branch name in your forked repository
+          branch: master  # Adjust this according to your main branch name in your forked repository
           base: main  # Adjust this according to your main branch name in the base repository
           title: Automatically generated PR
           body: |
