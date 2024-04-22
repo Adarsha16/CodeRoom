@@ -1,7 +1,7 @@
 import express from 'express'
 const router = express.Router();
 
-import { compiler, Github } from "../controller/index"
+import { compiler, Github } from "../controller/index.js"
 
 
 router.get("/api/github", Github);

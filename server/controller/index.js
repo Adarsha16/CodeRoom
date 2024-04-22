@@ -1,5 +1,5 @@
-import { compiler } from "./compiler";
-import { Github } from "./github";
+import { compiler } from "./compiler.js";
+import { Github } from "./github.js";
 
 
 export { compiler, Github }

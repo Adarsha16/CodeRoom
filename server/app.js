@@ -1,6 +1,7 @@
 import express from 'express'
+import cors from 'cors'
 const app = express();
-import router from './router/route';
+import router from './router/route.js';
 
 
 app.use(express.json());  //To parse the json file
@@ -19,7 +20,8 @@ app.use("/", router)
  * To startup the server
  */
 
-const POST = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
+
 
 const start = async (req, res) => {
 
