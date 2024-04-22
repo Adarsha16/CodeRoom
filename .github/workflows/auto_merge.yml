@@ -15,7 +15,7 @@ jobs:
         
       - name: Set up Git
         run: |
-          git config --global user.name "ostrich-egg"
+          git config --global user.name "eggs"
           git config --global user.email "sauhardhakafle12@gmail.com"
           
       - name: Create Pull Request
