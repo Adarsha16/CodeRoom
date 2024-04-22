@@ -4,7 +4,7 @@ const router = express.Router();
 import { compiler, Github } from "../controller/index.js"
 
 
-router.get("/api/github", Github);
-router.route("/api/code/:lang").get(compiler)
+router.post("/api/github", Github);
+router.route("/api/code/:lang").post(compiler)
 
 export default router
