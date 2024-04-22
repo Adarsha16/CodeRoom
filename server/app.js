@@ -3,6 +3,8 @@ import cors from 'cors'
 const app = express();
 import router from './router/route.js';
 
+import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
+
 
 app.use(express.json());  //To parse the json file
 app.use(cors());          //For cross origin resource sharing
@@ -12,6 +14,17 @@ app.use(cors());          //For cross origin resource sharing
  * Routes 
  */
 app.use("/", router)
+
+
+
+
+/**
+ * ERROR Handling MIDDLEWARE
+ */
+
+app.use(notFoundMiddleware)
+
+
 
 
 
