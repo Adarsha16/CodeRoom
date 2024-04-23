@@ -18,9 +18,11 @@ export default {
       'slate': {
         300: '#cbd5e1'
       },
-
+      'brown': 'rgba(87, 88, 83, 0.4)', //for border color
+      'white': '#ffff',
 
     }
+
   },
   plugins: [],
 }

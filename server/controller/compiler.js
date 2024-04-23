@@ -2,8 +2,6 @@ const GLOT_API_TOKEN = 'de976840-e3bd-4cc6-8762-af5843f23d89'
 
 const compiler = async (req, res) => {
 
-
-
     try {
 
         const { lang } = req.params;
@@ -23,8 +21,13 @@ const compiler = async (req, res) => {
             }
         )
 
+        if (!response) {
+            throw new Error("Something went wrong with compiler")
+        }
+
         console.log(response)
         const output = await response.json();
+
 
 
 
