@@ -10,7 +10,7 @@ function App() {
 
   return (
 
-    <div className='w-full h-screen box-border'>
+    <div className='w-screen h-screen box-border'>
 
       <div >
         <Header />

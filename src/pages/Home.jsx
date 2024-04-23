@@ -4,7 +4,7 @@ import { Textbox } from '../components/Home-components/Textbox'
 
 function Home() {
     return (
-        <div className='w-screen fixed grid grid-flow-col grid-cols-6 grid-rows-1 gap-0 '>
+        <div className='w-full fixed grid grid-flow-col grid-cols-5 grid-rows-1 gap-0 '>
 
 
             <Explore />
@@ -15,8 +15,9 @@ function Home() {
                 type={"input"}
                 customcss={
                     {
-                        colstart: "2",
-                        colend: "5",
+                        colStart: 2,
+                        colspan: 3,
+                        colEnd: 5,
                         flex_alignment: "justify-between"
                     }
                 }
@@ -34,8 +35,9 @@ function Home() {
                 type={"output"}
                 customcss={
                     {
-                        colstart: "5",
-                        colend: "7",
+                        colStart: 5,
+                        colspan: 2,
+                        colEnd: 7,
                         flex_alignment: ""
                     }
                 }

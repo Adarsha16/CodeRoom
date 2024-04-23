@@ -14,14 +14,14 @@ function Textbox(
   return (
 
 
-    < div className={`col-start-${customcss.colstart} col-end-${customcss.colend}  text-customWhite bg-secondary `
+    < div className={`col-span-2 text-customWhite bg-secondary `
     }>
       {console.log(type, disabled)}
       {console.log()}
 
       {/*NOTE; Tab Area */}
       < div
-        className={`px-0 h-10 border-[2px]  border-r-0 border-brown flex items-center ${customcss.flex_alignment} font-bold`}
+        className={`px-6 h-10 border-[2px]  border-r-0 border-brown flex items-center ${customcss.flex_alignment} font-bold`}
       >
         {
           type === "input" ?
