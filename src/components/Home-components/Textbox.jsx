@@ -119,11 +119,18 @@ function Textbox(
           disabled={disabled}
 
 
+
           // placeholder={textarea_id === "outputarea" ? OutputText : " "}
 
 
 
           onChange={(e) => { putInputText(e.target.value) }}
+          onKeyDown={(e) => {
+            if (e.key === 'Tab') {
+              e.preventDefault();
+              e.target.setRangeText('\t', e.target.selectionStart, e.target.selectionStart, 'end')
+            }
+          }}
 
 
         >
