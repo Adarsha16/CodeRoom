@@ -5,10 +5,10 @@ const compiler = async (req, res) => {
     try {
 
         const { lang } = req.params;
-        const { user_input } = req.body;
+        const { InputText } = (req.body);
 
 
-        const input = { "files": [{ "name": "main.py", "content": `${user_input}` }] }
+        const input = { "files": [{ "name": "main.py", "content": `${InputText}` }] }
 
         const response = await fetch(`https://glot.io/api/run/${lang}/latest`,
             {
@@ -25,7 +25,7 @@ const compiler = async (req, res) => {
             throw new Error("Something went wrong with compiler")
         }
 
-        console.log(response)
+        // console.log(response)
         const output = await response.json();
 
 

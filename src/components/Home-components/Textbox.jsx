@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 function Textbox(
   {
@@ -11,6 +11,48 @@ function Textbox(
   }
 
 ) {
+
+  const [InputText, putInputText] = useState('');
+  const [OutputText, putOutputText] = useState('');
+
+
+  const callCompilerApi = async () => {
+
+    try {
+
+      const response = await fetch(`http://localhost:5001/api/code/python`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ InputText })
+        }
+
+      )
+
+
+      const data = await response.json();
+      putOutputText(data.output.stdout || data.output.stderr);
+
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  };
+
+
+  useEffect(() => {
+
+    document.getElementById("outputarea").innerHTML = OutputText;
+
+
+  }, [OutputText]);
+
+
+
   return (
 
 
@@ -42,9 +84,9 @@ function Textbox(
                 </div>
 
                 {/* Right part */}
-                <div className='flex gap-3' >
+                <div className='flex gap-3 cursor-pointer' >
                   <span>Save</span>
-                  <span className='text-primary'>Run</span>
+                  <span className='text-primary' onClick={callCompilerApi}>Run</span>
                   <span>...</span>
                 </div>
 
@@ -76,9 +118,12 @@ function Textbox(
 
           disabled={disabled}
 
-        // placeholder={placeholderText}
-        // value={text}
-        // onChange={inputText((event) => { event.target.value })}
+
+          // placeholder={textarea_id === "outputarea" ? OutputText : " "}
+
+
+
+          onChange={(e) => { putInputText(e.target.value) }}
 
 
         >
@@ -86,9 +131,6 @@ function Textbox(
 
         </textarea>
       </div >
-
-
-
 
 
 
