@@ -1,5 +1,6 @@
 import React from 'react'
-
+import Login from '../Home-components/Login'
+import LoginButton from '../Home-components/Login'
 function Header() {
     return (
 
@@ -17,7 +18,7 @@ function Header() {
 
                 {/* Dynamic Login / Show Github */}
                 <div >
-                    Dynamic Login
+                    <LoginButton />
                 </div>
 
             </div>

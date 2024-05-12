@@ -2,6 +2,7 @@ import React from 'react'
 import Explore from '../components/Home-components/Explore'
 import { Textbox } from '../components/Home-components/Textbox'
 
+
 function Home() {
     return (
         <div className='fixed  grid grid-flow-col col-span-5 grid-rows-1 gap-0 w-full'>
@@ -43,6 +44,7 @@ function Home() {
                 disabled={true}
             />
         </div>
+
     )
 }
 

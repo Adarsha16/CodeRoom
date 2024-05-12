@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import MySelect from './LanguageSwitch';
 
 function Textbox(
   {
@@ -73,7 +74,7 @@ function Textbox(
                 <div className='flex flex-row gap-5'>
 
                   <div>
-                    js
+                    <MySelect />
                   </div>
 
                   <div>

@@ -15,6 +15,7 @@ export default {
       'secondary': '#141510', //for code area and output
       'primary': '#238579', //greenish color
       'customWhite': '#D6D6D6', //almost white
+      'hover': '#1b5e5a',
       'slate': {
         300: '#cbd5e1'
       },
