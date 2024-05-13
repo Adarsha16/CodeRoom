@@ -1,7 +1,8 @@
 import React from 'react'
-import Login from '../Home-components/Login'
-import LoginButton from '../Home-components/Login'
+import Button from '../Home-components/Button'
+import { useNavigate } from 'react-router-dom'
 function Header() {
+    const navigate = useNavigate();
     return (
 
         <div className={`w-full h-24 bg-tertiary text-customWhite flex justify-between  items-center`}>
@@ -18,7 +19,7 @@ function Header() {
 
                 {/* Dynamic Login / Show Github */}
                 <div >
-                    <LoginButton />
+                    <Button buttonLabel={"Login"} handleClick={() => { navigate('/login') }} bgColor={'bg-primary'} round={'rounded-md'} />
                 </div>
 
             </div>
