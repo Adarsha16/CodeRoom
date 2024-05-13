@@ -14,7 +14,7 @@ const customStyles = {
     control: (style) => ({
         ...style,
         width: 90,
-        height: 30,
+        height: 20,
         backgroundColor: "#1E2019",
         border: 'hidden',
 
