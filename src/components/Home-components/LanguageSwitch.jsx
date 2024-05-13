@@ -16,8 +16,10 @@ const customStyles = {
         width: 90,
         height: 30,
         backgroundColor: "#1E2019",
-        border: 'hidden'
+        border: 'hidden',
+
     })
+
 };
 
 const MySelect = () => (
