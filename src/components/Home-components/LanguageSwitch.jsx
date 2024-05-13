@@ -14,12 +14,11 @@ const customStyles = {
     control: (style) => ({
         ...style,
         width: 90,
-        height: 20,
+        height: 30,
         backgroundColor: "#1E2019",
         border: 'hidden',
 
     })
-
 };
 
 const MySelect = () => (
