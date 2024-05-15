@@ -56,8 +56,15 @@ function Textbox(
   return (
 
 
+
+
     < div className={`col-span-2 text-customWhite bg-secondary w-full`
     }>
+
+
+
+
+
 
 
       {/*NOTE; Tab Area */}
@@ -137,6 +144,7 @@ function Textbox(
 
 
         </textarea>
+
       </div >
 
 
