@@ -19,8 +19,6 @@ const authentication = (req, res, next) => {
             res.status(400).json({ "error : ": "Internal server error, cannot get payload" });
         }
 
-        console.log("payload from middleware", payload);
-
         req.user = payload;
         next();
 

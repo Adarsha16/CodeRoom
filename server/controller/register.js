@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import pool from "../db/connectDB.js";
-import { emailValidation } from "./index.js";
+import { emailValidation, bcryptHash } from "./index.js";
 
 
 
@@ -38,6 +38,11 @@ async function register(req, res) {
             res.status(400).json({ "Bad Request": "User already registered!, Please login" });
         }
 
+        /////////////////////Hashing password//////////////////////
+        let password_hash = await bcryptHash(password);
+
+
+
 
         ///Registering user in database
         const register_query =
@@ -48,8 +53,8 @@ async function register(req, res) {
             (?,?,?,?);
         `;
 
-        const registered_data = await pool.query(register_query, [username, github, email, password]);
-        console.log("registered", registered_data);
+        const registered_data = await pool.query(register_query, [username, github, email, password_hash]);
+
 
         //status created
         res.status(201).json({ "Status: ": "Created successfully" })

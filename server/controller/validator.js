@@ -2,6 +2,8 @@ import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 dotenv.config();
 
+import bcrypt from "bcryptjs";
+
 /////////Comparing with regex only///////
 const emailValidation = (email) => {
 
@@ -44,4 +46,26 @@ const createJWT = (user) => {
 };
 
 
-export { emailValidation, createJWT };
+
+///////////////Hashing password for register///////////////////
+
+const bcryptHash = async (password) => {
+
+
+    const salt = await bcrypt.genSalt(10);
+    return bcrypt.hash(password, salt);
+
+}
+
+////////////Password verify for login ////////////////////////
+
+const verifyBcryptHash = async (password, password_hash) => {
+
+    return await bcrypt.compare(password, password_hash);
+}
+
+
+
+
+
+export { emailValidation, createJWT, bcryptHash, verifyBcryptHash };

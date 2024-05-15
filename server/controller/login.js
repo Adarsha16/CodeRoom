@@ -1,8 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
-import jwt from "jsonwebtoken";
 import pool from "../db/connectDB.js";
-import { emailValidation, createJWT } from "./index.js";
+import { emailValidation, createJWT, verifyBcryptHash } from "./index.js";
 
 
 
@@ -38,11 +37,12 @@ const login = async (req, res) => {
         const data = if_present_data[0][0];
 
 
-        //comparing password
-        if (data?.password_hash !== password) {
+        //////////////comparing hashed password/////////////////////
+        if (!verifyBcryptHash(password, data?.password_hash)) {
 
             res.status(400).json({ "Unauthentication Error": "Password or email is incorrect" });
         }
+
 
         //Creating token of the data
         let token = createJWT(data);
