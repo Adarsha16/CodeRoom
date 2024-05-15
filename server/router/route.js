@@ -1,10 +1,14 @@
 import express from 'express'
 const router = express.Router();
 
-import { compiler, Github } from "../controller/index.js"
+import { compiler, Github, login, register } from "../controller/index.js"
 
 
-router.post("/api/github", Github);
-router.route("/api/code/:lang").post(compiler)
+
+router.post("/github", Github);
+router.route("/code/:lang").post(compiler);
+router.route("/auth/login").post(login);
+router.route("/auth/register").post(register);
+
 
 export default router
