@@ -10,7 +10,7 @@ function Home() {
 
             <Explore />
 
-            {/* <Input Text/> */}
+            {/* <Input Text /> */}
             <Textbox
 
                 type={"input"}
@@ -49,3 +49,4 @@ function Home() {
 }
 
 export default Home
+

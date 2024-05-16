@@ -57,13 +57,20 @@ function Textbox(
   return (
 
 
+
+
     < div className={`col-span-2 text-customWhite bg-secondary w-full`
     }>
 
 
+
+
+
+
+
       {/*NOTE; Tab Area */}
       < div
-        className={`px-6 h-10 border-[2px]  border-r-0 border-brown flex items-center ${customcss.flex_alignment} font-bold`}
+        className={`px-6 h-10 border-[2px]  border-r-0 border-brown flex items-center ${customcss.flex_alignment} fira-sans-bold`}
       >
         {
           type === "input" ?
@@ -139,6 +146,7 @@ function Textbox(
 
 
         </textarea>
+
       </div >
 
 
