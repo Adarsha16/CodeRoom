@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Editor, { useMonaco } from '@monaco-editor/react';
+import Editor from '@monaco-editor/react';
 
 function Textbox(
   {
@@ -155,7 +155,6 @@ function Textbox(
           loading={"Loading...."}
           defaultLanguage={default_lng}
           defaultValue={placeholder}
-          // defaultValue={textarea_id == 'outputarea' ? OutputText : "Input"}
 
           options={{
             minimap: { enabled: true },
