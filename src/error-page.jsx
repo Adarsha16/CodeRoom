@@ -9,7 +9,7 @@ export default function ErrorPage() {
 
     return (
 
-        <div className="h-screen flex justify-center items-center bg-slate-300">
+        <div className="h-screen flex justify-center items-center bg-slate-400">
 
             <div id="error-page" className=" text-white rounded-lg p-20 flex justify-center items-center flex-col gap-4">
 
