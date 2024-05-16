@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
+import Editor, { useMonaco } from '@monaco-editor/react';
 
 function Textbox(
   {
@@ -6,19 +7,31 @@ function Textbox(
     customcss,
     textarea_id,
     textarea_name,
-    disabled
+    disabled,
+    placeholder,
+    default_lng,
+    custom_theme
 
   }
 
 ) {
 
+
   const [InputText, putInputText] = useState('');
   const [OutputText, putOutputText] = useState('');
+
+  const outputref = useRef(OutputText);
+  const monacoref = useRef(null);
+
 
 
   const callCompilerApi = async () => {
 
     try {
+
+
+
+
 
       const response = await fetch(`http://localhost:5001/api/code/python`,
         {
@@ -33,8 +46,8 @@ function Textbox(
 
 
       const data = await response.json();
-      putOutputText(data.output.stdout || data.output.stderr);
 
+      putOutputText(data.output.stdout || data.output.stderr);
 
     } catch (error) {
 
@@ -44,28 +57,46 @@ function Textbox(
   };
 
 
+  const handleMonacoInstance = (editor, monaco) => {
+
+    monacoref.current = monaco;
+
+  }
+
+
+
   useEffect(() => {
 
-    document.getElementById("outputarea").innerHTML = OutputText;
+    try {
+      if (!monacoref.current) {
+        // Monaco or its dependencies not available yet, wait and try again later
+        return;
+      }
+
+      if (OutputText !== outputref.current) {
+        monacoref?.current?.editor.getModels()[1].setValue(OutputText || "illegal argument")
+      }
+
+      return;
+
+
+
+    } catch (error) {
+
+      console.log(error)
+
+    }
+
 
 
   }, [OutputText]);
 
 
 
+
   return (
-
-
-
-
     < div className={`col-span-2 text-customWhite bg-secondary w-full`
     }>
-
-
-
-
-
-
 
       {/*NOTE; Tab Area */}
       < div
@@ -116,34 +147,43 @@ function Textbox(
 
       {/*NOTE; Input Area */}
       < div>
-
-
-        <textarea
+        <Editor
           id={textarea_id}
           name={textarea_name}
-          className={` border-[2px] border-t-0 border-r-0  border-brown h-[calc(100vh-96px)] outline-none bg-secondary resize-none overflow-auto scroll-m-0 p-4 w-full`}
+          className={`${textarea_id} overflow-y-scroll no-scrollbar border-[2px] border-t-0 border-r-0  border-brown h-[calc(100vh-96px)] outline-none bg-secondary resize-none overflow-auto scroll-m-0 p-0 w-full`}
 
-          disabled={disabled}
+          loading={"Loading...."}
+          defaultLanguage={default_lng}
+          defaultValue={placeholder}
+          // defaultValue={textarea_id == 'outputarea' ? OutputText : "Input"}
 
+          options={{
+            minimap: { enabled: true },
+            scrollbar: {
+              vertical: "hidden",
+              horizontal: "hidden",
+              handleMouseWheel: true,
+            },
+            cursorBlinking: "expand",
+            autoIndent: "full",
 
+            tabFocusMode: true,
+            formatOnPaste: true,
+            smoothScrolling: true,
+            readOnly: disabled
 
-          // placeholder={textarea_id === "outputarea" ? OutputText : " "}
-
-
-
-          onChange={(e) => { putInputText(e.target.value) }}
-          onKeyDown={(e) => {
-            if (e.key === 'Tab') {
-              e.preventDefault();
-              e.target.setRangeText('\t', e.target.selectionStart, e.target.selectionStart, 'end')
-            }
           }}
+
+          theme={custom_theme}
+
+
+          onChange={putInputText}
+          onMount={handleMonacoInstance}
 
 
         >
 
-
-        </textarea>
+        </Editor>
 
       </div >
 
