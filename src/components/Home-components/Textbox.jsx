@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
+import MySelect from './LanguageSwitch';
 
 function Textbox(
   {
@@ -111,15 +112,17 @@ function Textbox(
                 <div className='flex flex-row gap-5'>
 
                   <div>
-                    js
+                    <MySelect />
+
                   </div>
 
-                  <div>
+                  <div className='mt-1.5'>
                     main.js
                   </div>
 
 
                 </div>
+
 
                 {/* Right part */}
                 <div className='flex gap-3 cursor-pointer' >
