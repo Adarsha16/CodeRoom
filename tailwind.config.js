@@ -17,10 +17,13 @@ export default {
       'customWhite': '#D6D6D6', //almost white
       'hover': '#1b5e5a',
       'slate': {
-        300: '#cbd5e1'
+        300: '#cbd5e1',
+        400: '#94a3b8'
       },
       'brown': 'rgba(87, 88, 83, 0.4)', //for border color
       'white': '#ffff',
+      'black': '#000000',
+      'cyan': '#20B2AA'
 
     }
 

@@ -10,7 +10,7 @@ function Home() {
 
             <Explore />
 
-            {/* <Input Text/> */}
+            {/* <Input Text /> */}
             <Textbox
 
                 type={"input"}
@@ -24,6 +24,9 @@ function Home() {
                 textarea_id={"inputarea"}
                 textarea_name={"inputarea"}
                 disabled={false}
+                placeholder={"//Some comment"}
+                default_lng={'javascript'}
+                custom_theme={'vs-dark'}
 
             />
 
@@ -42,6 +45,9 @@ function Home() {
                 textarea_id={"outputarea"}
                 textarea_name={"outputarea"}
                 disabled={true}
+                placeholder={"Output"}
+                default_lng={'javascript'}
+                custom_theme={'vs-dark'}
             />
         </div>
 
@@ -49,3 +55,4 @@ function Home() {
 }
 
 export default Home
+
