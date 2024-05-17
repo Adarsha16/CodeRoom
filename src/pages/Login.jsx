@@ -1,22 +1,18 @@
 import React from 'react'
 import Inputfield from '../components/Header/Inputfield.jsx'
-
+import Login_right from '../components/Home-components/Assets/Login_right.jpg'
+import Button from '../components/Home-components/Button.jsx'
 
 function Login() {
   return (
-    <div
+    <>
+      <div className='relative flex justify-center items-center fira-sans-bold '
+      >
+        {/**container */}
+        <div className='absolute inset-y-0 left-0 px-10 py-24 w-1/2 flex flex-col items-start m-t-25 bg-cyan h-screen'>
 
-      className='h-full flex justify-center items-center fira-sans-bold'
-    >
+          {/**left part */}
 
-
-
-
-      {/**container */}
-      <div className='h-full px-10 py-24 border rounded-md bg-primary bg-opacity-5 border-brown flex flex-col justify-center align-middle  items-center'>
-
-        {/**left part */}
-        <div className='block'>
 
           {/**Info and Headline */}
           <div className='flex flex-col gap-1.5 mb-4 fira-sans-regular'>
@@ -26,54 +22,50 @@ function Login() {
             <h5 className=' text-3xl'>Welcome to Coders Hub</h5>
             <p className='text-brown'>Please sign in to create a room and continue this journey even better</p>
 
+
+
+
+            {/**Input filed */}
+            <div className='flex flex-col w-full'>
+
+              {/*Email field*/}
+              <Inputfield
+
+                input_type={'text'}
+                customcss={' '}
+                custom_placeholder={'Email'}
+                inputId={'input_username'}
+                inputName={'input_username'}
+              />
+
+
+              {/*password field*/}
+              <Inputfield
+
+                input_type={'password'}
+                customcss={' '}
+                custom_placeholder={'Password'}
+                inputId={'input_password'}
+                inputName={'input_password'}
+
+              />
+              <div className='ml-20'>
+                <Button buttonLabel={"Login"} bgColor={'bg-primary'} round={'rounded-md'} />
+              </div>
+
+            </div>
+
           </div>
-
-
-          {/**Input filed */}
-          <div className='flex flex-col w-full'>
-
-            {/*Email field*/}
-            <Inputfield
-
-              input_type={'text'}
-              customcss={' '}
-              custom_placeholder={'Email'}
-              inputId={'input_username'}
-              inputName={'input_username'}
-            />
-
-
-            {/*password field*/}
-            <Inputfield
-
-              input_type={'password'}
-              customcss={' '}
-              custom_placeholder={'Password'}
-              inputId={'input_password'}
-              inputName={'input_password'}
-
-            />
-
-
-          </div>
+          {/**Right Part */}
 
         </div>
-
-
-
-        {/**Right Part */}
-
-        <div>
-
-          <h1>Images here</h1>
+        <div className='absolute inset-y-0 right-0 w-1/2 '>
+          <img src={Login_right} alt='Side Login panel' />
         </div>
-
-
-
 
       </div>
 
-    </div>
+    </>
   )
 }
 

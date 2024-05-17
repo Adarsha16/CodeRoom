@@ -23,6 +23,7 @@ export default {
       'brown': 'rgba(87, 88, 83, 0.4)', //for border color
       'white': '#ffff',
       'black': '#000000',
+      'cyan': '#20B2AA'
 
     }
 
