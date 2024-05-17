@@ -111,11 +111,10 @@ function Textbox(
                 <div className='flex flex-row gap-5'>
 
                   <div>
-                    <MySelect />
-
+                    js
                   </div>
 
-                  <div className='mt-1.5'>
+                  <div>
                     main.js
                   </div>
 
