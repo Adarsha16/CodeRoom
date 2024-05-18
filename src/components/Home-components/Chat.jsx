@@ -58,7 +58,7 @@ function Chat() {
 
                 {/*for chat main body */}
 
-                <div id="message_container" className="h-full overflow-scroll mt-3 px-3 text-slate-400 text-sm">
+                <div id="message_container" className="h-full overflow-scroll mt-3 px-3 text-slate-400 text-sm ">
 
                     {messageReceived.length === 0 ? (
                         <p>No messages yet</p>
@@ -71,14 +71,14 @@ function Chat() {
                 </div>
 
                 {/*for chat input*/}
-                <div className="fixed w-full bottom-0 p-0 m-0 flex items-center">
+                <div className="fixed w-full bottom-0 p-0 m-0 flex items-center ">
 
                     <form id="send_container" onSubmit={handleSubmit} name="message_form" className="flex justify-center items-center">
 
                         <input
                             type="text"
                             placeholder="Start a conversation"
-                            className="p-5 h-10 w-full bg-brown border-none outline-none"
+                            className="p-5 h-10 w-48 bg-brown border-none outline-none rounded-md"
                             id='message'
 
                             onChange={(e) => {
@@ -88,7 +88,7 @@ function Chat() {
 
                             } />
                         <Button
-                            custom_class={'bg-primary w-1/6 h-10'}
+                            custom_class={'bg-primary w-24 h-10 rounded-md'}
                             type={"Submit"}
                             buttonLabel={'^'}
                             id={"send_button"}
