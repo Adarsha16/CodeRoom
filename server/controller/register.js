@@ -11,7 +11,6 @@ async function register(req, res) {
 
         const { username, github, email, password } = req.body;
 
-        console.log(req.body)
         //checking email regix;
         if (!emailValidation(email)) {
             return res.status(400).json({ error: "Incorrect email format" });
@@ -40,8 +39,6 @@ async function register(req, res) {
 
         /////////////////////Hashing password//////////////////////
         let password_hash = await bcryptHash(password);
-
-
 
 
         ///Registering user in database

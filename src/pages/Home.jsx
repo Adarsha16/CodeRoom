@@ -25,7 +25,7 @@ function Home() {
                 textarea_name={"inputarea"}
                 disabled={false}
                 placeholder={"//Some comment"}
-                default_lng={'javascript'}
+                default_lng={'python'}
                 custom_theme={'vs-dark'}
 
             />
@@ -46,7 +46,7 @@ function Home() {
                 textarea_name={"outputarea"}
                 disabled={true}
                 placeholder={"Output"}
-                default_lng={'javascript'}
+                default_lng={'python'}
                 custom_theme={'vs-dark'}
             />
         </div>
