@@ -1,6 +1,6 @@
 import React from 'react'
 import Inputfield from '../components/Header/Inputfield.jsx'
-import Login_right from '../components/Home-components/Assets/Login_right.jpg'
+import Login_right from '../components/Assets/Login_right.jpg'
 import Button from '../components/Home-components/Button.jsx'
 
 function Login() {
@@ -34,8 +34,8 @@ function Login() {
                 input_type={'text'}
                 customcss={' '}
                 custom_placeholder={'Email'}
-                inputId={'input_username'}
-                inputName={'input_username'}
+                inputId={'input_useremail'}
+                inputName={'input_useremail'}
               />
 
 
