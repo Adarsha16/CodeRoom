@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../Home-components/Button'
 import { useNavigate } from 'react-router-dom'
+import Setting from '../Home-components/Setting';
 function Header() {
     const navigate = useNavigate();
     return (
@@ -19,7 +20,7 @@ function Header() {
 
                 {/* Dynamic Login / Show Github */}
                 <div >
-                    <Button buttonLabel={"Login"} handleClick={() => { navigate('/login') }} bgColor={'bg-primary'} round={'rounded-md'} />
+                    <Button paddingX={10} paddingY={2} buttonLabel={"Login"} handleClick={() => { navigate('/login') }} bgColor={'bg-primary'} round={'rounded-md'} />
                 </div>
 
             </div>
@@ -41,7 +42,7 @@ function Header() {
                 {/* setting */}
                 <div >
 
-                    setting
+                    <Setting />
                 </div>
 
 
