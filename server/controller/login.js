@@ -22,12 +22,11 @@ const login = async (req, res) => {
         }
 
         ///////////Database query///////////////
-
         const query = `
         SELECT * FROM ${process.env.DB_NAME}.${process.env.DB_TABLE_NAME} 
         WHERE email = ?;`;
         const if_present_data = await pool.query(query, [email]);
-        //////////////////////////////////////
+        ///////////////////////////////////////
 
         if (!if_present_data) {
             console.log("User doesnot Exists. Please register first!");
