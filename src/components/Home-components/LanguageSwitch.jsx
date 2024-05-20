@@ -1,8 +1,8 @@
 import React from 'react';
 import Select from 'react-select';
-import JSIcon from './Assets/js';
-import PyIcon from './Assets/py';
-import Cpp from './Assets/Cpp';
+import JSIcon from '../Assets/js';
+import PyIcon from '../Assets/py';
+import Cpp from '../Assets/Cpp';
 
 
 const options = [
