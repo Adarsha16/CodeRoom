@@ -22,7 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
 
 *.env
 /env
 /.env
+=======
+*.env
+>>>>>>> upstream/main

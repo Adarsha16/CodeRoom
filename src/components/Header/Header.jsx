@@ -6,11 +6,10 @@ function Header() {
     const navigate = useNavigate();
     return (
 
-        <div className={`w-full h-24 bg-tertiary text-customWhite flex justify-between  items-center`}>
+        <div className={`w-full h-24 bg-tertiary text-customWhite flex justify-between items-center`}>
 
             {/* Left */}
             <div className='flex flex-row gap-10 mx-5'>
-
                 {/* Logo */}
                 <div >
                     CodeRoomLogo
@@ -19,9 +18,13 @@ function Header() {
 
 
                 {/* Dynamic Login / Show Github */}
-                <div >
-                    <Button paddingX={10} paddingY={2} buttonLabel={"Login"} handleClick={() => { navigate('/login') }} bgColor={'bg-primary'} round={'rounded-md'} />
-                </div>
+
+                <Button
+                    custom_class='w-40 py-2.5 rounded-md bg-primary text-white'
+                    buttonLabel={"Login"}
+                    handleClick={() => { navigate('/login') }}
+                />
+
 
             </div>
 
