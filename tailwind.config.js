@@ -15,7 +15,7 @@ export default {
       'secondary': '#141510', //for code area and output
       'primary': '#238579', //greenish color
       'customWhite': '#D6D6D6', //almost white
-      'hover': '#1b5e5a',
+      'green_hover': '#1b5e5a',
       'slate': {
         300: '#cbd5e1',
         400: '#94a3b8'
@@ -23,7 +23,10 @@ export default {
       'brown': 'rgba(87, 88, 83, 0.4)', //for border color
       'white': '#ffff',
       'black': '#000000',
-      'cyan': '#20B2AA'
+      'cyan': '#20B2AA',
+      'signup': '#52a2fb',
+      'signupBTN': '#185493',
+      'blue_hover': '#1434A4',
 
     }
 

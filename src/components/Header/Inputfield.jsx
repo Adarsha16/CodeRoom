@@ -19,7 +19,7 @@ function Inputfield
 
             id={inputId}
             name={inputName}
-            className={`p-3 m-2 outline-none ${customcss} border-2 border-brown rounded-md w-80 min-w-72 min-h-5
+            className={`fira-sans-light px-3 py-4 my-2.5 outline-none ${customcss} rounded-md w-80 min-w-72 min-h-2
             `}
             type={input_type}
             placeholder={custom_placeholder}
