@@ -43,11 +43,10 @@ function Chat() {
 
         e.preventDefault();
 
-        // if (!roomData.roomid) {
-        //     socket.emit("notAssigned", "Please Join or Create Room first");
-        //     return;
-        // }
-
+        if (!roomData.roomid) {
+            socket.emit("notAssigned", "Please Join or Create Room first");
+            return;
+        }
         console.log(message)
         // const username = l;
         // console.log("usrname", username)
