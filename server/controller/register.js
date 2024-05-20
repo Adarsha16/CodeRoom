@@ -34,7 +34,11 @@ async function register(req, res) {
 
 
         if (if_present_data[0][0]['COUNT(*)'] !== 0) {
+<<<<<<< HEAD
             console.log("equal to 0")
+=======
+
+>>>>>>> upstream/main
             res.status(400).json({ "Bad Request": "User already registered!, Please login" });
         }
 
