@@ -6,10 +6,10 @@ import Button from '../components/Home-components/Button.jsx'
 function SignUp() {
   return (
     <>
-      <div className='relative flex justify-center items-center fira-sans-bold '
+      <div className='relative flex justify-center items-center fira-sans-bold h-[calc(100vh-6rem)]'
       >
         {/**container */}
-        <div className='absolute inset-y-0 left-0 px-10 py-24 w-1/2 flex flex-col items-start m-t-25 bg-cyan h-screen'>
+        <div className='absolute inset-y-0 left-0 px-10 py-24 w-1/2 flex flex-col items-start m-t-25 bg-cyan'>
 
           {/**left part */}
 
@@ -68,7 +68,7 @@ function SignUp() {
 
               />
               <div className='ml-20'>
-                <Button buttonLabel={"Login"} bgColor={'bg-primary'} round={'rounded-md'} />
+                <Button buttonLabel={"SignUp"} bgColor={'bg-primary'} round={'rounded-md'} paddingX={10} paddingY={2} />
               </div>
 
             </div>
@@ -77,7 +77,7 @@ function SignUp() {
           {/**Right Part */}
 
         </div>
-        <div className='absolute inset-y-0 right-0 w-1/2 '>
+        <div className='absolute inset-y-0 right-0 w-1/2'>
           <img src={signupImage} alt='Side Login panel' />
         </div>
 

@@ -20,7 +20,7 @@ function Header() {
 
                 {/* Dynamic Login / Show Github */}
                 <div >
-                    <Button buttonLabel={"Login"} paddingX={9} paddingY={2} handleClick={() => { navigate('/login') }} bgColor={'bg-primary'} round={'rounded-md'} />
+                    <Button paddingX={10} paddingY={2} buttonLabel={"Login"} handleClick={() => { navigate('/login') }} bgColor={'bg-primary'} round={'rounded-md'} />
                 </div>
 
             </div>
