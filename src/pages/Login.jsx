@@ -1,17 +1,20 @@
 import React from 'react'
-import Inputfield from '../components/Header/Inputfield.jsx'
+import Inputfield from '../components/Inputfield.jsx'
 import Login_right from '../components/Assets/Login_right.jpg'
-import Button from '../components/Home-components/Button.jsx'
+import Button from '../components/Button.jsx'
 
 
 function Login() {
+
+
+  function getUserData() {
+
+  }
 
   return (
     <div className='w-full h-full flex'>
 
       {/**************************************left part/////////////////////////// */}
-
-
       <div className='flex flex-col  w-1/2 bg-cyan h-full justify-center items-center '>
 
         {/**Info and Headline */}
@@ -35,8 +38,9 @@ function Login() {
             input_type={'text'}
             customcss={' '}
             custom_placeholder={'Email'}
-            inputId={'input_useremail'}
-            inputName={'input_useremail'}
+            inputId={'input_email'}
+            inputName={'email'}
+            getUserData={getUserData}
           />
 
 
@@ -47,9 +51,13 @@ function Login() {
             customcss={' '}
             custom_placeholder={'Password'}
             inputId={'input_password'}
-            inputName={'input_password'}
+            inputName={'password'}
+            getUserData={getUserData}
 
           />
+
+          <p id="error_elm" className='error text-sm/[15px]'>Field should not be empty</p>
+
 
           <Button
             buttonLabel={"Login"}
@@ -66,15 +74,12 @@ function Login() {
             </a>
           </p>
         </div>
-
-
-        {/* left div end */}
-      </div>
+      </div>  {/* left div end */}
 
 
 
 
-      {/* Right part */}
+      {/**************************************Right part/////////////////////////// */}
       <div className='flex justify-center items-center w-1/2 fixed right-0'>
 
         <img src={Login_right} alt='Side Login panel' className='' />

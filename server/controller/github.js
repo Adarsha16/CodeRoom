@@ -4,7 +4,9 @@ const Github = async (req, res) => {
     try {
 
 
-        const { user_name } = req.body;   //Should be user_name when sending
+        const { user_name } = req.body;   //Should be "value" when sending
+
+
         const response = await fetch(`https://api.github.com/users/${user_name}`)
         const data = await response.json();
 
@@ -17,6 +19,9 @@ const Github = async (req, res) => {
             profile: data.avatar_url,
             link: data.html_url
         }
+
+
+
 
         if (response) {
 

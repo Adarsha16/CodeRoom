@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initalState = {
+const initalState = {   
 
     roomStatus: false,
     userData: null
