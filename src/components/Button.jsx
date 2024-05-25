@@ -1,19 +1,17 @@
 import React from "react";
 
 
-function Button({ buttonLabel, handleClick, custom_class, handleSubmit, props = "" }) {
+function Button({ buttonLabel, type = "button", handleClick, custom_class, props = "" }) {
 
     return (
         <>
             <button
-                type="button"
+                type={type}
                 className={`${custom_class} item-center font-semibold `}
-                onClick={handleSubmit}>
-                {buttonLabel}
-
                 {...props}
-
-
+                onClick={handleClick}
+            >
+                {buttonLabel}
             </button>
         </>
     )
