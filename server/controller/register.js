@@ -33,7 +33,7 @@ async function register(req, res) {
 
 
         if (if_present_data[0][0]['COUNT(*)'] !== 0) {
-            res.status(400).json({ "Bad Request": "User already registered!, Please login" });
+            res.status(400).json({ "statusText": "login", "status": 400, "Error": "User with this email address is already registered!" });
         }
 
         /////////////////////Hashing password//////////////////////

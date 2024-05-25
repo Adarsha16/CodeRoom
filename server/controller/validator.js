@@ -68,4 +68,10 @@ const verifyBcryptHash = async (password, password_hash) => {
 
 
 
+
+
+
+
+
+
 export { emailValidation, createJWT, bcryptHash, verifyBcryptHash };

@@ -1,7 +1,7 @@
 import React from 'react'
-import Button from '../Home-components/Button'
+import Button from '../Button.jsx'
 import { useNavigate } from 'react-router-dom'
-import Setting from '../Home-components/Setting';
+import Setting from '../Header/Setting.jsx';
 function Header() {
     const navigate = useNavigate();
     return (

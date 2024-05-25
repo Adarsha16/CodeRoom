@@ -68,3 +68,12 @@
         /* Firefox */
     }
 }
+
+
+.error {
+    color: #dc143c;
+}
+
+.hidden {
+    display: none;
+}
