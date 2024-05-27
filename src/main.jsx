@@ -9,8 +9,8 @@ import SignUp from './pages/SignUp.jsx'
 import ErrorPage from "./error-page.jsx"
 
 
-// import { Provider } from 'react-redux'
-// import store from "./store/store.js"
+import { Provider } from 'react-redux'
+import store from "./store/store.js"
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
@@ -53,10 +53,10 @@ const myrouter = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
 
-    {/* <Provider store={store}> */}
-    <RouterProvider router={myrouter} />
+    <Provider store={store}>
+      <RouterProvider router={myrouter} />
 
-    {/* </Provider> */}
+    </Provider>
 
   </React.StrictMode>,
 )

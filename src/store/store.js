@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
-import { authSlice } from "./authSlice.js"
-import { roomSlice } from "./roomSlice.js"
+import authSlice from "./authSlice.js"
+// import { roomSlice } from "./roomSlice.js"
 
 
 /**
@@ -10,13 +10,15 @@ import { roomSlice } from "./roomSlice.js"
  */
 
 //this is store for common place to manipulate the state.
-export const store = configureStore({
+const store = configureStore({
 
 
     //reducer is a function, receives state, action, decide how to change the state if necessary, and returns the new state.
     reducer: {
         auth: authSlice,
-        room: roomSlice
+        // room: roomSlice
     }
 
 })
+
+export default store
