@@ -51,6 +51,7 @@ async function register(req, res) {
         console.log(registered_data)
 
 
+
         //status created
         res.status(201).json({ "Status: ": "Created successfully" })
 
