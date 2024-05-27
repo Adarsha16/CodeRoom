@@ -41,8 +41,8 @@ function LoginComp() {
     setErrors(newErrors);
 
     if (errorCount === 0)
-      alert("Login Successful");
-    return;
+      return;
+
   }
 
   return (
