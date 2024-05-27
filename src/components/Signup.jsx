@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Input from './Inputfield.jsx'
 import signupImage from './Assets/signUpImage.jpg'
 import Button from './Button.jsx'
 import validateForm from '../custom_fn/Validation.js'
-import lodash from 'lodash'
 import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
-
-
-
-
 
 
 function Signup() {
@@ -26,7 +21,6 @@ function Signup() {
 
   const handleChanges = (e) => {
 
-    console.log(e.target)
     const { value, name } = e.target
 
     setvalues((prev) => ({
@@ -97,7 +91,7 @@ function Signup() {
       setInfo("Registeration Success!, Redirecting....")
       setTimeout(() => {
         navigate("/login");
-      }, 1500)
+      }, 1700)
 
     } catch (error) {
 
@@ -105,16 +99,7 @@ function Signup() {
 
     }
 
-
-
-
   }
-
-
-
-
-
-
 
   return (
     <div className='w-full h-full flex'>
@@ -189,9 +174,6 @@ function Signup() {
                 custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover  rounded-sm'
                 type={"submit"}
 
-              // {...info && <p className='text-green text-sm/[15px] absolute'>{info}</p>}
-
-
               />
             </div>
 
@@ -221,7 +203,7 @@ function Signup() {
 
         {
           Info &&
-          <div className='absolute -bottom-10 border-2 text-green p-2 m-0'>
+          <div className='absolute -bottom-10 border-2 text-green p-2 m-0 font-bold shadow-md'>
             <p>{Info}
             </p>
           </div>

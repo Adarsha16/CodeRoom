@@ -2,7 +2,7 @@
 const validateForm = (values) => {
 
     let errors = {};
-    console.log("Validate ", values)
+
     let { name, email, password, github } = values
 
     if (!name) {
