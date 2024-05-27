@@ -1,17 +1,20 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 const Input = React.forwardRef(
     function Inputfield
         (
             {
 
-                customcss,
-                custom_placeholder,
-                inputId,
-                type = 'text',
+                type = "text",
+                custom_placeholder = "Input Field",
+                name,
+                value,
+                handleChanges,
+                customcss = "",
                 props = "",
-                handleEvent,
-                value
+                inputId,
+                handleEvent
+
 
             }, ref
         ) {
@@ -24,10 +27,12 @@ const Input = React.forwardRef(
                 type={type}
                 id={inputId}
                 onChange={handleEvent}
+                name={name}
                 className={`fira-sans-light px-3 py-4 my-2.5 outline-none ${customcss} rounded-md w-80 min-w-72 min-h-2
             `}
                 placeholder={custom_placeholder}
                 ref={ref}
+                onBlur={handleChanges}
                 {...props}
                 value={value}
             />

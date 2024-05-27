@@ -10,6 +10,7 @@ async function register(req, res) {
     try {
 
         const { username, github, email, password } = req.body;
+        console.log(req.body)
 
         //checking email regix;
         if (!emailValidation(email)) {
@@ -25,17 +26,14 @@ async function register(req, res) {
         //checking if email is already registered or not
         const query = `
         SELECT COUNT(*) FROM ${process.env.DB_NAME}.${process.env.DB_TABLE_NAME} 
-        WHERE email = ?;`;
+        WHERE email = ? OR username = ?;`;
 
-        const if_present_data = await pool.query(query, [email]);
+        const [if_present_data] = await pool.query(query, [email, username]);
 
-
-
-
-        if (if_present_data[0][0]['COUNT(*)'] !== 0) {
-            res.status(400).json({ "statusText": "login", "status": 400, "Error": "User with this email address is already registered!" });
+        if (Object.values(if_present_data[0])[0] !== 0) {
+            res.status(400).json({ "statusText": "login", "status": 400, "Error": "Username or Email is already registered!" });
+            return;
         }
-
         /////////////////////Hashing password//////////////////////
         let password_hash = await bcryptHash(password);
 
@@ -50,6 +48,7 @@ async function register(req, res) {
         `;
 
         const registered_data = await pool.query(register_query, [username, github, email, password_hash]);
+        console.log(registered_data)
 
 
         //status created

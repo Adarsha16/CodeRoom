@@ -39,7 +39,7 @@ app.use(notFoundMiddleware)
  * To startup the server
  */
 
-const PORT = process.env.PORT || 5069;
+const PORT = process.env.PORT || 5001;
 
 
 const start = async (req, res) => {

@@ -49,7 +49,6 @@ function LoginComp() {
           <Input
 
             type={'text'}
-            customcss={' '}
             custom_placeholder={'Email'}
             inputId={'input_email'}
             handleEvent={handleEmail}
@@ -61,7 +60,6 @@ function LoginComp() {
           < Input
 
             type={'password'}
-            customcss={' '}
             custom_placeholder={'Password'}
             inputId={'input_password'}
             handleEvent={handlePassword}
