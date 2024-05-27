@@ -11,8 +11,12 @@ function Header() {
             {/* Left */}
             <div className='flex flex-row gap-10 mx-5'>
                 {/* Logo */}
-                <div >
-                    CodeRoomLogo
+                <div
+                    className='font-black cursor-pointer'
+                    onClick={() => {
+                        navigate("/")
+                    }}>
+                    Code Room
 
                 </div>
 
