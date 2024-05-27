@@ -28,6 +28,7 @@ export default {
       'signupBTN': '#185493',
       'blue_hover': '#1434A4',
       'red': '#dc143c',
+      'green': '#008000',
 
     }
 

@@ -2,60 +2,117 @@ import React, { useEffect, useState } from 'react'
 import Input from './Inputfield.jsx'
 import signupImage from './Assets/signUpImage.jpg'
 import Button from './Button.jsx'
+import validateForm from '../custom_fn/Validation.js'
+import lodash from 'lodash'
+import callGithub from '../custom_fn/callGithub.js'
+import callRegister from '../custom_fn/callRegister.js'
+import { useNavigate } from 'react-router-dom'
+
+
+
+
 
 
 function Signup() {
 
 
-  async function callGithub() {
-    try {
+  const [values, setvalues] = useState({ name: "", email: "", password: "", github: "" });
+  const [FormErrors, setFormErrors] = useState({})
+  const [GitErrors, setGitErrors] = useState({})
+  const [Info, setInfo] = useState("");
+  const navigate = useNavigate();
 
-      const response = await fetch("http://localhost:5001/api/github", {
-        method: "POST",
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ user_name: github })
 
-      })
-      const result = await response.json();
-      return result;
 
-    } catch (error) {
-      console.log(error);
-    }
+  const handleChanges = (e) => {
+
+    console.log(e.target)
+    const { value, name } = e.target
+
+    setvalues((prev) => ({
+
+      ...prev,
+      [name]: value
+
+    }))
+  }
+
+
+
+  const ValidateAndSetErrors = () => {
+
+    const validateForm_result = validateForm(values);
+    setFormErrors(validateForm_result)
+    return validateForm_result;
   };
 
 
 
-  async function callRegister() {
+
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+    setFormErrors({})
+    const formErrorsResult = ValidateAndSetErrors()
+
+    ///Checking if error length is 0
+    if (Object.keys(formErrorsResult).length !== 0) {
+
+      return;
+    };
+
+
+
+    //////////////Call Github////////////////////////////////
+    const callGithub_res = (await callGithub(values.github)).GithubData
+
+    /////IF Github error
+    if (callGithub_res.status == 404 || callGithub_res.status == 400) {
+
+      setGitErrors(() => ({
+        github: `Github : ${callGithub_res.status_info}`
+      }))
+      return;
+    };
+
+    ////reseting github error
+    setGitErrors({})
+
+    /////////////////////////Calling Register//////////////////
 
     try {
 
-      const register = await fetch("http://localhost:5001/api/auth/register", {
-        method: "POST",
-        headers: {
-          'Content-type': 'application/json'
-        },
-        body: JSON.stringify({ username, github, email, password })
-      })
+      const callRegister_response = await callRegister(values);
+      const callRegister_result = await callRegister_response.json();
 
-      const result = await register.json();
+      if (!callRegister_response.ok) {
 
-      ////IF user is already registered!
-      if (register.status == 400 && result.statusText == "login") {
-        console.log(register.status, result.Error)///
+        setFormErrors({ register: `${callRegister_result.Error}` })
+        return;
       }
 
-      ////If user successfully registered
-      if (register.status == 200) {
+
+      setFormErrors({})
+      setInfo("Registeration Success!, Redirecting....")
+      setTimeout(() => {
         navigate("/login");
-      }
+      }, 1500)
+
     } catch (error) {
-      console.log(error)
+
+      console.log("Trycatch", error)
+
     }
+
+
+
+
   }
+
+
+
+
 
 
 
@@ -74,52 +131,66 @@ function Signup() {
         {/**Input filed */}
         <div >
 
-          <form>
+          <form onSubmit={handleSubmit}>
 
             <div className='flex flex-col justify-center' >
               {/*name field*/}
               <Input
 
                 type={'text'}
-                customcss={' '}
                 custom_placeholder={'Name'}
-                inputId={'input_name'}
+                name={'name'}
+                value={values.name}
+                handleChanges={handleChanges}
               />
+
+              {FormErrors?.name && <p className='error text-sm/[15px]'>{FormErrors.name}</p>}
+
 
 
               {/*Email field*/}
               <Input
 
                 type={'text'}
-                customcss={' '}
                 custom_placeholder={'Email'}
-                inputId={'input_email'}
+                name={'email'}
+                value={values.email}
+                handleChanges={handleChanges}
               />
+              {FormErrors.email && <p className='error text-sm/[15px]'>{FormErrors.email}</p>}
 
               {/*github field*/}
               <Input
 
                 type={'text'}
-                customcss={' '}
                 custom_placeholder={'Github'}
-                inputId={'input_github'}
+                name={'github'}
+                value={values.github}
+                handleChanges={handleChanges}
               />
+              {(FormErrors.github || GitErrors.github) && <p className='error text-sm/[15px]'>{FormErrors.github || GitErrors.github}</p>}
 
               {/*password field*/}
               <Input
 
                 type={'password'}
-                customcss={' '}
                 custom_placeholder={'Password'}
-                inputId={'input_password'}
+                name={'password'}
+                value={values.password}
+                handleChanges={handleChanges}
 
               />
+              {(FormErrors?.password) && <p className='error text-sm/[15px]'>{FormErrors?.password}</p>}
+              {(FormErrors?.register) && <p className='error text-sm/[15px]'>{FormErrors?.register}</p>}
 
 
               <Button
                 buttonLabel={"Sign up"}
                 custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover  rounded-sm'
                 type={"submit"}
+
+              // {...info && <p className='text-green text-sm/[15px] absolute'>{info}</p>}
+
 
               />
             </div>
@@ -140,9 +211,23 @@ function Signup() {
       </div> {/* left div end */}
 
 
+
+
+
       {/**************************************Right part/////////////////////////// */}
       <div className='flex justify-center items-center w-1/2 fixed right-0'>
         <img src={signupImage} alt='Side Login panel' className='' />
+
+
+        {
+          Info &&
+          <div className='absolute -bottom-10 border-2 text-green p-2 m-0'>
+            <p>{Info}
+            </p>
+          </div>
+        }
+
+
       </div>
     </div >
 

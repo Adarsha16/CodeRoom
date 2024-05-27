@@ -26,28 +26,27 @@ function LoginComp() {
         <div className='flex flex-col'>
 
 
-
           {/*Email field*/}
           <Input
 
             type={'text'}
-            customcss={' '}
             custom_placeholder={'Email'}
-            inputId={'input_email'}
+            name={'email'}
+            value={() => e.target.value}
+
           />
 
-
-          {/*password field*/}
           <Input
 
             type={'password'}
-            customcss={' '}
             custom_placeholder={'Password'}
-            inputId={'input_password'}
+            name={'password'}
+            value={() => e.target.value}
+
 
           />
 
-          <p id="error_elm" className='error text-sm/[15px]'>Field should not be empty</p>
+
 
 
           <Button
