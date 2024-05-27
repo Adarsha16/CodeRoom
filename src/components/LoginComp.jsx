@@ -2,9 +2,29 @@ import React from 'react'
 import Input from './Inputfield.jsx'
 import Login_right from './Assets/Login_right.jpg'
 import Button from './Button.jsx'
+import { useState } from 'react'
 
 
 function LoginComp() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  let empty = false;
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+  }
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+  }
+  if (email === "" && password === "")
+    empty = true;
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
+
 
   return (
     <div className='w-full h-full flex'>
@@ -25,8 +45,6 @@ function LoginComp() {
 
         <div className='flex flex-col'>
 
-
-
           {/*Email field*/}
           <Input
 
@@ -34,22 +52,24 @@ function LoginComp() {
             customcss={' '}
             custom_placeholder={'Email'}
             inputId={'input_email'}
+            handleEvent={handleEmail}
+            value={email}
           />
-
+          {email === "" ? null : (emailRegex.test(email) ? null : <p className='text-red'>Invalid email</p>)}
 
           {/*password field*/}
-          <Input
+          < Input
 
             type={'password'}
             customcss={' '}
             custom_placeholder={'Password'}
             inputId={'input_password'}
+            handleEvent={handlePassword}
+            value={password}
 
           />
-
-          <p id="error_elm" className='error text-sm/[15px]'>Field should not be empty</p>
-
-
+          {password === "" ? null : (password.length < 6 ? <p className='text-red'>Password length cannot be less than 6</p> : null)}
+          {empty && <p className='text-red'>The fields cannot be left empty!</p>}
           <Button
             buttonLabel={"Login"}
             custom_class=' bg-primary py-3 w-80 text-white mt-4 hover:bg-green_hover  rounded-sm'

@@ -10,7 +10,8 @@ const Input = React.forwardRef(
                 inputId,
                 type = 'text',
                 props = "",
-
+                handleEvent,
+                value
 
             }, ref
         ) {
@@ -22,11 +23,13 @@ const Input = React.forwardRef(
 
                 type={type}
                 id={inputId}
+                onChange={handleEvent}
                 className={`fira-sans-light px-3 py-4 my-2.5 outline-none ${customcss} rounded-md w-80 min-w-72 min-h-2
             `}
                 placeholder={custom_placeholder}
                 ref={ref}
                 {...props}
+                value={value}
             />
 
 
