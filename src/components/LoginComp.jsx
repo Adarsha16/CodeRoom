@@ -2,48 +2,92 @@ import { React, useState } from 'react'
 import Input from './Inputfield.jsx'
 import Login_right from './Assets/Login_right.jpg'
 import Button from './Button.jsx'
+import validateForm from '../custom_fn/Validation.js'
+import callLogin from '../custom_fn/callLogin.js'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login as authlogin } from '../store/authSlice.js'
 
 function LoginComp() {
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "", empty: "" });
+  const [values, setvalues] = useState({ email: "", password: "" });
+  const [FormErrors, setFormErrors] = useState({})
+  const [Info, setInfo] = useState("")
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const emailRegex =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const handleChanges = (e) => {
 
+    const { value, name } = e.target
 
-  const handleEmail = (e) => {
-    setEmail(e.target.value);
+    setvalues((prev) => ({
+
+      ...prev,
+      [name]: value
+
+    }))
+
   }
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
+
+  const ValidateAndSetErrors = () => {
+
+    const validateForm_result = validateForm(values);
+    setFormErrors(validateForm_result);
+    return validateForm_result;
+
   }
+
+
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
-    let errorCount = 0;
-    let newErrors = { email: "", password: "", empty: "" };
+    setFormErrors({})
+    const formErrorsResult = ValidateAndSetErrors()
 
-    if (email === "" && password === "") {
-      errorCount++;
-      newErrors.empty = "The fields cannot be left empty!";
-    }
-    if (password.length < 8) {
-      errorCount++;
-      newErrors.password = "Password length cannot be less than 8";
-    }
-    if (!emailRegex.test(email)) {
-      errorCount++;
-      newErrors.email = "Invalid email";
-    }
-
-    setErrors(newErrors);
-
-    if (errorCount === 0)
+    if (Object.keys(formErrorsResult).length !== 0) {
       return;
+    }
 
-  }
+    try {
+
+      const callLogin_response = await callLogin(values);
+      const callLogin_result = await callLogin_response.json()
+
+
+      const token_result = callLogin_result?.user?.token
+      console.log(token_result)
+
+      if (!callLogin_response.ok) {
+
+        setFormErrors({ login: `Login : ${callLogin_result.Error}` })
+        return;
+      }
+
+      setInfo("Successfully Logged In!. Redirecting...")
+
+      dispatch(authlogin({ token: token_result }))
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1700)
+
+
+
+
+    } catch (error) {
+
+      setFormErrors({ login: error })
+      console.log("Error", error)
+
+    }
+
+
+
+  };
+
+
+
 
   return (
     <div className='w-full h-full flex'>
@@ -70,29 +114,32 @@ function LoginComp() {
 
               type={'text'}
               custom_placeholder={'Email'}
-              inputId={'input_email'}
-              handleChanges={handleEmail}
+              name={'email'}
+              value={values.email}
+              handleChanges={handleChanges}
             />
-            {errors.email && <p className='text-red'>{errors.email}</p>}
+            {FormErrors.email && <p className='error text-sm/[15px]'>{FormErrors.email}</p>}
+
+
 
             {/*password field*/}
-            < Input
-
+            <Input
               type={'password'}
               custom_placeholder={'Password'}
-              inputId={'input_password'}
-              handleChanges={handlePassword}
-
+              name={'password'}
+              value={values.password}
+              handleChanges={handleChanges}
 
             />
-            {errors.password && <p className='text-red'>{errors.password}</p>}
-            {errors.empty && <p className='text-red'>The fields cannot be left empty!</p>}
+            {(FormErrors?.password) && <p className='error text-sm/[15px]'>{FormErrors?.password}</p>}
+            {(FormErrors?.login) && <p className='error text-sm/[15px]'>{FormErrors?.login}</p>}
 
             <Button
               type={"submit"}
               buttonLabel={"Login"}
               custom_class=' bg-primary py-3 w-80 text-white mt-4 hover:bg-green_hover  rounded-sm'
             />
+
             <p className='mt-10 text-white'>
               Don't have an account?
               <a className='ml-4 text-blue-500 underline font-semibold' href='/signup'>
@@ -107,6 +154,15 @@ function LoginComp() {
       <div className='flex justify-center items-center w-1/2 fixed right-0'>
 
         <img src={Login_right} alt='Side Login panel' className='' />
+
+
+        {
+          Info &&
+          <div className='absolute -bottom-10 border-2 text-green p-2 m-0 font-bold shadow-md'>
+            <p>{Info}
+            </p>
+          </div>
+        }
 
       </div>
 

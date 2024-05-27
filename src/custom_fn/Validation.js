@@ -3,28 +3,24 @@ const validateForm = (values) => {
 
     let errors = {};
 
-    let { name, email, password, github } = values
-
-    if (!name) {
-        errors.name = 'Username is Required'
-    }
 
 
-    if (!email) {
-        errors.email = 'Email is Required'
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-        errors.email = 'Invalid Email type'
-    }
+    for (let key in values) {
 
 
-    if (!password) {
-        errors.password = 'Password is Required'
-    } else if (password.length < 8) {
-        errors.password = 'Password should be greater than 8 Characters'
-    }
+        if (!values[key]) {
+            errors[key] = `${key} is Required`
+        }
 
-    if (!github) {
-        errors.github = 'Github is Required'
+        if (key === 'email' && !/\S+@\S+\.\S+/.test(values[key])) {
+
+            errors[key] = `Invalid ${key} type`
+        }
+
+        if (key === 'password' && values[key].length < 8) {
+
+            errors[key] = `Too short ${key}`
+        }
     }
 
     return errors;

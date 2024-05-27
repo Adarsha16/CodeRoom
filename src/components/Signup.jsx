@@ -6,6 +6,8 @@ import validateForm from '../custom_fn/Validation.js'
 import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../store/authSlice.js'
 
 
 function Signup() {
@@ -16,8 +18,7 @@ function Signup() {
   const [GitErrors, setGitErrors] = useState({})
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
-
-
+  const dispatch = useDispatch();
 
   const handleChanges = (e) => {
 
@@ -89,8 +90,12 @@ function Signup() {
 
       setFormErrors({})
       setInfo("Registeration Success!, Redirecting....")
+
+      dispatch(login({ name: values.name, email: values.email, github: values.github }))
+
       setTimeout(() => {
         navigate("/login");
+
       }, 1700)
 
     } catch (error) {

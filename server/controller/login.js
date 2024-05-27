@@ -18,7 +18,7 @@ const login = async (req, res) => {
 
         }
         if (!email || !password) {
-            return res.status(400).json({ "Bad Request, Error": "wrong username, email or password" });
+            return res.status(400).json({ "Error": "wrong username, email or password" });
         }
 
         ///////////Database query///////////////
@@ -28,18 +28,19 @@ const login = async (req, res) => {
         const if_present_data = await pool.query(query, [email]);
         ///////////////////////////////////////
 
-        if (!if_present_data) {
-            console.log("User doesnot Exists. Please register first!");
+        if (!if_present_data[0][0]) {
+            return res.status(400).json({ "Error": "User doesnot Exists. Please register first!" })
+
         }
 
 
         const data = if_present_data[0][0];
-
+        const verify_wait = await verifyBcryptHash(password, data?.password_hash)
 
         //////////////comparing hashed password/////////////////////
-        if (!verifyBcryptHash(password, data?.password_hash)) {
+        if (!verify_wait) {
 
-            res.status(400).json({ "Unauthentication Error": "Password or email is incorrect" });
+            return res.status(400).json({ "Error": "Password or email is incorrect" });
         }
 
 
@@ -49,7 +50,6 @@ const login = async (req, res) => {
         //status ok
         res.status(200).json({
             user: {
-
                 token
             }
 
