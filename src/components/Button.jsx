@@ -1,7 +1,7 @@
 import React from "react";
 
 
-function Button({ buttonLabel, type = "button", handleClick, custom_class, props = "" }) {
+function Button({ buttonLabel, type = "button", handleClick, custom_class, props = "", id }) {
 
     return (
         <>
@@ -10,6 +10,7 @@ function Button({ buttonLabel, type = "button", handleClick, custom_class, props
                 className={`${custom_class} item-center font-semibold `}
                 {...props}
                 onClick={handleClick}
+                id={id}
             >
                 {buttonLabel}
             </button>
