@@ -2,11 +2,24 @@ import { React, useState, useEffect } from "react";
 import Button from "../Button.jsx";
 import { io } from "socket.io-client"
 
+
+const socket = io.connect("http://localhost:5002");
 function Chat() {
 
+    //const [room, setRoom] = useState("");
     const [message, setMessage] = useState("");
     const [messageReceived, setMessageReceived] = useState([]);
-    const socket = io.connect("http://localhost:5002");
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        socket.emit("send_message", message);
+    }
+
+    {/* const joinRoom = () => {
+        socket.emit("join_room", room);
+    }
+*/}
 
     useEffect(() => {
         socket.on("receive_message", (data) => {
@@ -15,10 +28,7 @@ function Chat() {
 
     }, []);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        socket.emit("send_message", message);
-    }
+
 
     return (
         <>
@@ -38,6 +48,12 @@ function Chat() {
                     <p className="text-3xl font-semibold">Room</p>
                     <p className="text-white">Coding Pratice #4111fop</p>
                     <p>Profile pics here</p>
+                    {/* <input placeholder="room" onChange={(e) => {
+                        setRoom(e.target.value);
+                    }} />
+                    <button onClick={joinRoom}>Room</button>
+                */}
+
 
 
                 </div>
