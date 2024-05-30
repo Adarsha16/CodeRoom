@@ -53,9 +53,14 @@ const socket_start = async () => {
     io.on("connection", (socket) => {
         console.log(`User connected: ${socket.id} `);
 
-        socket.on("send_message", (receivedMessage) => {
-            socket.broadcast.emit("receive_message", receivedMessage);
-        })
+        //socket.on("join_room", (room) => {
+        //  socket.join(room);
+        //console.log(room);
+        //});
+
+        socket.on("send_message", (data) => {
+            io.emit("receive_message", data);
+        });
     })
     server.listen(5002, () => {
         console.log("Server is running");
