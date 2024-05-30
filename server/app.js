@@ -1,7 +1,9 @@
 import express from 'express'
+import http from 'http'
 const app = express();
 import router from './router/route.js';
 import pool from './db/connectDB.js';
+import { Server } from 'socket.io';
 
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 import { createTable } from "./models/table.js"
@@ -34,6 +36,31 @@ app.use("/api/room", authentication, room_router)
 
 app.use(notFoundMiddleware)
 
+const server = http.createServer(app);
+/** Setting up socket for chat
+ */
+
+const socket_start = async () => {
+    const io = new Server(server,
+        {
+            cors: {
+                origin: "http://localhost:5173",
+                methods: ["GET", "POST"]
+            }
+        }
+    );
+
+    io.on("connection", (socket) => {
+        console.log(`User connected: ${socket.id} `);
+
+        socket.on("send_message", (receivedMessage) => {
+            socket.broadcast.emit("receive_message", receivedMessage);
+        })
+    })
+    server.listen(5002, () => {
+        console.log("Server is running");
+    });
+}
 
 /**
  * To startup the server
@@ -41,7 +68,7 @@ app.use(notFoundMiddleware)
 
 const PORT = process.env.PORT || 5001;
 
-
+console.log(PORT);
 const start = async (req, res) => {
 
     try {
@@ -76,3 +103,4 @@ const start = async (req, res) => {
 }
 
 start();
+socket_start();

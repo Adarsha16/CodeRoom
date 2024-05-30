@@ -1,13 +1,23 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import Button from "../Button.jsx";
-
+import { io } from "socket.io-client"
 
 function Chat() {
 
+    const [message, setMessage] = useState("");
+    const [messageReceived, setMessageReceived] = useState([]);
+    const socket = io.connect("http://localhost:5002");
+
+    useEffect(() => {
+        socket.on("receive_message", (data) => {
+            setMessageReceived(prev_message => [...prev_message, data]);
+        });
+
+    }, []);
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        {/*Implement Chat logic*/ }
-
+        socket.emit("send_message", message);
     }
 
     return (
@@ -29,16 +39,33 @@ function Chat() {
                     <p className="text-white">Coding Pratice #4111fop</p>
                     <p>Profile pics here</p>
 
-                </div>
-                {/*for chat main body */}
-                <div id="message_container">
 
+                </div>
+
+                {/*for chat main body */}
+
+                <div id="message_container" className="h-44 overflow-scroll">
+                    {messageReceived.length === 0 ? (
+                        <p>No messages yet</p>
+                    ) : (
+                        messageReceived.map((msg, index) => (
+                            <p key={index} className="mt-1 px-8">Person: {msg}</p>
+                        ))
+                    )}
                 </div>
 
                 {/*for chat input*/}
-                <div className="mt-48">
-                    <form id="send_container" onSubmit={handleSubmit}>
-                        <input type="text" placeholder="Start a conversation" className=" rounded-md h-10 bg-brown" id='message' />
+                <div className="absolute bottom-0 h-20">
+                    <form id="send_container" onSubmit={handleSubmit} name="message_form">
+                        <input type="text"
+                            placeholder="Start a conversation"
+                            className=" rounded-md h-10 bg-brown"
+                            id='message'
+                            onChange={(e) => {
+                                e.preventDefault();
+                                setMessage(e.target.value);
+                            }
+                            } />
                         <Button
                             custom_class={'bg-primary rounded-md h-10 w-20 ml-1.5'}
                             type={"Submit"}
