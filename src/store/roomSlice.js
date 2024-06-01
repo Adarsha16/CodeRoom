@@ -1,34 +1,44 @@
-// import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
-// const initalState = {   
+const initalState = {
 
-//     roomStatus: false,
-//     userData: null
-// }
+    roomStatus: false,
+    roomData: null,
+    inputField: null
+}
 
 
-// const roomSlice = createSlice({
+const roomSlice = createSlice({
 
-//     name: 'room',
-//     initalState,
+    name: 'room',
+    initalState,
 
-//     reducers: {
+    reducers: {
 
-//         enterRoom: (state, action) => {
+        enterRoom: (state, action) => {
 
-//             state.roomStatus = true,
-//                 state.userData = action.payload.userData
-//         },
+            const { roomData, inputField } = action.payload
+            state.roomStatus = true;
+            state.roomData = roomData
+        },
 
-//         leaveRoom: (state, action) => {
+        setInputField: (state, action) => {
 
-//             state.roomStatus = false,
-//                 state.userData = action.payload.userData
-//         }
+            const { inputField } = action.payload;
+            state.inputField = inputField;
+        },
 
-//     }
+        leaveRoom: (state, action) => {
 
-// });
+            state.roomStatus = false;
+            // state.roomData = null;
+            state.inputField = null;
 
-// export default roomSlice.reducer;
-// export const { enterRoom, leaveRoom } = roomSlice.actions;
+        }
+
+    }
+
+});
+
+export default roomSlice.reducer;
+export const { enterRoom, leaveRoom, setInputField } = roomSlice.actions;

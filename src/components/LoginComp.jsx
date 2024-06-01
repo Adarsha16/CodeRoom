@@ -52,7 +52,7 @@ function LoginComp() {
     try {
 
       const callLogin_response = await callLogin(values);
-      const callLogin_result = await callLogin_response.json()
+      const callLogin_result = await callLogin_response?.json()
 
 
       const { token, data_obj } = callLogin_result;
