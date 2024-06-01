@@ -2,6 +2,10 @@ import React from 'react'
 import Button from '../Button.jsx'
 import { useNavigate } from 'react-router-dom'
 import Setting from '../Header/Setting.jsx';
+import CreateRoom from './CreateRoom.jsx';
+import JoinRoom from './JoinRoom.jsx';
+
+
 function Header() {
     const navigate = useNavigate();
     return (
@@ -40,15 +44,14 @@ function Header() {
 
 
                 {/* Dynamic Room / if logged in*/}
-                <div >
-
-                    Dynamic Room
+                <div className='flex flex-col gap-2'>
+                    <CreateRoom />
+                    <JoinRoom />
                 </div>
 
 
                 {/* setting */}
-                <div >
-
+                <div className='mt-6'>
                     <Setting />
                 </div>
 
