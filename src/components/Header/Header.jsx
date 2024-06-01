@@ -51,22 +51,22 @@ function Header() {
                 <div className='flex flex-col gap-2'>
                     <CreateRoom />
                     <JoinRoom />
-                </div>
+                </div >
 
 
                 {/* setting */}
-                <div className='mt-6'>
+                < div className='mt-6' >
                     <Setting />
-                </div>
+                </div >
 
 
-            </div>
+            </div >
 
 
 
 
 
-        </div>
+        </div >
     )
 }
 

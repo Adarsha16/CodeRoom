@@ -23,8 +23,8 @@ export default function ErrorPage() {
 
                 <div className="flex flex-col border-2 p-5 font-medium">
 
-                    <i> Error : {error.status} - {error.statusText} </i>
-                    <i> Reason : {error.error.message} </i>
+                    <i> Error : {error?.status} - {error?.statusText} </i>
+                    <i> Reason : {error?.error.message} </i>
 
                 </div>
 

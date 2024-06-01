@@ -38,14 +38,13 @@ function LoginComp() {
   }
 
 
-
   const handleSubmit = async (e) => {
 
     e.preventDefault();
     setFormErrors({})
     const formErrorsResult = ValidateAndSetErrors()
 
-    if (Object.keys(formErrorsResult).length !== 0) {
+    if (Object.keys(formErrorsResult)?.length !== 0) {
       return;
     }
 
@@ -53,7 +52,6 @@ function LoginComp() {
 
       const callLogin_response = await callLogin(values);
       const callLogin_result = await callLogin_response?.json()
-
 
       const { token, data_obj } = callLogin_result;
 
@@ -64,7 +62,7 @@ function LoginComp() {
 
       if (!callLogin_response.ok) {
 
-        setFormErrors({ login: `Login : ${callLogin_result.Error}` })
+        setFormErrors({ login: `Login : ${callLogin_result?.Error}` })
         return;
       }
 
@@ -81,7 +79,7 @@ function LoginComp() {
 
     } catch (error) {
 
-      setFormErrors({ login: error })
+      setFormErrors({ login: `Internal Server Error, Check your Internet` })
       console.log("Error", error)
 
     }
@@ -119,7 +117,7 @@ function LoginComp() {
               value={values.email}
               handleChanges={handleChanges}
             />
-            {FormErrors.email && <p className='error text-sm/[15px]'>{FormErrors.email}</p>}
+            {FormErrors.email && <p className='error text-sm/[15px]'>{FormErrors?.email}</p>}
 
 
 
