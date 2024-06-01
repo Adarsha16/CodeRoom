@@ -2,11 +2,11 @@ import React from 'react'
 import Button from '../Button.jsx'
 import { useNavigate } from 'react-router-dom'
 import Setting from '../Header/Setting.jsx';
-import { useSelector } from 'react-redux';
-// import { authReducer } from "../../store/authSlice.js"
 import CreateRoom from './CreateRoom.jsx';
 import JoinRoom from './JoinRoom.jsx';
 
+import { useSelector } from 'react-redux';
+// import { authReducer } from "../../store/authSlice.js"
 
 function Header() {
     const navigate = useNavigate();
