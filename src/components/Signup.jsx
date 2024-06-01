@@ -6,7 +6,7 @@ import validateForm from '../custom_fn/Validation.js'
 import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import { login } from '../store/authSlice.js'
 
 
@@ -18,7 +18,7 @@ function Signup() {
   const [GitErrors, setGitErrors] = useState({})
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const handleChanges = (e) => {
 
@@ -91,7 +91,7 @@ function Signup() {
       setFormErrors({})
       setInfo("Registeration Success!, Redirecting....")
 
-      dispatch(login({ name: values.name, email: values.email, github: values.github }))
+      // dispatch(login({ name: values.name, email: values.email, github: values.github }))
 
       setTimeout(() => {
         navigate("/login");
@@ -113,8 +113,9 @@ function Signup() {
       <div className='flex flex-col  w-1/2 bg-signup h-full justify-center items-center '>
 
         {/**Info and Headline */}
-        <div className='flex flex-col gap-1 mb-4 items-center text-white'>
+        <div className='flex flex-col gap-1 mb-0.5 items-center text-white'>
           <h1 className='fira-sans-bold text-5xl '>Code Room</h1>
+          <h5 className=' text-2xl pt-3'>This is where Cooding happens</h5>
           <h5 className=' text-md '>Create an account to continue</h5>
         </div>
 

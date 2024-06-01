@@ -3,6 +3,8 @@ import http from 'http'
 const app = express();
 import router from './router/route.js';
 import pool from './db/connectDB.js';
+
+//ws
 import { Server } from 'socket.io';
 
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';

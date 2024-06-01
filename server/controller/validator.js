@@ -28,7 +28,6 @@ const createJWT = (user) => {
 
     return jwt.sign(
 
-
         //payload
         {
             username: user.username,

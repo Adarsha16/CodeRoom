@@ -21,6 +21,7 @@ function Textbox(
   const [InputText, putInputText] = useState('');
   const [OutputText, putOutputText] = useState('');
 
+
   const outputref = useRef(OutputText);
   const monacoref = useRef(null);
 
@@ -29,9 +30,6 @@ function Textbox(
   const callCompilerApi = async () => {
 
     try {
-
-
-
 
 
       const response = await fetch(`http://localhost:5001/api/code/python`,
@@ -62,6 +60,7 @@ function Textbox(
 
     monacoref.current = monaco;
 
+
   }
 
 
@@ -79,8 +78,6 @@ function Textbox(
       }
 
       return;
-
-
 
     } catch (error) {
 

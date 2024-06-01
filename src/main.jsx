@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import Home from "./pages/Home.jsx"
 import Login from './pages/Login.jsx'
-import Room from './pages/Room.jsx'
+// import Room from './pages/Room.jsx'
 import SignUp from './pages/SignUp.jsx'
 import ErrorPage from "./error-page.jsx"
 
@@ -37,10 +37,10 @@ const myrouter = createBrowserRouter([
         element: <SignUp />
       },
 
-      {
-        path: "/room/:slug",
-        element: <Room />
-      }
+      // {
+      //   path: "/room/:slug",
+      //   element: <Room />
+      // }
 
 
     ]

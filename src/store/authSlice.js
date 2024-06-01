@@ -1,18 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 
+
 /**
  * 
  * 3 > after store calling root reducer, and saves the return value as its initial value
  * 4 > UI on rendering it access current state of the redux store
  *  
  */
-
 // Inital value/ state
 const initialState = {
 
     loginStatus: false,
-    userData: null
+    userData: null,
+    token: null
 
 
 };
@@ -26,11 +27,17 @@ const authSlice = createSlice({
     // functions
     reducers: {
 
+
         login: (state, action) => {
 
-            console.log(action.payload)
+
+            const { token, data } = action.payload;
+
             state.loginStatus = true;
-            state.userData = action.payload;
+            state.token = token;
+            state.userData = data;
+
+            console.log("Logged in state : ", state.userData)
 
         },
 
@@ -41,6 +48,7 @@ const authSlice = createSlice({
 
             state.loginStatus = false;
             state.userData = null;
+            state.token = null;
         }
 
     }
