@@ -3,14 +3,31 @@ import Button from '../Button.jsx'
 import { useNavigate } from 'react-router-dom'
 import Setting from '../Header/Setting.jsx';
 import CreateRoom from './CreateRoom.jsx';
-import JoinRoom from './JoinRoom.jsx';
+// import JoinRoom from './JoinRoom.jsx';
+// import { getRoomClick } from "../../store/roomSlice.js"
+import { setRoomClick } from '../../store/roomSlice.js';
 
-import { useSelector } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
 // import { authReducer } from "../../store/authSlice.js"
 
 function Header() {
+
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const loginStatus = useSelector(state => state.auth.loginStatus);
+    const roomClick = useSelector((state) => state.room.roomClick);
+
+    const handleClick = (e) => {
+
+        e.preventDefault();
+        console.log(e)
+
+        console.log("clicked")
+        dispatch(setRoomClick(!roomClick))
+    }
+
+
     return (
 
         <div className={`w-full h-24 bg-tertiary text-customWhite flex justify-between items-center`}>
@@ -42,6 +59,9 @@ function Header() {
 
 
 
+
+
+
             {/* Right */}
 
             <div className='flex flex-row gap-10 mx-5'>
@@ -49,8 +69,8 @@ function Header() {
 
                 {/* Dynamic Room / if logged in*/}
                 <div className='flex flex-col gap-2'>
-                    <CreateRoom />
-                    <JoinRoom />
+                    <CreateRoom handleClick={handleClick} />
+                    {/* <JoinRoom /> */}
                 </div >
 
 
