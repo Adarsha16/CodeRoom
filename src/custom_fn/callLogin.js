@@ -14,11 +14,14 @@ const callLogin = async (values) => {
             body: JSON.stringify({ email, password })
         })
 
+        console.log("Login", login)
+
         return login;
 
 
     } catch (error) {
         console.log(error)
+
     }
 };
 

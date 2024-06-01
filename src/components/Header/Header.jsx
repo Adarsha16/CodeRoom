@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom'
 import Setting from '../Header/Setting.jsx';
 import { useSelector } from 'react-redux';
 // import { authReducer } from "../../store/authSlice.js"
+import CreateRoom from './CreateRoom.jsx';
+import JoinRoom from './JoinRoom.jsx';
+
 
 function Header() {
     const navigate = useNavigate();
@@ -46,23 +49,24 @@ function Header() {
 
                 {/* Dynamic Room / if logged in*/}
                 <div className='flex flex-col gap-2'>
-
-                </div>
+                    <CreateRoom />
+                    <JoinRoom />
+                </div >
 
 
                 {/* setting */}
-                <div className='mt-6'>
+                < div className='mt-6' >
                     <Setting />
-                </div>
+                </div >
 
 
-            </div>
+            </div >
 
 
 
 
 
-        </div>
+        </div >
     )
 }
 
