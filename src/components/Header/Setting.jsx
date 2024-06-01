@@ -13,7 +13,7 @@ function Setting() {
         <>
             <div className="relative mr-5" >
                 <Button
-                    paddingX={2}
+                    custom_class={'px-2'}
                     handleClick={openMenu}
                     buttonLabel={
                         <svg xmlns="http://www.w3.org/2000/svg"

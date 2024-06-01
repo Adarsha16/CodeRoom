@@ -55,8 +55,12 @@ function LoginComp() {
       const callLogin_result = await callLogin_response.json()
 
 
-      const token_result = callLogin_result?.user?.token
-      console.log(token_result)
+      const { token, data_obj } = callLogin_result;
+
+      // const token = callLogin_result?.user?.token
+      const data = data_obj;
+
+      console.log(token)
 
       if (!callLogin_response.ok) {
 
@@ -66,7 +70,7 @@ function LoginComp() {
 
       setInfo("Successfully Logged In!. Redirecting...")
 
-      dispatch(authlogin({ token: token_result }))
+      dispatch(authlogin({ token, data }))
 
       setTimeout(() => {
         navigate("/");
@@ -81,9 +85,6 @@ function LoginComp() {
       console.log("Error", error)
 
     }
-
-
-
   };
 
 
@@ -99,7 +100,7 @@ function LoginComp() {
         <div className='flex flex-col gap-1.5 mb-4 items-center text-white'>
 
           <h1 className='fira-sans-bold text-5xl mb-4 '>Code Room</h1>
-          <h5 className=' text-2xl '>Welcome to Coders Hub</h5>
+          <h5 className=' text-2xl '>Welcome to the Coders Hub!</h5>
           <p className=''>Please sign in to create a room </p>
 
         </div>

@@ -4,12 +4,30 @@ import pool from "../db/connectDB.js";
 import { emailValidation, createJWT, verifyBcryptHash } from "./index.js";
 
 
+const objectRefactor = (data) => {
+
+
+    const { id, username, github, email, created_at, updated_at } = data;
+
+    return {
+        id,
+        username,
+        github,
+        email,
+        created_at,
+        updated_at
+    }
+
+
+
+}
+
 
 const login = async (req, res) => {
 
     try {
 
-        const { email, password } = req.body;
+        let { email, password } = req.body;
 
         // Validate email
         if (!emailValidation(email)) {
@@ -35,6 +53,11 @@ const login = async (req, res) => {
 
 
         const data = if_present_data[0][0];
+
+        console.log(data)
+
+        const data_obj = objectRefactor(data);
+
         const verify_wait = await verifyBcryptHash(password, data?.password_hash)
 
         //////////////comparing hashed password/////////////////////
@@ -49,9 +72,7 @@ const login = async (req, res) => {
 
         //status ok
         res.status(200).json({
-            user: {
-                token
-            }
+            token, data_obj
 
         });
 
