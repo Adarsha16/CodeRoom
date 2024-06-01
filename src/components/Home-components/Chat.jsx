@@ -60,12 +60,12 @@ function Chat() {
 
                 {/*for chat main body */}
 
-                <div id="message_container" className="h-44 overflow-scroll">
+                <div id="message_container" className="h-44 overflow-scroll mt-1 px-8">
                     {messageReceived.length === 0 ? (
                         <p>No messages yet</p>
                     ) : (
                         messageReceived.map((msg, index) => (
-                            <p key={index} className="mt-1 px-8">Person: {msg}</p>
+                            <p key={index}>Person: {msg}</p>
                         ))
                     )}
                 </div>

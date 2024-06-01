@@ -45,15 +45,13 @@ function Header() {
 
 
                 {/* Dynamic Room / if logged in*/}
-                <div >
+                <div className='flex flex-col gap-2'>
 
-                    Dynamic Room
                 </div>
 
 
                 {/* setting */}
-                <div >
-
+                <div className='mt-6'>
                     <Setting />
                 </div>
 
