@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initalState = {
+const initialState = {
 
+    roomClick: false,
     roomStatus: false,
     roomData: null,
     inputField: null
@@ -11,7 +12,7 @@ const initalState = {
 const roomSlice = createSlice({
 
     name: 'room',
-    initalState,
+    initialState,
 
     reducers: {
 
@@ -34,6 +35,16 @@ const roomSlice = createSlice({
             // state.roomData = null;
             state.inputField = null;
 
+        },
+
+        setRoomClick: (state, action) => {
+
+            // const { roomClick } = action.payload;
+            // console.log(action.payload)
+            // console.log("payload", roomClick)
+            console.log("payload", state.roomClick)
+            state.roomClick = action.payload
+            console.log("after payload", state.roomClick)
         }
 
     }
@@ -41,4 +52,4 @@ const roomSlice = createSlice({
 });
 
 export default roomSlice.reducer;
-export const { enterRoom, leaveRoom, setInputField } = roomSlice.actions;
+export const { enterRoom, leaveRoom, setInputField, setRoomClick } = roomSlice.actions;

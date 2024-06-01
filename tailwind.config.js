@@ -18,7 +18,8 @@ export default {
       'green_hover': '#1b5e5a',
       'slate': {
         300: '#cbd5e1',
-        400: '#94a3b8'
+        400: '#94a3b8',
+        700: '#334155'
       },
       'brown': 'rgba(87, 88, 83, 0.4)', //for border color
       'white': '#ffff',
@@ -29,6 +30,7 @@ export default {
       'blue_hover': '#1434A4',
       'red': '#dc143c',
       'green': '#008000',
+      'dark-green': '#165049'
 
     }
 
