@@ -35,13 +35,13 @@ function Chat() {
 
 
     return (
-        <div className=" flex flex-col m-0 fixed bottom-0 w-full">
+        <div className="absolute  bottom-10 flex flex-col m-0 w-full box-content ">
 
             {/* Info about the Room */}
-            <div className="relative p-5 flex flex-col text-primary w-max border-y-[1px] border-brown rounded-xl" >
+            <div className="relative p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
 
                 <Button
-                    custom_class={'absolute right-0 top-2 text-slate-400'}
+                    custom_class={'absolute end-0 top-2 text-slate-400'}
                     buttonLabel={
                         <svg xmlns="http://www.w3.org/2000/svg"
                             width="24px"
@@ -59,7 +59,7 @@ function Chat() {
 
 
             {/* Message Container */}
-            <div id="message_container" className="text-slate-400 h-52 text-sm font-normal overflow-scroll mt-1 px-2 hide-scrollbar text-wrap">
+            <div id="message_container" className="w-full text-slate-400 h-52 text-sm font-normal overflow-scroll mt-1 px-2 hide-scrollbar text-wrap">
                 {
                     messageReceived.length === 0
                         ?
@@ -79,7 +79,7 @@ function Chat() {
 
 
             {/* Input Type Message Container */}
-            <div className="">
+            <div className="w-full">
 
                 <form
                     id="send_container"
@@ -104,16 +104,6 @@ function Chat() {
 
                 </form>
             </div>
-
-
-
-
-
-
-
-
-
-
 
 
         </div>
