@@ -4,7 +4,7 @@ const initialState = {
 
     roomClick: false,
     roomStatus: false,
-    roomData: null,
+    roomData: {},
     inputField: null
 }
 
@@ -45,6 +45,29 @@ const roomSlice = createSlice({
             console.log("payload", state.roomClick)
             state.roomClick = action.payload
             console.log("after payload", state.roomClick)
+        },
+
+        setRoomStatus: (state, action) => {
+
+            console.log("before status payload", state.roomStatus)
+            state.roomStatus = action.payload
+            console.log("after status payload", state.roomStatus)
+
+        },
+
+        setRoomData: (state, action) => {
+
+
+            console.log("Payload on room data", action.payload)
+            console.log("before RoomData payload", state.roomData)
+
+            state.roomData = {
+                ...(state.roomData),
+                ...(action.payload)
+            };
+
+            console.log("after Roomdata payload", state.roomData)
+
         }
 
     }
@@ -52,4 +75,4 @@ const roomSlice = createSlice({
 });
 
 export default roomSlice.reducer;
-export const { enterRoom, leaveRoom, setInputField, setRoomClick } = roomSlice.actions;
+export const { enterRoom, leaveRoom, setInputField, setRoomClick, setRoomStatus, setRoomData } = roomSlice.actions;
