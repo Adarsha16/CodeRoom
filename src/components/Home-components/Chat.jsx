@@ -6,13 +6,8 @@ import '../../App.css';
 
 
 const socket = io.connect("http://localhost:5002");
+
 function Chat() {
-
-
-
-
-
-    const [room, setRoom] = useState("");
     const [message, setMessage] = useState("");
     const [messageReceived, setMessageReceived] = useState([]);
 
@@ -123,81 +118,6 @@ function Chat() {
 
         </div>
     )
-
-
-
-
-    {/* <div className='absolute bottom-0 h-4/6  border border-brown w-full flex flex-col'>
-
-                < div className="px-8 pb-2  text-primary w-full border-b-[1px] border-brown rounded-xl" >
-
-
-                    <Button
-                        custom_class={'pl-56 text-slate-400'}
-                        buttonLabel={
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                width="24px"
-                                height="16px"
-                                viewBox="0 0 16 16">
-                                <path fill="currentColor" d="M7.293 8L3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708z" />
-                            </svg>
-                        } />
-
-                    <p className="text-3xl font-semibold">Room</p>
-                    <p className="text-white">Coding Pratice #4111fop</p>
-                    <p>Profile pics here</p>
-
-
-
-                </div>
-
-
-
-                <div id="message_container" className="h-44 overflow-scroll mt-1 px-8 hide-scrollbar">
-                    {messageReceived.length === 0 ? (
-                        <p>No messages yet</p>
-                    ) : (
-                        messageReceived.map((msg, index) => (
-                            <p key={index}>Person: {msg}</p>
-                        ))
-                    )}
-
-                </div>
-
-
-                <div className="absolute w-full bottom-10 p-0 m-0 z-9999">
-
-                    <form id="send_container" onSubmit={handleSubmit} name="message_form">
-
-
-                        <input
-                            type="text"
-                            placeholder="Start a conversation"
-                            className="p-5 h-10 w-5/6 bg-brown border-none outline-none flex-grow"
-                            id='message'
-
-                            onChange={(e) => {
-                                e.preventDefault();
-                                setMessage(e.target.value);
-                            }
-
-                            } />
-
-                        <Button
-                            custom_class={'bg-primary w-1/6 h-10'}
-                            type={"Submit"}
-                            buttonLabel={'^'}
-                            id={"send_button"}
-                        />
-
-                    </form>
-                </div>
-
-
-            </div>
-         */}
-
-
 
 }
 export default Chat;
