@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Input from './Inputfield.jsx'
 import Button from './Button.jsx'
 import { useSelector, useDispatch } from 'react-redux'
-import { setRoomClick } from '../store/roomSlice.js'
+import { setRoomClick, setRoomData } from '../store/roomSlice.js'
 
-// { Title, Paragraph, custom_placeholder }
+
 const Popup = () => {
 
     const roomClick = useSelector(state => state.room.roomClick)
@@ -15,6 +15,19 @@ const Popup = () => {
     const [roomAction, setRoomAction] = useState(true);
 
     const dispatch = useDispatch();
+
+    const handleClick = (e) => {
+
+        e.preventDefault();
+
+        if (!roomid) {
+            e.target.style.border = '2px solid red';
+            return;
+        }
+
+        e.target.style.border = '0px';
+        dispatch(setRoomData({ roomid }));
+    };
 
 
     useEffect(() => {
@@ -58,6 +71,7 @@ const Popup = () => {
                         buttonLabel={'Create Room'}
                         custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover  rounded-sm'
                         type={"submit"}
+                        handleClick={handleClick}
 
                     />
 
