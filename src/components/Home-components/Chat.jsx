@@ -60,7 +60,7 @@ function Chat() {
 
                 {/*for chat main body */}
 
-                <div id="message_container" className="h-44 overflow-scroll mt-1 px-8 hide-scrollbar">
+                <div id="message_container" className="h-[65%] overflow-scroll mt-1 px-8 hide-scrollbar">
                     {messageReceived.length === 0 ? (
                         <p>No messages yet</p>
                     ) : (
