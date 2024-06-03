@@ -1,6 +1,8 @@
 import { React, useState, useEffect } from "react";
 import Button from "../Button.jsx";
 import { io } from "socket.io-client"
+import '../../App.css';
+
 
 
 const socket = io.connect("http://localhost:5002");
@@ -58,8 +60,7 @@ function Chat() {
 
                 {/*for chat main body */}
 
-                <div id="message_container" className="h-[50%] overflow-scroll mt-3 px-3 text-slate-400 text-sm">
-
+                <div id="message_container" className="h-44 overflow-scroll mt-1 px-8 hide-scrollbar">
                     {messageReceived.length === 0 ? (
                         <p>No messages yet</p>
                     ) : (
