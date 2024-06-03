@@ -38,41 +38,12 @@ app.use("/api/room", authentication, room_router)
 
 app.use(notFoundMiddleware)
 
-const server = http.createServer(app);
-/** Setting up socket for chat
- */
-
-const socket_start = async () => {
-    const io = new Server(server,
-        {
-            cors: {
-                origin: "http://localhost:5174",
-                methods: ["GET", "POST"]
-            }
-        }
-    );
-
-    io.on("connection", (socket) => {
-        console.log(`User connected: ${socket.id} `);
-
-        //socket.on("join_room", (room) => {
-        //  socket.join(room);
-        //console.log(room);
-        //});
-
-        socket.on("send_message", (data) => {
-            io.emit("receive_message", data);
-        });
-    })
-    server.listen(5002, () => {
-        console.log("Server is running");
-    });
-}
 
 /**
  * To startup the server
  */
 
+// let server_io;
 const PORT = process.env.PORT || 5001;
 
 console.log(PORT);
@@ -80,11 +51,12 @@ const start = async (req, res) => {
 
     try {
 
-        app.listen(PORT, () => {
+        const expressServer = app.listen(PORT, () => {
 
             console.log(`Connecting to the server on port ${PORT}`)
 
-        })
+        });
+
 
         //Creating Database on name : users....if not exists
         await pool.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`)
@@ -99,7 +71,7 @@ const start = async (req, res) => {
         createTable();
 
 
-
+        return expressServer
 
     } catch (error) {
 
@@ -109,5 +81,16 @@ const start = async (req, res) => {
 
 }
 
-start();
-socket_start();
+const expressServer = await start();
+
+
+const io = new Server(expressServer, {
+
+    cors: {
+        origin: process.env.NODE_ENV === "production" ? false : ["http://localhost:5173", "http://127.0.0.1:5173"]
+    }
+});
+
+
+import { socket_app } from './socket_app.js';
+socket_app(io);
