@@ -32,13 +32,13 @@ function Chat() {
 
     return (
         <>
-            <div className='absolute bottom-0 h-4/6 rounded-md border border-brown w-full'>
+            <div className='absolute bottom-0 h-4/6  border border-brown w-full flex flex-col'>
                 {/*for general display elements*/}
                 < div className="px-8 pb-2  text-primary w-full border-b-[1px] border-brown rounded-xl" >
 
                     {/* Cross Button */}
                     <Button
-                        custom_class={'pl-56 text-brown'}
+                        custom_class={'pl-56 text-slate-400'}
                         buttonLabel={
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 width="24px"
@@ -58,7 +58,7 @@ function Chat() {
 
                 {/*for chat main body */}
 
-                <div id="message_container" className="h-full overflow-scroll mt-3 px-3 text-slate-400 text-sm ">
+                <div id="message_container" className="h-[50%] overflow-scroll mt-3 px-3 text-slate-400 text-sm">
 
                     {messageReceived.length === 0 ? (
                         <p>No messages yet</p>
@@ -71,14 +71,15 @@ function Chat() {
                 </div>
 
                 {/*for chat input*/}
-                <div className="fixed w-full bottom-0 p-0 m-0 flex items-center ">
+                <div className="absolute w-full bottom-10 p-0 m-0 z-9999">
 
-                    <form id="send_container" onSubmit={handleSubmit} name="message_form" className="flex justify-center items-center">
+                    <form id="send_container" onSubmit={handleSubmit} name="message_form">
+
 
                         <input
                             type="text"
                             placeholder="Start a conversation"
-                            className="p-5 h-10 w-48 bg-brown border-none outline-none rounded-md"
+                            className="p-5 h-10 w-5/6 bg-brown border-none outline-none flex-grow"
                             id='message'
 
                             onChange={(e) => {
@@ -87,17 +88,18 @@ function Chat() {
                             }
 
                             } />
+
                         <Button
-                            custom_class={'bg-primary w-24 h-10 rounded-md'}
+                            custom_class={'bg-primary w-1/6 h-10'}
                             type={"Submit"}
                             buttonLabel={'^'}
                             id={"send_button"}
                         />
 
-
-
                     </form>
                 </div>
+
+
             </div>
 
         </>
