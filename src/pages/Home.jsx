@@ -10,12 +10,12 @@ function Home() {
     console.log("home", roomClick)
 
     return (
-        <div className='fixed  grid grid-flow-col col-span-5 grid-rows-1 gap-0 w-full '>
+        <div className='fixed grid grid-flow-col grid-cols-5 grid-rows-1 gap-0 w-full '>
 
 
-            <Explore />
-
-
+            <Explore
+                _grid={'col-start-1 col-end-2'}
+            />
 
             {/* <Input Text /> */}
             <Textbox
@@ -34,6 +34,7 @@ function Home() {
                 placeholder={"//Some comment"}
                 default_lng={'python'}
                 custom_theme={'vs-dark'}
+                _grid={'col-start-2 col-end-4'}
 
             />
 
@@ -57,6 +58,7 @@ function Home() {
                 placeholder={"Output"}
                 default_lng={'python'}
                 custom_theme={'vs-dark'}
+                _grid={'col-start-4 col-end-6'}
             />
 
 
