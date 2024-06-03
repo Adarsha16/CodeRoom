@@ -1,20 +1,28 @@
 import React from 'react'
 import Chat from './Chat'
-function Explore() {
+function Explore({ _grid = "" }) {
     return (
 
-        <div className='relative w-72 text-customWhite bg-tertiary'>
+        <div className={`text-customWhite bg-tertiary ${_grid}`}>
 
-            <div
-                className='px-6 h-10 border-[2px]  border-r-0  border-brown flex items-center font-bold'
-            >
-                Explorer
-            </div>
-            <div className='fle'>
-            <Chat />
-            </div>
 
-        </div >
+            <div className='flex flex-col'>
+
+                {/* Head line */}
+                <div
+                    className='px-6 h-10 border-[2px]  border-r-0  border-brown flex items-center font-bold'
+                >
+                    Explorer
+                </div>
+
+
+                {/* Chat */}
+                <Chat />
+
+
+            </div >
+
+        </div>
 
     )
 }

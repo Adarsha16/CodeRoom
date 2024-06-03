@@ -11,7 +11,8 @@ function Textbox(
     disabled,
     placeholder,
     default_lng,
-    custom_theme
+    custom_theme,
+    _grid = ""
 
   }
 
@@ -93,7 +94,7 @@ function Textbox(
 
 
   return (
-    < div className={`col-span-2 text-customWhite bg-secondary w-full`
+    < div className={`text-customWhite bg-secondary w-full ${_grid}`
     }>
 
       {/*NOTE; Tab Area */}
@@ -175,11 +176,8 @@ function Textbox(
 
           theme={custom_theme}
 
-
           onChange={putInputText}
           onMount={handleMonacoInstance}
-
-
         >
 
         </Editor>
