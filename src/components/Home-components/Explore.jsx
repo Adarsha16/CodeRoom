@@ -10,8 +10,9 @@ function Explore() {
             >
                 Explorer
             </div>
-
+            <div className='fle'>
             <Chat />
+            </div>
 
         </div >
 
