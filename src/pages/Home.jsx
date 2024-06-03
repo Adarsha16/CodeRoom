@@ -62,12 +62,7 @@ function Home() {
             />
 
 
-            {!roomClick ? "" : <Popup
-                Title="Room"
-                Paragraph="Please enter your room id to join"
-                custom_placeholder="Room Name"
-                DoWhat="Create Room"
-            />}
+            {!roomClick ? "" : <Popup />}
 
 
 
