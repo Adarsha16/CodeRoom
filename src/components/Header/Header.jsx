@@ -68,10 +68,10 @@ function Header() {
 
 
                 {/* Dynamic Room / if logged in*/}
-                <div className='flex flex-col gap-2'>
+                {!loginStatus ? "" : <div className='flex flex-col gap-2'>
                     <CreateRoom handleClick={handleClick} />
-                    {/* <JoinRoom /> */}
-                </div >
+
+                </div >}
 
 
                 {/* setting */}

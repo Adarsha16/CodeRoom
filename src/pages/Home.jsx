@@ -1,13 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Explore from '../components/Home-components/Explore'
 import { Textbox } from '../components/Home-components/Textbox'
 import Popup from '../components/Popup'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { login } from '../store/authSlice.js'
+import callGetUser from "../custom_fn/callGetUser.js"
+
 
 function Home() {
 
     const roomClick = useSelector(state => state.room.roomClick)
     console.log("home", roomClick)
+    const dispatch = useDispatch();
+
+
+
+
+    useEffect(() => {
+
+        const ifLoggedInToken = localStorage.getItem("token");
+
+        if (ifLoggedInToken) {
+            // dispatch(login(ifLoggedInToken));
+
+            async function GetUser() {
+
+                const response = await callGetUser(ifLoggedInToken);
+
+                console.log("home res", response)
+                let data = response;
+                if (!response) {
+                    console.log("Error", response)
+                    return;
+                }
+                dispatch(
+                    login({
+                        token: ifLoggedInToken, data
+                    })
+                )
+
+
+            }
+            GetUser();
+
+        }
+
+    }, []);
 
     return (
         <div className='fixed grid grid-flow-col grid-cols-5 grid-rows-1 gap-0 w-full '>

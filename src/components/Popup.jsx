@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Input from './Inputfield.jsx'
 import Button from './Button.jsx'
 import { useSelector, useDispatch } from 'react-redux'
-import { setRoomClick, setRoomData } from '../store/roomSlice.js'
+import { setRoomClick, setRoomData, setRoomStatus } from '../store/roomSlice.js'
 
 
 const Popup = () => {
@@ -27,12 +27,15 @@ const Popup = () => {
 
         e.target.style.border = '0px';
         dispatch(setRoomData({ roomid }));
+        dispatch(setRoomStatus(true));
+
+        setOpen(false)
     };
 
 
     useEffect(() => {
 
-        dispatch(setRoomClick(open))
+        dispatch(setRoomClick(open));
 
     }, [open])
 

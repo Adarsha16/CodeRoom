@@ -1,6 +1,9 @@
 import React from 'react'
 import Chat from './Chat'
+import { useSelector } from 'react-redux'
 function Explore({ _grid = "" }) {
+
+    const loginStatus = useSelector(state => state.auth.loginStatus)
     return (
 
         <div className={`text-customWhite bg-tertiary ${_grid} relative`}>
@@ -17,7 +20,7 @@ function Explore({ _grid = "" }) {
 
 
                 {/* Chat */}
-                <Chat />
+                {!loginStatus ? "" : <Chat />}
 
             </div >
 
