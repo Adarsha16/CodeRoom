@@ -2,6 +2,7 @@ import { React, useState, useEffect, useRef } from "react";
 import Button from "../Button.jsx";
 import { io } from "socket.io-client"
 import '../../App.css';
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -9,8 +10,11 @@ const socket = io.connect("http://localhost:5001");
 
 function Chat() {
 
+    const roomStatus = useSelector(state => state.room.roomStatus);
+    const roomData = useSelector(state => state.room.roomData);
 
-    const msgRef = useRef();
+    // const userData = useSelector(state => state.auth.userData);
+    const msgRef = useRef("");
     const [message, setMessage] = useState("");
 
 
@@ -28,17 +32,46 @@ function Chat() {
 
     /**
      * It append child to the ul
-     * @param {Message} msg 
+     * @param {message} msg 
      */
     const appendMessage = (msg) => {
 
         const node = document.createElement('li');
         node.textContent = msg;
-        msgRef.current.appendChild(node)
+        msgRef?.current.appendChild(node)
 
     };
 
+    /**
+     * Enter room event, send room status to server
+     */
+    useEffect(() => {
 
+        if (!roomStatus && !roomData) {
+
+            console.log("Room status false", roomStatus);
+            return;
+
+        }
+
+        const { roomid } = roomData;
+        // console.log("room status chat", roomData)
+
+        // const { username } = userData;
+
+
+        socket.emit("enterroom",
+            {
+                // username,
+                roomid
+            }
+        );
+    }, [roomStatus]);
+
+
+    /**
+     * It runs on every mount and listen for message event from server
+     */
     useEffect(() => {
 
         console.log("Mounted chat");

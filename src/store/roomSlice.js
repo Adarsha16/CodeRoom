@@ -32,16 +32,12 @@ const roomSlice = createSlice({
         leaveRoom: (state, action) => {
 
             state.roomStatus = false;
-            // state.roomData = null;
             state.inputField = null;
 
         },
 
         setRoomClick: (state, action) => {
 
-            // const { roomClick } = action.payload;
-            // console.log(action.payload)
-            // console.log("payload", roomClick)
             console.log("payload", state.roomClick)
             state.roomClick = action.payload
             console.log("after payload", state.roomClick)

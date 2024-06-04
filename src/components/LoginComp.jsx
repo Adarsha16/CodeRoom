@@ -70,6 +70,15 @@ function LoginComp() {
 
       dispatch(authlogin({ token, data }))
 
+      // Setting token to the local storage for future use
+      let prevToken = localStorage.getItem("token");
+      if (prevToken) {
+        localStorage.removeItem("token")
+      };
+
+      localStorage.setItem("token", token);
+      ////////////////
+
       setTimeout(() => {
         navigate("/");
       }, 1700)
