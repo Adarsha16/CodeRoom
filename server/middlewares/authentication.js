@@ -5,7 +5,7 @@ const authentication = (req, res, next) => {
 
     try {
 
-        const authHeader = req.headers.authorization;
+        const authHeader = req.headers.authorization || req.headers.Authorization;
 
         const token = authHeader?.startsWith('Bearer') && authHeader.split(" ")[1];
 

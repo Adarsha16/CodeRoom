@@ -7,7 +7,13 @@ const getUser = async (req, res) => {
 
     try {
 
-        const { token } = req.params;
+
+        console.log("header", req.headers)
+        const authHeader = req.headers.authorization || req.headers.Authorization
+        const token = authHeader?.startsWith("Bearer") && authHeader.split(" ")[1]
+
+
+        // const { token } = req.params;
         console.log(token);
 
 

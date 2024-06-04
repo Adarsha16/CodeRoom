@@ -31,13 +31,13 @@ const authSlice = createSlice({
         login: (state, action) => {
 
 
-            const { token, data } = action.payload;
+            const { token, data = "" } = action.payload;
 
             state.loginStatus = true;
             state.token = token;
             state.userData = data;
 
-            console.log("Logged in state : ", state.userData)
+            console.log("Logged in state : ", state.userData, state.token)
 
         },
 

@@ -1,32 +1,94 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import Button from "../Button.jsx";
 import { io } from "socket.io-client"
 import '../../App.css';
+import { useDispatch, useSelector } from "react-redux";
 
 
 
-const socket = io.connect("http://localhost:5002");
+const socket = io.connect("http://localhost:5001");
 
 function Chat() {
+
+    const roomStatus = useSelector(state => state.room.roomStatus);
+    const roomData = useSelector(state => state.room.roomData);
+
+    // const userData = useSelector(state => state.auth.userData);
+    const msgRef = useRef("");
     const [message, setMessage] = useState("");
-    const [messageReceived, setMessageReceived] = useState([]);
 
 
+    /**
+     * It send message to server 
+     * @param {event} e 
+     */
     const handleSubmit = (e) => {
+
         e.preventDefault();
-        socket.emit("send_message", message);
-        setMessage("")
-    }
+        socket.emit("message", message);
+        setMessage("");
 
+    };
 
-    // const joinRoom = () => {
-    //     socket.emit("join_room", room);
-    // }
+    /**
+     * It append child to the ul
+     * @param {message} msg 
+     */
+    const appendMessage = (msg) => {
 
+        const node = document.createElement('li');
+        node.textContent = msg;
+        msgRef?.current.appendChild(node)
 
+    };
+
+    /**
+     * Enter room event, send room status to server
+     */
     useEffect(() => {
-        socket.on("receive_message", (data) => {
-            setMessageReceived(prev_message => [...prev_message, data]);
+
+        if (!roomStatus && !roomData) {
+
+            console.log("Room status false", roomStatus);
+            return;
+
+        }
+
+        const { roomid } = roomData;
+        // console.log("room status chat", roomData)
+
+        // const { username } = userData;
+
+
+        socket.emit("enterroom",
+            {
+                // username,
+                roomid
+            }
+        );
+    }, [roomStatus]);
+
+
+    /**
+     * It runs on every mount and listen for message event from server
+     */
+    useEffect(() => {
+
+        console.log("Mounted chat");
+
+        socket.on("message", (data) => {
+
+            const { user, text } = data;
+
+            if (!text) {
+
+                console.log("No text to show msg")
+                return;
+            }
+
+            const Message = `${user} : ${text}`;
+            appendMessage(Message);
+
         });
 
     }, []);
@@ -61,18 +123,8 @@ function Chat() {
             {/* Message Container */}
             <div id="message_container" className="w-full text-slate-400 h-52 text-sm font-normal overflow-scroll mt-1 px-2 hide-scrollbar text-wrap">
                 {
-                    messageReceived.length === 0
-                        ?
-                        (
-                            <p>No messages yet</p>
-                        )
-                        :
-                        (
-                            messageReceived.map((msg, index) => (
-                                <p key={index}>Person: {msg}</p>
-
-                            ))
-                        )
+                    <ul ref={msgRef}>
+                    </ul>
                 }
 
             </div>
