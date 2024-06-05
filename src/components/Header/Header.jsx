@@ -16,6 +16,7 @@ function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loginStatus = useSelector(state => state.auth.loginStatus);
+    console.log("header", loginStatus)
     const roomClick = useSelector((state) => state.room.roomClick);
 
     const handleClick = (e) => {
