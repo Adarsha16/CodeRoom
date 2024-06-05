@@ -5,7 +5,7 @@ import Button from './Button.jsx'
 import validateForm from '../custom_fn/Validation.js'
 import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
 import { login } from '../store/authSlice.js'
 
@@ -189,9 +189,12 @@ function Signup() {
 
           <p className='mt-10 text-white'>
             Already have an account?
-            <a className='ml-4 text-blue-500 underline font-semibold' href='/login'>
+            {/* <a className='ml-4 text-blue-500 underline font-semibold' href='/login'>
               Login here!
-            </a>
+            </a> */}
+            <Link className='ml-4 text-blue-500 underline font-semibold' to='/login'>
+              Login Here!
+            </Link>
           </p>
 
 

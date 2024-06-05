@@ -13,7 +13,7 @@ function Chat() {
     const roomStatus = useSelector(state => state.room.roomStatus);
     const roomData = useSelector(state => state.room.roomData);
 
-    // const userData = useSelector(state => state.auth.userData);
+    const userData = useSelector(state => state.auth.userData);
     const msgRef = useRef("");
     const [message, setMessage] = useState("");
 
@@ -25,7 +25,22 @@ function Chat() {
     const handleSubmit = (e) => {
 
         e.preventDefault();
-        socket.emit("message", message);
+
+        // if (!roomData.roomid) {
+        //     socket.emit("notAssigned", "Please Join or Create Room first");
+        //     return;
+        // }
+
+        console.log(message)
+        // const username = l;
+        // console.log("usrname", username)
+
+        const data = {
+            username: userData.username,
+            text: message
+        }
+
+        socket.emit("message", data);
         setMessage("");
 
     };
@@ -37,6 +52,7 @@ function Chat() {
     const appendMessage = (msg) => {
 
         const node = document.createElement('li');
+        node.classList.add("msg_li");
         node.textContent = msg;
         msgRef?.current.appendChild(node)
 
@@ -47,22 +63,24 @@ function Chat() {
      */
     useEffect(() => {
 
-        if (!roomStatus && !roomData) {
+
+
+        if (!roomStatus || !roomData) {
 
             console.log("Room status false", roomStatus);
             return;
-
         }
 
         const { roomid } = roomData;
         // console.log("room status chat", roomData)
 
-        // const { username } = userData;
+        const { username } = userData;
 
+        console.log("chat", username, roomid)
 
         socket.emit("enterroom",
             {
-                // username,
+                username,
                 roomid
             }
         );
@@ -74,11 +92,30 @@ function Chat() {
      */
     useEffect(() => {
 
+        // socket.on("notAssigned", (msg) => {
+
+        //     // console.log(msgRef?.current);
+        //     let nodes = document.getElementsByClassName("msg_li");
+        //     if (nodes[0]) {
+        //         msgRef?.current.removeChild(nodes[0])
+        //     }
+        //     appendMessage(msg);
+
+        //     setTimeout(() => {
+        //         if (nodes[0]) {
+        //             msgRef?.current.removeChild(nodes[0])
+        //         }
+        //     }, 3000)
+
+        //     return;
+
+        // });
+
         console.log("Mounted chat");
 
         socket.on("message", (data) => {
 
-            const { user, text } = data;
+            const { username, text } = data;
 
             if (!text) {
 
@@ -86,7 +123,7 @@ function Chat() {
                 return;
             }
 
-            const Message = `${user} : ${text}`;
+            const Message = `${username} : ${text}`;
             appendMessage(Message);
 
         });

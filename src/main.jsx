@@ -7,6 +7,7 @@ import Login from './pages/Login.jsx'
 // import Room from './pages/Room.jsx'
 import SignUp from './pages/SignUp.jsx'
 import ErrorPage from "./error-page.jsx"
+import AuthLayout from './components/AuthLayout.jsx'
 
 
 import { Provider } from 'react-redux'
@@ -29,12 +30,20 @@ const myrouter = createBrowserRouter([
 
       {
         path: "/login",
-        element: <Login />
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+        )
       },
 
       {
         path: "/signup",
-        element: <SignUp />
+        element: (
+          <AuthLayout authentication={false}>
+            <SignUp />
+          </AuthLayout>
+        )
       },
 
       // {
@@ -52,10 +61,14 @@ const myrouter = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
+  // <React.StrictMode>
+
   <Provider store={store}>
     <RouterProvider router={myrouter} />
 
   </Provider>
+  // </React.StrictMode>
+
 
 
   ,

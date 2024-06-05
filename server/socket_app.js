@@ -16,11 +16,12 @@ const UserState = {
 
 export const socket_app = async (io) => {
 
-    let ADMIN = 'Admin'
+    let ADMIN = 'Admin';
+
     io.on("connection", (socket) => {
 
         console.log(`User connected : `, socket.id);
-        socket.emit('message', BuildMsg(ADMIN, ' Welcome to the club'));
+        // socket.emit('message', BuildMsg(ADMIN, ' Welcome to the club'));
 
 
         /**
@@ -69,6 +70,7 @@ export const socket_app = async (io) => {
                 rooms: getAllActiveRooms()
             })
 
+            console.log("reached to bottom")
 
 
         });
@@ -106,12 +108,27 @@ export const socket_app = async (io) => {
          */
         socket.on("message", ({ username = 'user', text }) => {
 
+            console.log(username, text)
+
+            console.log(socket.id)
             const room = getUser(socket.id)?.room;
             console.log(room)
 
             io.to(room).emit("message", BuildMsg(username, text))
 
         })
+
+
+        // /**
+        //  * When room not assigned
+        //  * 
+        //  */
+
+        // socket.on("notAssigned", (msg) => {
+
+        //     socket.emit("notAssigned", msg)
+
+        // })
 
 
 
@@ -122,9 +139,10 @@ export const socket_app = async (io) => {
 };
 
 
-function BuildMsg(user, text) {
+function BuildMsg(username, text) {
+
     return {
-        user,
+        username,
         text
     }
 }
@@ -133,16 +151,20 @@ function BuildMsg(user, text) {
 
 function getUser(id) {
 
-    return UserState.users.find(user => user.id === id)
+    return UserState.users.find(user => {
+        console.log(user)
+        return user.id === id
+    })
 
 }
 
 function ActivateUser(id, username = "user", room) {
 
+    console.log("Activate user", id, username, room)
     const user = { id, username, room }
     UserState.setUsers([
 
-        ...UserState.users.filter(user => user.id !== id)
+        ...UserState.users.filter(user => user.id !== id), user
 
     ])
 
