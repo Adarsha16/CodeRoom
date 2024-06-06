@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './App.css'
 import { Outlet } from 'react-router-dom'
 import Header from "./components/Header/Header"
@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 function App() {
 
 
+  const [localToken, setlocalToken] = useState(localStorage.getItem("token"))
   const dispatch = useDispatch();
   useEffect(() => {
 
@@ -43,7 +44,7 @@ function App() {
 
     }
 
-  }, []);
+  }, [localToken]);
 
 
 

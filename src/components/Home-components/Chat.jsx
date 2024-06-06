@@ -6,16 +6,33 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 
-const socket = io.connect("http://localhost:5001");
-
+let socket;
 function Chat() {
 
     const roomStatus = useSelector(state => state.room.roomStatus);
     const roomData = useSelector(state => state.room.roomData);
 
     const userData = useSelector(state => state.auth.userData);
+    const token = useSelector(state => state.auth.token);
+
     const msgRef = useRef("");
     const [message, setMessage] = useState("");
+
+    useEffect(() => {
+
+        if (!token) {
+            console.log("No token present")
+            return;
+        }
+
+        socket = io("http://localhost:5001", {
+            path: "/api/room",
+            auth: {
+                token: `${token}`
+            }
+        })
+
+    }, [token])
 
 
     /**
@@ -58,6 +75,21 @@ function Chat() {
 
     };
 
+
+    /**
+     * Handle Click on Cross Button , Leave Room
+     */
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        console.log("Clicked")
+
+
+    }
+
+
+
+
     /**
      * Enter room event, send room status to server
      */
@@ -92,30 +124,19 @@ function Chat() {
      */
     useEffect(() => {
 
-        // socket.on("notAssigned", (msg) => {
+        socket.on('forcedisconnect', (data) => {
+            appendMessage(data);
+            socket.disconnect()
+            return;
+        }
+        )
 
-        //     // console.log(msgRef?.current);
-        //     let nodes = document.getElementsByClassName("msg_li");
-        //     if (nodes[0]) {
-        //         msgRef?.current.removeChild(nodes[0])
-        //     }
-        //     appendMessage(msg);
-
-        //     setTimeout(() => {
-        //         if (nodes[0]) {
-        //             msgRef?.current.removeChild(nodes[0])
-        //         }
-        //     }, 3000)
-
-        //     return;
-
-        // });
-
-        console.log("Mounted chat");
 
         socket.on("message", (data) => {
 
+            console.log("Mounted chat");
             const { username, text } = data;
+
 
             if (!text) {
 
@@ -124,6 +145,7 @@ function Chat() {
             }
 
             const Message = `${username} : ${text}`;
+            console.log("message", Message)
             appendMessage(Message);
 
         });
@@ -148,10 +170,14 @@ function Chat() {
                             viewBox="0 0 16 16">
                             <path fill="currentColor" d="M7.293 8L3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708z" />
                         </svg>
-                    } />
+
+                    }
+
+                    handleClick={handleClick}
+                />
 
                 <p className="text-3xl font-semibold">Room</p>
-                <p className="text-white">Coding Pratice <span className="font-bold">#4111fop</span></p>
+                <p className="text-white">Coding Practice <span className="font-bold">#4111fop</span></p>
                 <p>Profile pics here</p>
 
             </div>
