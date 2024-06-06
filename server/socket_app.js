@@ -119,16 +119,16 @@ export const socket_app = async (io) => {
         })
 
 
-        // /**
-        //  * When room not assigned
-        //  * 
-        //  */
+        /**
+         * When room not assigned
+         * 
+         */
 
-        // socket.on("notAssigned", (msg) => {
+        socket.on("notAssigned", (msg) => {
 
-        //     socket.emit("notAssigned", msg)
+            socket.emit("notAssigned", msg)
 
-        // })
+        })
 
 
 

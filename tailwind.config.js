@@ -36,25 +36,4 @@ export default {
 
   },
   plugins: [],
-  
-}
-// tailwind.config.js
-module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-  ],
-  theme: {
-    extend: {
-      rotate: {
-        '15': '15deg',
-        '-15': '-15deg', // Optional: for reverse rotation
-      }
-    }
-  },
-  variants: {
-    extend: {
-      rotate: ['hover'],
-    }
-  },
-  plugins: [],
 }
