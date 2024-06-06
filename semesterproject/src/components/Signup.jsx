@@ -8,7 +8,7 @@ import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
 import { login } from '../store/authSlice.js'
-
+import GitHubUser from './Header/Showgithub.jsx'
 
 function Signup() {
 
@@ -18,8 +18,10 @@ function Signup() {
   const [GitErrors, setGitErrors] = useState({})
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
-  // const dispatch = useDispatch();ds 
-  
+  // const dispatch = useDispatch();
+
+  const [loginStatus, setLoginStatus] = useState(false);
+  const [githubData, setGithubData] = useState(null);
 
   const handleChanges = (e) => {
 
@@ -32,7 +34,6 @@ function Signup() {
 
     }))
   }
-  
 
 
 
@@ -75,6 +76,7 @@ function Signup() {
 
     ////reseting github error
     setGitErrors({})
+    setGithubData(callGithub_res.GithubData);
 
     /////////////////////////Calling Register//////////////////
 
@@ -92,7 +94,7 @@ function Signup() {
 
       setFormErrors({})
       setInfo("Registeration Success!, Redirecting....")
-
+      setLoginStatus(true); // User is logged in
       // dispatch(login({ name: values.name, email: values.email, github: values.github }))
 
       setTimeout(() => {
@@ -160,7 +162,6 @@ function Signup() {
                 name={'github'}
                 value={values.github}
                 handleChanges={handleChanges}
-                
               />
               {(FormErrors.github || GitErrors.github) && <p className='error text-sm/[15px]'>{FormErrors.github || GitErrors.github}</p>}
 
@@ -210,16 +211,19 @@ function Signup() {
         <img src={signupImage} alt='Side Login panel' className='' />
 
 
-        {
-          Info &&
+        {Info && (
           <div className='absolute -bottom-10 border-2 text-green p-2 m-0 font-bold shadow-md'>
-            <p>{Info}
-            </p>
+            <p>{Info}</p>
           </div>
-        }
+        )}
 
 
       </div>
+      {loginStatus && githubData && (
+        <div className='absolute top-10 right-10'>
+          <GitHubUser username={githubData.login} />
+        </div>
+      )}
     </div >
 
   )

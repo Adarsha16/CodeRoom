@@ -11,9 +11,9 @@ function Setting() {
 
     return (
         <>
-            <div className="relative mr-5" >
+            <div className="relative mr-5 rotate-15" >
                 <Button
-                    custom_class={'px-2'}
+                    custom_class={'px-2 '}
                     handleClick={openMenu}
                     buttonLabel={
                         <svg xmlns="http://www.w3.org/2000/svg"

@@ -1,0 +1,65 @@
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .tilt {
+    transform: rotate(90deg);
+    transition: transform 0.2s ease;
+  }
+  /* Hover effect */
+.code-room {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.code-room:hover {
+  color: #1e90ff; /* Change to your desired color */
+  transform: scale(1.1); /* Slightly enlarge the text */
+}
+
+/* Active effect */
+.code-room:active {
+  animation: bounce 0.3s ease;
+}
+
+/* Bounce animation */
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+.tilt-back {
+  transform: rotate(0deg);
+  transition: transform 0.2s ease-in-out;
+}
+
+.relative .flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.relative .flex > * {
+  margin-bottom: 0.5rem; /* Adjust the gap between buttons */
+}
+.blur {
+  filter: blur(5px);
+}
+
+
+  
+
+  
