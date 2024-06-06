@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
 
+
 function Textbox(
   {
     type = "input",
@@ -25,6 +26,24 @@ function Textbox(
 
   const outputref = useRef(OutputText);
   const monacoref = useRef(null);
+
+  const SaveFileFn = () => {
+
+    let FileName = 'My_file.js';
+    let FileContent = InputText;
+
+    const blob = new Blob([FileContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = FileName;
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
 
 
@@ -123,10 +142,22 @@ function Textbox(
 
 
                 {/* Right part */}
-                <div className='flex gap-3 cursor-pointer' >
-                  <span>Save</span>
-                  <span className='text-primary' onClick={callCompilerApi}>Run</span>
-                  <span>...</span>
+                <div className='flex gap-4 items-center cursor-pointer' >
+                  <span
+                    className=' px-3 py-1 rounded-lg hover:scale-90 transition-all'
+                    onClick={SaveFileFn}
+                  >
+                    Save
+                  </span>
+
+
+                  <span
+                    className='text-primary py-1 px-4 rounded-lg hover:scale-90 transition-all'
+                    onClick={callCompilerApi}
+                  >
+                    Run
+                  </span>
+
                 </div>
 
               </>
