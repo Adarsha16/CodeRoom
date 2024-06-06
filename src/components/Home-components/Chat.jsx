@@ -26,10 +26,11 @@ function Chat() {
 
         e.preventDefault();
 
-        if (!roomData.roomid) {
-            socket.emit("notAssigned", "Please Join or Create Room first");
-            return;
-        }
+        // if (!roomData.roomid) {
+        //     socket.emit("notAssigned", "Please Join or Create Room first");
+        //     return;
+        // }
+
         console.log(message)
         // const username = l;
         // console.log("usrname", username)
@@ -91,24 +92,24 @@ function Chat() {
      */
     useEffect(() => {
 
-        socket.on("notAssigned", (msg) => {
+        // socket.on("notAssigned", (msg) => {
 
-            // console.log(msgRef?.current);
-            let nodes = document.getElementsByClassName("msg_li");
-            if (nodes[0]) {
-                msgRef?.current.removeChild(nodes[0])
-            }
-            appendMessage(msg);
+        //     // console.log(msgRef?.current);
+        //     let nodes = document.getElementsByClassName("msg_li");
+        //     if (nodes[0]) {
+        //         msgRef?.current.removeChild(nodes[0])
+        //     }
+        //     appendMessage(msg);
 
-            setTimeout(() => {
-                if (nodes[0]) {
-                    msgRef?.current.removeChild(nodes[0])
-                }
-            }, 3000)
+        //     setTimeout(() => {
+        //         if (nodes[0]) {
+        //             msgRef?.current.removeChild(nodes[0])
+        //         }
+        //     }, 3000)
 
-            return;
+        //     return;
 
-        });
+        // });
 
         console.log("Mounted chat");
 
