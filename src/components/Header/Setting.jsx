@@ -14,6 +14,7 @@ function Setting() {
     const openMenu = () => {
         setOpen(!isOpen);
         setIsTilted(true);
+        setPreferenceOpen(false);
         setTimeout(() => {
             setIsTilted(false);
         }, 200); // Reset the tilt effect after 200ms
@@ -47,11 +48,11 @@ function Setting() {
                 }
             />
             {isOpen &&
-                <div className={`absolute flex flex-col z-50 mt-2 p-3 gap-4 w-56 right-0 bg-secondary border border-gray-200 rounded shadow-lg transition duration-300 ease-in-out transform origin-top ${popupContent ? 'blur' : ''}`}>
-                    <Button buttonLabel={'Preference'} handleClick={togglePreference} />
+                <div className={`absolute flex flex-col z-50 mt-2 gap-2 w-52 right-0 bg-secondary border border-gray-200 rounded shadow-lg transition duration-300 ease-in-out transform origin-top ${popupContent ? 'blur' : ''}`}>
+                    <Button buttonLabel={'Preference'} handleClick={togglePreference} custom_class={'hover:bg-primary rounded-sm mt-2'}/>
 
                     {isPreferenceOpen && (
-                        <div className="absolute flex flex-col z-50 mt-2 p-3 gap-1 w-56 right-40 bg-secondary border border-gray-200 rounded shadow-lg transition duration-300 ease-in-out transform origin-top">
+                        <div className="absolute flex flex-col z-50 mt-4 h-10 p-1 gap-1 w-52 right-40 bg-secondary border border-gray-200  shadow-lg transition duration-300 ease-in-out transform origin-top hover:bg-primary rounded-sm">
                             <Button buttonLabel={'Modes'} handleClick={() => {
 
 
@@ -63,8 +64,8 @@ function Setting() {
                     )}
 
 
-                    <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} />
-                    <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} />
+                    <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} custom_class={'hover:bg-primary rounded-sm'}/>
+                    <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} custom_class={'hover:bg-primary rounded-sm'}/>
                 </div>}
 
             {popupContent && (
