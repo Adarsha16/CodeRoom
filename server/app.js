@@ -9,12 +9,14 @@ import { Server } from 'socket.io';
 
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 import { createTable } from "./models/table.js"
-import { authentication } from "./middlewares/authentication.js"
-import room_router from "./router/room.js"
+// import { authentication } from "./middlewares/authentication.js"
+
 
 //security package
 import helmet from "helmet"
 import cors from 'cors'
+
+
 
 
 
@@ -29,7 +31,6 @@ app.use(helmet());        //Secure express apps by setting response header
  */
 
 app.use("/api", router)
-app.use("/api/room", authentication, room_router)
 
 
 /**
@@ -84,13 +85,20 @@ const start = async (req, res) => {
 const expressServer = await start();
 
 
+/**
+ * Websocket request
+ */
+
 const io = new Server(expressServer, {
 
+    path: '/api/room',
     cors: {
         origin: process.env.NODE_ENV === "production" ? false : ["http://localhost:5173", "http://127.0.0.1:5173"]
     }
+
 });
 
 
 import { socket_app } from './socket_app.js';
 socket_app(io);
+
