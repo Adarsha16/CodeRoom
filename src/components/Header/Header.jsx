@@ -10,7 +10,7 @@ import { setRoomClick } from '../../store/roomSlice.js';
 
 import { useSelector, useDispatch } from 'react-redux';
 // import { authReducer } from "../../store/authSlice.js"
-import GitHubUser from "./Showgithub.jsx"
+import GitHubUser from "./Github.jsx"
 import '../../App.css';
 
 
