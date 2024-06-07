@@ -3,6 +3,8 @@ import './App.css'
 import { Outlet } from 'react-router-dom'
 import Header from "./components/Header/Header"
 import { useDispatch } from 'react-redux'
+import callGetUser from './custom_fn/callGetUser.js'
+import { login } from "./store/authSlice.js"
 
 
 function App() {

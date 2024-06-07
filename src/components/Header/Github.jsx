@@ -30,7 +30,7 @@ function GitHubUser({ username }) {
     return (
         <div className="flex items-center">
             <img className="w-10 h-10 rounded-full mb-4" src={user.avatar_url} alt={`${user.login} profile`} />
-            <h1 className="text-1xl font-bold ml-2">{user.login}</h1>
+            <h1 className="text-1xl font-bold ml-2">&nbsp;{user.login}</h1>
         </div>
     );
 }
