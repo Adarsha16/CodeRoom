@@ -72,7 +72,7 @@ const Popup = () => {
 
                     <Button
                         buttonLabel={'Create Room'}
-                        custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover  rounded-sm'
+                        custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover rounded-sm'
                         type={"submit"}
                         handleClick={handleClick}
 
