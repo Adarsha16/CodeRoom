@@ -28,9 +28,12 @@ function GitHubUser({ username }) {
     }
 
     return (
-        <div className="flex items-center">
-            <img className="w-10 h-10 rounded-full mb-4" src={user.avatar_url} alt={`${user.login} profile`} />
-            <h1 className="text-1xl font-bold ml-2">&nbsp;{user.login}</h1>
+        <div className="flex items-center border border-brown shadow-md justify-center rounded-md p-3 cursor-pointer">
+            <a href={`https://github.com/${user.login}`} target="_blank">
+                <img className="w-10 h-10 rounded-full hover:scale-95" src={user.avatar_url} alt={`${user.login} profile`} />
+            </a>
+
+            <h1 className="text-1xl font-bold ml-2 ">&nbsp;{user.login}</h1>
         </div>
     );
 }

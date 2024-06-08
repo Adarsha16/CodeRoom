@@ -43,11 +43,11 @@ function Header() {
                 {/* Logo */}
                 {/* Logo */}
                 <div
-                    className='font-black cursor-pointer code-room'
+                    className='font-black cursor-pointer code-room flex items-center'
                     onClick={() => {
                         navigate("/");
                     }}>
-                    Code Room
+                    CODE ROOM
                 </div>
 
                 {/* Dynamic Login / Show Github */}
