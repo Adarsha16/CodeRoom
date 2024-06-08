@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
             return res.status(400).json({ "Error": "Bad or No Token Provided" })
         }
         const payload = JWT.verify(token, process.env.JWT_SECRET);
-        // console.log("getuser payload", payload)
+        console.log("getuser payload", payload)
 
         if (!payload) {
             return res.status(404).json({ "Error": "Payload Data not found while verifying the token" })

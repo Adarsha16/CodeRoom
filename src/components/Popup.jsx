@@ -42,9 +42,9 @@ const Popup = () => {
     return (
         !open ? "" : (
 
-            < div className='flex justify-center items-center' >
+            < div className='flex justify-center items-center ' >
 
-                <div className='p-10 bg-slate-700 text-white gap-1 w-max h-max rounded-md absolute right-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center flex-col drop-shadow-2xl '>
+                <div className='p-10 bg-slate-700 text-white gap-1 w-max h-max rounded-md absolute right-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center flex-col drop-shadow-2xl bg-opacity-50 backdrop-blur-sm '>
 
                     <span className='text-3xl rotate-45 font-mono fixed right-3 top-3 cursor-pointer border-0 p-2 rounded-full hover:bg-tertiary hover:text-2xl' onClick={() => { setOpen(false) }}>+</span>
 

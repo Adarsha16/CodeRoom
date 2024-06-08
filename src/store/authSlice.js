@@ -37,7 +37,7 @@ const authSlice = createSlice({
             state.token = token;
             state.userData = data;
 
-            console.log("Logged in state : ", state.userData, state.token, state.loginStatus)
+            console.log("Logged in state : ", state.userData, state.token)
 
         },
 

@@ -7,11 +7,11 @@ import Login from './pages/Login.jsx'
 // import Room from './pages/Room.jsx'
 import SignUp from './pages/SignUp.jsx'
 import ErrorPage from "./error-page.jsx"
-import AuthLayout from './components/AuthLayout.jsx'
 
 
 import { Provider } from 'react-redux'
 import store from "./store/store.js"
+import Mode_h from './pages/Mode_horizontal.jsx'
 
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
@@ -30,26 +30,22 @@ const myrouter = createBrowserRouter([
 
       {
         path: "/login",
-        element: (
-          <AuthLayout authentication={false}>
-            <Login />
-          </AuthLayout>
-        )
+        element: <Login />
       },
 
       {
         path: "/signup",
-        element: (
-          <AuthLayout authentication={false}>
-            <SignUp />
-          </AuthLayout>
-        )
+        element: <SignUp />
       },
 
       // {
       //   path: "/room/:slug",
       //   element: <Room />
       // }
+      {
+        path:"/Mode_horizontal",
+        element:<Mode_h />
+      }
 
 
     ]
@@ -61,14 +57,10 @@ const myrouter = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 
-  // <React.StrictMode>
-
   <Provider store={store}>
     <RouterProvider router={myrouter} />
 
   </Provider>
-  // </React.StrictMode>
-
 
 
   ,

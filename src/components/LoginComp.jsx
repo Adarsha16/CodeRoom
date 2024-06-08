@@ -4,7 +4,7 @@ import Login_right from './Assets/Login_right.jpg'
 import Button from './Button.jsx'
 import validateForm from '../custom_fn/Validation.js'
 import callLogin from '../custom_fn/callLogin.js'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { login as authlogin } from '../store/authSlice.js'
 
@@ -13,9 +13,8 @@ function LoginComp() {
   const [values, setvalues] = useState({ email: "", password: "" });
   const [FormErrors, setFormErrors] = useState({})
   const [Info, setInfo] = useState("")
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-
 
   const handleChanges = (e) => {
 
@@ -67,10 +66,9 @@ function LoginComp() {
         return;
       }
 
-      dispatch(authlogin({ token, data }))
-
       setInfo("Successfully Logged In!. Redirecting...")
 
+      dispatch(authlogin({ token, data }))
 
       // Setting token to the local storage for future use
       let prevToken = localStorage.getItem("token");
@@ -80,6 +78,12 @@ function LoginComp() {
 
       localStorage.setItem("token", token);
       ////////////////
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1700)
+
+
 
 
     } catch (error) {
@@ -146,9 +150,9 @@ function LoginComp() {
 
             <p className='mt-10 text-white'>
               Don't have an account?
-              <Link className='ml-4 text-blue-500 underline font-semibold' to='/signup'>
-                Register Here!
-              </Link>
+              <a className='ml-4 text-blue-500 underline font-semibold' href='/signup'>
+                Register here!
+              </a>
             </p>
           </div>
         </form>

@@ -5,13 +5,14 @@ import Popup from '../components/Popup'
 import { useSelector, useDispatch } from 'react-redux'
 import { login } from '../store/authSlice.js'
 import callGetUser from "../custom_fn/callGetUser.js"
+import { useNavigate } from 'react-router-dom'
 
-
-function Home() {
+function Mode_h() {
 
     const roomClick = useSelector(state => state.room.roomClick)
     console.log("home", roomClick)
     const dispatch = useDispatch();
+    
 
 
 
@@ -66,7 +67,7 @@ function Home() {
                     }
                 }
 
-                textarea_id={"inputarea"}
+                textarea_id={"inputarea "}
                 textarea_name={"inputarea"}
                 disabled={false}
                 placeholder={"//Some comment"}
@@ -90,7 +91,7 @@ function Home() {
                     }
                 }
 
-                textarea_id={"outputarea"}
+                textarea_id={"outputarea "}
                 textarea_name={"outputarea"}
                 disabled={true}
                 placeholder={"Output"}
@@ -109,5 +110,5 @@ function Home() {
     )
 }
 
-export default Home
+export default Mode_h
 

@@ -5,10 +5,10 @@ import Button from './Button.jsx'
 import validateForm from '../custom_fn/Validation.js'
 import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 // import { useDispatch } from 'react-redux'
 import { login } from '../store/authSlice.js'
-
+import GitHubUser from './Header/Github.jsx'
 
 function Signup() {
 
@@ -19,6 +19,9 @@ function Signup() {
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
   // const dispatch = useDispatch();
+
+  const [loginStatus, setLoginStatus] = useState(false);
+  const [githubData, setGithubData] = useState(null);
 
   const handleChanges = (e) => {
 
@@ -73,6 +76,7 @@ function Signup() {
 
     ////reseting github error
     setGitErrors({})
+    setGithubData(callGithub_res.GithubData);
 
     /////////////////////////Calling Register//////////////////
 
@@ -90,7 +94,7 @@ function Signup() {
 
       setFormErrors({})
       setInfo("Registeration Success!, Redirecting....")
-
+      setLoginStatus(true); // User is logged in
       // dispatch(login({ name: values.name, email: values.email, github: values.github }))
 
       setTimeout(() => {
@@ -189,12 +193,9 @@ function Signup() {
 
           <p className='mt-10 text-white'>
             Already have an account?
-            {/* <a className='ml-4 text-blue-500 underline font-semibold' href='/login'>
+            <a className='ml-4 text-blue-500 underline font-semibold' href='/login'>
               Login here!
-            </a> */}
-            <Link className='ml-4 text-blue-500 underline font-semibold' to='/login'>
-              Login Here!
-            </Link>
+            </a>
           </p>
 
 
@@ -210,16 +211,19 @@ function Signup() {
         <img src={signupImage} alt='Side Login panel' className='' />
 
 
-        {
-          Info &&
+        {Info && (
           <div className='absolute -bottom-10 border-2 text-green p-2 m-0 font-bold shadow-md'>
-            <p>{Info}
-            </p>
+            <p>{Info}</p>
           </div>
-        }
+        )}
 
 
       </div>
+      {loginStatus && githubData && (
+        <div className='absolute top-10 right-10'>
+          <GitHubUser username={githubData.login} />
+        </div>
+      )}
     </div >
 
   )

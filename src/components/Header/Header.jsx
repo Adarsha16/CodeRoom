@@ -10,16 +10,21 @@ import { setRoomClick } from '../../store/roomSlice.js';
 
 import { useSelector, useDispatch } from 'react-redux';
 // import { authReducer } from "../../store/authSlice.js"
+import GitHubUser from "./Github.jsx"
+import '../../App.css';
+
 
 function Header() {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loginStatus = useSelector(state => state.auth.loginStatus);
-    console.log("header", loginStatus)
     const roomClick = useSelector((state) => state.room.roomClick);
+    const userData = useSelector(state => state.auth.userData)
 
     const handleClick = (e) => {
+
+
 
         e.preventDefault();
         console.log(e)
@@ -36,26 +41,25 @@ function Header() {
             {/* Left */}
             <div className='flex flex-row gap-10 mx-5'>
                 {/* Logo */}
+                {/* Logo */}
                 <div
-                    className='font-black cursor-pointer'
+                    className='font-black cursor-pointer code-room'
                     onClick={() => {
-                        navigate("/")
+                        navigate("/");
                     }}>
                     Code Room
-
                 </div>
 
-
                 {/* Dynamic Login / Show Github */}
-                {loginStatus ? "" :
+                {!loginStatus ? (
                     <Button
                         custom_class='w-40 py-2.5 rounded-md bg-primary text-white'
                         buttonLabel={"Login"}
-                        handleClick={() => { navigate('/login') }}
-                    />}
-
-
-
+                        handleClick={() => { navigate('/login'); }}
+                    />
+                ) : (
+                    <GitHubUser username={userData.github} />
+                )}
             </div>
 
 

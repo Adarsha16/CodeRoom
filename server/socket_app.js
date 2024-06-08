@@ -1,5 +1,6 @@
 
 import { Server } from "socket.io";
+import jwt from 'jsonwebtoken'
 
 
 //State
@@ -20,9 +21,21 @@ export const socket_app = async (io) => {
 
     io.on("connection", (socket) => {
 
-        console.log(`User connected : `, socket.id);
-        // socket.emit('message', BuildMsg(ADMIN, ' Welcome to the club'));
 
+
+
+        /**
+         * Authorize the user.
+        */
+
+
+
+        dcryptAndAuthorize(socket, io);
+
+        console.log(`User connected : `, socket.id);
+
+
+        // socket.emit('message', BuildMsg(ADMIN, ' Welcome to the club'));
 
         /**
          * On Entering the Room
@@ -32,6 +45,7 @@ export const socket_app = async (io) => {
 
             ///Check if prev room is present;
             const prevRoom = getUser(socket.id)?.room;
+            console.log("prevRoom", prevRoom)
             if (prevRoom) {
 
                 socket.leave(prevRoom);
@@ -40,6 +54,7 @@ export const socket_app = async (io) => {
 
             // Activate User
             const user = ActivateUser(socket.id, username, roomid);
+            console.log("Activated user", user)
 
             //Update userlist on Previous room
             if (prevRoom) {
@@ -108,27 +123,27 @@ export const socket_app = async (io) => {
          */
         socket.on("message", ({ username = 'user', text }) => {
 
-            console.log(username, text)
+            console.log("message", username, text)
 
             console.log(socket.id)
-            const room = getUser(socket.id)?.room;
-            console.log(room)
+            const room = (getUser(socket.id))?.room;
+
 
             io.to(room).emit("message", BuildMsg(username, text))
 
         })
 
 
-        // /**
-        //  * When room not assigned
-        //  * 
-        //  */
+        /**
+         * When room not assigned
+         * 
+         */
 
-        // socket.on("notAssigned", (msg) => {
+        socket.on("notAssigned", (msg) => {
 
-        //     socket.emit("notAssigned", msg)
+            socket.emit("notAssigned", msg)
 
-        // })
+        })
 
 
 
@@ -151,10 +166,10 @@ function BuildMsg(username, text) {
 
 function getUser(id) {
 
-    return UserState.users.find(user => {
-        console.log(user)
-        return user.id === id
-    })
+    return UserState.users.find(user =>
+        // console.log("getuserid", user)
+        user.id === id
+    )
 
 }
 
@@ -188,5 +203,37 @@ function userLeavesApp(id) {
         UserState.users.filter(user => user.id !== id)
     );
 
+}
+
+
+async function dcryptAndAuthorize(socket, io) {
+
+
+    try {
+
+        const { token } = socket?.handshake?.auth;
+
+        // console.log("token", token)
+        if (!token) {
+            io.emit("forcedisconnect", 'Authentication error: No token provided')
+            // throw new Error('Authentication error: No token provided');
+        }
+        const payload = jwt.verify(token, process.env.JWT_SECRET);
+
+        if (!payload) {
+            io.emit("forcedisconnect", 'Authentication error: Bad token provided')
+            // throw new Error('Authentication error: Bad token provided');
+        }
+
+        socket.data.user = payload;
+        console.log("pass");
+
+    } catch (error) {
+
+        io.emit("forcedisconnect", error)
+        console.log(error)
+        throw new Error(error)
+
+    }
 }
 
