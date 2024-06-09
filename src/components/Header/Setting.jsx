@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Button from "../Button.jsx";
 import '../../App.css';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Setting() {
+    const loginStatus = useSelector(state => state.auth.loginStatus)
     const [isOpen, setOpen] = useState(false);
     const [isTilted, setIsTilted] = useState(false);
     const [isPreferenceOpen, setPreferenceOpen] = useState(false);
@@ -33,6 +35,13 @@ function Setting() {
         setPopupContent(null);
     };
 
+
+    const Handlelogout = () => {
+
+        localStorage.removeItem('token');
+        window.location.reload();
+    }
+
     return (
         <div className="relative mr-5">
             <Button
@@ -49,7 +58,7 @@ function Setting() {
             />
             {isOpen &&
                 <div className={`absolute flex flex-col z-50 mt-2 gap-2 w-52 right-0 bg-secondary border border-gray-200 rounded shadow-lg transition duration-300 ease-in-out transform origin-top ${popupContent ? 'blur' : ''}`}>
-                    <Button buttonLabel={'Preference'} handleClick={togglePreference} custom_class={'hover:bg-primary rounded-sm mt-2'}/>
+                    <Button buttonLabel={'Preference'} handleClick={togglePreference} custom_class={'hover:bg-primary rounded-sm mt-2'} />
 
                     {isPreferenceOpen && (
                         <div className="absolute flex flex-col z-50 mt-4 h-10 p-1 gap-1 w-52 right-40 bg-secondary border border-gray-200  shadow-lg transition duration-300 ease-in-out transform origin-top hover:bg-primary rounded-sm">
@@ -64,8 +73,27 @@ function Setting() {
                     )}
 
 
-                    <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} custom_class={'hover:bg-primary rounded-sm'}/>
-                    <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} custom_class={'hover:bg-primary rounded-sm'}/>
+                    <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} />
+                    <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} />
+
+
+                    {/**
+                     * When user logout
+                     */}
+                    {
+                        loginStatus
+                            ?
+                            <Button
+                                buttonLabel={'Logout'}
+                                custom_class={'border-t-[2px] pt-3 border-brown'}
+                                handleClick={Handlelogout}
+                            />
+                            :
+                            ""
+                    }
+
+
+
                 </div>}
 
             {popupContent && (

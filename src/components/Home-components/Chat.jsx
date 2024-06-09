@@ -209,6 +209,7 @@ function Chat() {
                         id='message'
                         value={message}
 
+
                         onChange={(e) => {
                             e.preventDefault();
                             setMessage(e.target.value);
