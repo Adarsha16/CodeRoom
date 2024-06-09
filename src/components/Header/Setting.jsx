@@ -32,12 +32,14 @@ function Setting() {
     };
 
     const closePopup = () => {
+
         setPopupContent(null);
     };
 
 
-    const Handlelogout = () => {
+    const Handlelogout = (e) => {
 
+        e.preventDefault();
         localStorage.removeItem('token');
         window.location.reload();
     }

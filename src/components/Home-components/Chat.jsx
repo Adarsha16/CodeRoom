@@ -3,17 +3,20 @@ import Button from "../Button.jsx";
 import { io } from "socket.io-client"
 import '../../App.css';
 import { useDispatch, useSelector } from "react-redux";
-
+import { leaveRoom } from "../../store/roomSlice.js";
 
 
 let socket;
 function Chat() {
 
+    const dispatch = useDispatch();
     const roomStatus = useSelector(state => state.room.roomStatus);
     const roomData = useSelector(state => state.room.roomData);
 
     const userData = useSelector(state => state.auth.userData);
     const token = useSelector(state => state.auth.token);
+
+    const [closing, setclosing] = useState(false);
 
     const msgRef = useRef("");
     const [message, setMessage] = useState("");
@@ -81,11 +84,28 @@ function Chat() {
 
     const handleClick = (e) => {
         e.preventDefault();
-        console.log("Clicked")
+        setclosing(true);
 
 
     }
 
+    const HandleLeaveRoomClick = (e) => {
+        e.preventDefault();
+
+        // If user click not to leave
+        if (e.target.id == "No") {
+
+
+            setclosing(false);
+            return;
+        }
+
+        // If user click yes to leave
+        setclosing(false);
+        dispatch(leaveRoom);
+        window.location.reload();
+
+    }
 
 
 
@@ -161,7 +181,7 @@ function Chat() {
             <div className="relative p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
 
                 <Button
-                    custom_class={'absolute end-0 top-2 text-slate-400'}
+                    custom_class={'absolute end-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
                     buttonLabel={
                         <svg xmlns="http://www.w3.org/2000/svg"
                             width="24px"
@@ -222,6 +242,31 @@ function Chat() {
                 </form>
             </div>
 
+
+
+            {/*
+            *
+            * Pop window to ask user if they/them wants to leave the room
+            */}
+
+            {closing
+                ?
+                <>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 "></div>
+
+                    <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
+
+                        <div className="bg-white p-6 rounded shadow-lg w-96">
+                            <h2 className="text-2xl mb-4">Are you sure?</h2>
+                            <p>Click yes to leave your current room</p>
+                            <button className="mt-4 px-4 py-2 bg-primary text-white rounded mr-5" onClick={HandleLeaveRoomClick} id={"Yes"}>Yes</button>
+                            <button className="mt-4 px-4 py-2 bg-primary text-white rounded" onClick={HandleLeaveRoomClick} id={"No"}>No</button>
+                        </div>
+
+                    </div>
+                </>
+                :
+                ""}
 
         </div>
     )
