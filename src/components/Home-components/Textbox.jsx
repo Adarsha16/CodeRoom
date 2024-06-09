@@ -133,9 +133,7 @@ function Textbox(
 
                   </div>
 
-                  <div className='mt-1.5 py-1'>
-                    main.js
-                  </div>
+                  
 
 
                 </div>
