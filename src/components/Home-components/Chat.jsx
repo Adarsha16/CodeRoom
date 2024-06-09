@@ -15,8 +15,10 @@ function Chat() {
 
     const userData = useSelector(state => state.auth.userData);
     const token = useSelector(state => state.auth.token);
+    const InputField = useSelector(state => state.room.InputField);
 
     const [closing, setclosing] = useState(false);
+
 
     const msgRef = useRef("");
     const [message, setMessage] = useState("");
@@ -180,20 +182,28 @@ function Chat() {
             {/* Info about the Room */}
             <div className="relative p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
 
-                <Button
-                    custom_class={'absolute end-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
-                    buttonLabel={
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            width="24px"
-                            height="16px"
-                            viewBox="0 0 16 16">
-                            <path fill="currentColor" d="M7.293 8L3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708z" />
-                        </svg>
+                {/**CLosing room option, available only when room is on */}
 
-                    }
+                {
+                    !roomStatus
+                        ?
+                        ""
+                        :
+                        <Button
+                            custom_class={'absolute end-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
+                            buttonLabel={
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24px"
+                                    height="16px"
+                                    viewBox="0 0 16 16">
+                                    <path fill="currentColor" d="M7.293 8L3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708z" />
+                                </svg>
 
-                    handleClick={handleClick}
-                />
+                            }
+
+                            handleClick={handleClick}
+                        />
+                }
 
                 <p className="text-3xl font-semibold">Room:
                     <span className="font-semibold text-white text-base">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>

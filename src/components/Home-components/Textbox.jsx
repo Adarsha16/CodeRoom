@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRoomInputField } from '../../store/roomSlice';
 
 
 function Textbox(
@@ -22,6 +24,12 @@ function Textbox(
 
   const [InputText, putInputText] = useState('');
   const [OutputText, putOutputText] = useState('');
+
+  /////////For Room only
+  const dispatch = useDispatch();
+  const roomStatus = useSelector(state => state.roomStatus);
+  roomStatus && dispatch(setRoomInputField(InputText)); //If roomStatus then it will push content to the room slice
+  ///////Room Input Filed/////////
 
 
   const outputref = useRef(OutputText);
