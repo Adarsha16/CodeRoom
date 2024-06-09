@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import Button from "../Button.jsx";
 import '../../App.css';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Setting() {
+    const loginStatus = useSelector(state => state.auth.loginStatus)
     const [isOpen, setOpen] = useState(false);
     const [isTilted, setIsTilted] = useState(false);
     const [isPreferenceOpen, setPreferenceOpen] = useState(false);
@@ -78,11 +80,18 @@ function Setting() {
                     {/**
                      * When user logout
                      */}
-                    <Button
-                        buttonLabel={'Logout'}
-                        custom_class={'border-t-[2px] pt-3 border-brown'}
-                        handleClick={Handlelogout}
-                    />
+                    {
+                        loginStatus
+                            ?
+                            <Button
+                                buttonLabel={'Logout'}
+                                custom_class={'border-t-[2px] pt-3 border-brown'}
+                                handleClick={Handlelogout}
+                            />
+                            :
+                            ""
+                    }
+
 
 
                 </div>}
