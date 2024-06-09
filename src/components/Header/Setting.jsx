@@ -85,7 +85,7 @@ function Setting() {
                             ?
                             <Button
                                 buttonLabel={'Logout'}
-                                custom_class={'border-t-[2px] pt-3 border-brown'}
+                                custom_class={'border-t-[2px] py-2 border-brown'}
                                 handleClick={Handlelogout}
                             />
                             :

@@ -175,8 +175,10 @@ function Chat() {
                     handleClick={handleClick}
                 />
 
-                <p className="text-3xl font-semibold">Room</p>
-                <p className="text-white">Coding Practice <span className="font-bold">#4111fop</span></p>
+                <p className="text-3xl font-semibold">Room:
+                    <span className="font-semibold text-white text-base">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>
+                </p>
+
                 <p>Profile pics here</p>
 
             </div>
