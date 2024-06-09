@@ -32,6 +32,13 @@ function Setting() {
         setPopupContent(null);
     };
 
+
+    const Handlelogout = () => {
+
+        localStorage.removeItem('token');
+        window.location.reload();
+    }
+
     return (
         <div className="relative mr-5">
             <Button
@@ -65,6 +72,18 @@ function Setting() {
 
                     <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} />
                     <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} />
+
+
+                    {/**
+                     * When user logout
+                     */}
+                    <Button
+                        buttonLabel={'Logout'}
+                        custom_class={'border-t-[2px] pt-3 border-brown'}
+                        handleClick={Handlelogout}
+                    />
+
+
                 </div>}
 
             {popupContent && (
