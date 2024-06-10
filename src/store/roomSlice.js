@@ -16,23 +16,24 @@ const roomSlice = createSlice({
 
     reducers: {
 
-        enterRoom: (state, action) => {
+        // enterRoom: (state, action) => {
 
-            const { roomData, inputField } = action.payload
-            state.roomStatus = true;
-            state.roomData = roomData
-        },
+        //     const { roomData, inputField } = action.payload
+        //     state.roomStatus = true;
+        //     state.roomData = roomData
+        // },
 
-        setInputField: (state, action) => {
+        // setInputField: (state, action) => {
 
-            const { inputField } = action.payload;
-            state.inputField = inputField;
-        },
+        //     const { inputField } = action.payload;
+        //     state.inputField = inputField;
+        // },
 
         leaveRoom: (state, action) => {
 
             state.roomStatus = false;
-            state.inputField = null;
+            // state.inputField = null;
+            state.roomData = {};
 
         },
 
@@ -66,9 +67,18 @@ const roomSlice = createSlice({
 
         }
 
+
+
     }
 
 });
 
 export default roomSlice.reducer;
-export const { enterRoom, leaveRoom, setInputField, setRoomClick, setRoomStatus, setRoomData } = roomSlice.actions;
+export const {
+    // enterRoom, 
+    leaveRoom,
+    // setInputField,
+    setRoomClick,
+    setRoomStatus,
+    setRoomData
+} = roomSlice.actions;
