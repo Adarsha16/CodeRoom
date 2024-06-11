@@ -21,7 +21,6 @@ function Home() {
         const ifLoggedInToken = localStorage.getItem("token");
 
         if (ifLoggedInToken) {
-            // dispatch(login(ifLoggedInToken));
 
             async function GetUser() {
 
@@ -69,7 +68,7 @@ function Home() {
                 textarea_id={"inputarea"}
                 textarea_name={"inputarea"}
                 disabled={false}
-                placeholder={"//Some comment"}
+                // placeholder={"//Some comment"}
                 default_lng={'python'}
                 custom_theme={'vs-dark'}
                 _grid={'col-start-2 col-end-4'}
@@ -93,7 +92,7 @@ function Home() {
                 textarea_id={"outputarea"}
                 textarea_name={"outputarea"}
                 disabled={true}
-                placeholder={"Output"}
+                // placeholder={"Output"}
                 default_lng={'python'}
                 custom_theme={'vs-dark'}
                 _grid={'col-start-4 col-end-6'}

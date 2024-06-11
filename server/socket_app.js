@@ -1,5 +1,5 @@
 
-import { Server } from "socket.io";
+// import { Server } from "socket.io";
 import jwt from 'jsonwebtoken'
 
 
@@ -131,6 +131,26 @@ export const socket_app = async (io) => {
 
             io.to(room).emit("message", BuildMsg(username, text))
 
+        });
+
+
+        socket.on('InputField', ({ InputText }) => {
+
+            console.log("data:", { InputText });
+
+            const room = (getUser(socket.id))?.room;
+            // console.log("if", room)
+            socket.broadcast.to(room).emit("InputField", { InputText });
+        })
+
+        socket.on('OutputField', ({ OutputText }) => {
+
+            console.log("data on output", OutputText);
+
+            const room = (getUser(socket.id))?.room;
+    
+            // io.to(room).emit('OutputField', { OutputText })
+            socket.broadcast.to(room).emit('OutputField', { OutputText })
         })
 
 
@@ -139,11 +159,11 @@ export const socket_app = async (io) => {
          * 
          */
 
-        socket.on("notAssigned", (msg) => {
+        // socket.on("notAssigned", (msg) => {
 
-            socket.emit("notAssigned", msg)
+        //     socket.emit("notAssigned", msg)
 
-        })
+        // })
 
 
 
@@ -152,6 +172,23 @@ export const socket_app = async (io) => {
 
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function BuildMsg(username, text) {

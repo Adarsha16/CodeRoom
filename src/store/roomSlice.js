@@ -5,7 +5,6 @@ const initialState = {
     roomClick: false,
     roomStatus: false,
     roomData: {},
-    inputField: null
 }
 
 
@@ -18,22 +17,16 @@ const roomSlice = createSlice({
 
         // enterRoom: (state, action) => {
 
-        //     const { roomData, inputField } = action.payload
+        //     const { roomData } = action.payload
         //     state.roomStatus = true;
         //     state.roomData = roomData
         // },
 
-        setRoomInputField: (state, action) => {
 
-            const { inputField } = action.payload;
-            console.log(inputField)
-            state.inputField = inputField;
-        },
 
         leaveRoom: (state, action) => {
 
             state.roomStatus = false;
-            // state.inputField = null;
             state.roomData = {};
 
         },
@@ -78,7 +71,6 @@ export default roomSlice.reducer;
 export const {
     // enterRoom, 
     leaveRoom,
-    setRoomInputField,
     setRoomClick,
     setRoomStatus,
     setRoomData
