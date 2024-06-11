@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
+import { useDispatch, useSelector } from 'react-redux';
+import { socket } from './Chat.jsx';
 
 
 function Textbox(
@@ -10,7 +12,6 @@ function Textbox(
     textarea_id,
     textarea_name,
     disabled,
-    placeholder,
     default_lng,
     custom_theme,
     _grid = ""
@@ -20,8 +21,94 @@ function Textbox(
 ) {
 
 
-  const [InputText, putInputText] = useState('');
+  const [InputText, putInputText] = useState('//Comment here');
   const [OutputText, putOutputText] = useState('');
+
+  /////////For Room only
+  const dispatch = useDispatch();
+  const roomStatus = useSelector(state => state.room.roomStatus);
+
+
+
+
+  useEffect(() => {
+
+
+    console.log("opening on inputfield")
+
+    if (!roomStatus) {
+      return;
+    };
+
+    socket.emit("InputField", { InputText });
+
+    ////////////
+
+    const handleSocketInputFieldForInputText = ({ InputText }) => {
+
+      console.log("server to client", { InputText })
+      putInputText(InputText);
+    }
+
+    socket.on("InputField", handleSocketInputFieldForInputText);
+
+    return () => {
+      socket.off("InputField", handleSocketInputFieldForInputText);
+    };
+
+  }, [InputText, roomStatus])
+
+
+
+
+  useEffect(() => {
+
+    if (!roomStatus) {
+      return;
+    };
+
+    // if (OutputText) {
+    socket.emit("OutputField", { OutputText });
+    // }
+
+    ////////////////////
+    const handleSocketOutputFieldForOutputText = ({ OutputText }) => {
+
+      console.log("server to client output", { OutputText })
+      putOutputText(OutputText);
+    }
+    // if (OutputText && roomStatus) {
+    socket.on("OutputField", handleSocketOutputFieldForOutputText)
+    // }
+
+
+    return () => {
+      socket.off("OutputField", handleSocketOutputFieldForOutputText);
+    };
+
+  }, [OutputText, roomStatus])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const outputref = useRef(OutputText);
@@ -97,7 +184,7 @@ function Textbox(
         monacoref?.current?.editor.getModels()[1].setValue(OutputText || "illegal argument")
       }
 
-      return;
+
 
     } catch (error) {
 
@@ -184,7 +271,7 @@ function Textbox(
 
           loading={"Loading...."}
           defaultLanguage={default_lng}
-          defaultValue={placeholder}
+          // defaultValue={placeholder}
 
           options={{
             minimap: { enabled: true },
@@ -195,7 +282,6 @@ function Textbox(
             },
             cursorBlinking: "expand",
             autoIndent: "full",
-
             tabFocusMode: true,
             formatOnPaste: true,
             smoothScrolling: true,
@@ -205,7 +291,10 @@ function Textbox(
 
           theme={custom_theme}
 
-          onChange={putInputText}
+          value={textarea_id === "inputarea" ? InputText : OutputText}
+          // value={(e) => e.target.value}
+
+          onChange={textarea_id === "inputarea" ? putInputText : putOutputText}
           onMount={handleMonacoInstance}
         >
 

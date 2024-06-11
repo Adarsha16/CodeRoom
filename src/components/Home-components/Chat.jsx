@@ -9,6 +9,8 @@ import { leaveRoom } from "../../store/roomSlice.js";
 let socket;
 function Chat() {
 
+    const [loading, setLoading] = useState(true);
+
     const dispatch = useDispatch();
     const roomStatus = useSelector(state => state.room.roomStatus);
     const roomData = useSelector(state => state.room.roomData);
@@ -16,7 +18,8 @@ function Chat() {
     const userData = useSelector(state => state.auth.userData);
     const token = useSelector(state => state.auth.token);
 
-    const [closing, setclosing] = useState(false);
+
+    const [closing, setclosing] = useState(false); // for chat button closing
 
     const msgRef = useRef("");
     const [message, setMessage] = useState("");
@@ -32,12 +35,20 @@ function Chat() {
             path: "/api/room",
             auth: {
                 token: `${token}`
-            }
-        })
+            },
+            transports: ["websocket"],
+            reconnectionDelayMax: 10000,
+            'force new connection': true,
+            reconnectionAttempts: 'infinity',
+            autoConnect: true
+        });
+
+        setLoading(false);
 
     }, [token])
 
 
+  
     /**
      * It send message to server 
      * @param {event} e 
@@ -46,13 +57,13 @@ function Chat() {
 
         e.preventDefault();
 
-        if (!roomData.roomid) {
-            socket.emit("notAssigned", "Please Join or Create Room first");
-            return;
-        }
+        // if (!roomData.roomid) {
+        //     socket.emit("notAssigned", "Please Join or Create Room first");
+        //     return;
+        // }
+
         console.log(message)
-        // const username = l;
-        // console.log("usrname", username)
+
 
         const data = {
             username: userData.username,
@@ -73,7 +84,7 @@ function Chat() {
         const node = document.createElement('li');
         node.classList.add("msg_li");
         node.textContent = msg;
-        msgRef?.current.appendChild(node)
+        msgRef?.current?.appendChild(node)
 
     };
 
@@ -85,8 +96,6 @@ function Chat() {
     const handleClick = (e) => {
         e.preventDefault();
         setclosing(true);
-
-
     }
 
     const HandleLeaveRoomClick = (e) => {
@@ -100,10 +109,13 @@ function Chat() {
             return;
         }
 
+        console.log(roomData)
+
         // If user click yes to leave
         setclosing(false);
         dispatch(leaveRoom);
-        window.location.reload();
+        socket.leave(roomData.roomid)
+        // window.location.reload();
 
     }
 
@@ -148,7 +160,7 @@ function Chat() {
             socket.disconnect()
             return;
         }
-        )
+        );
 
 
         socket.on("message", (data) => {
@@ -174,26 +186,34 @@ function Chat() {
 
 
 
-    return (
-        <div className="absolute  bottom-10 flex flex-col m-0 w-full box-content ">
+    return loading ? "chat..." : (
+        <div className="absolute bottom-10 flex flex-col m-0 w-full box-content ">
 
             {/* Info about the Room */}
             <div className="relative p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
 
-                <Button
-                    custom_class={'absolute end-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
-                    buttonLabel={
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            width="24px"
-                            height="16px"
-                            viewBox="0 0 16 16">
-                            <path fill="currentColor" d="M7.293 8L3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708z" />
-                        </svg>
+                {/**CLosing room option, available only when room is on */}
 
-                    }
+                {
+                    !roomStatus
+                        ?
+                        ""
+                        :
+                        <Button
+                            custom_class={'absolute end-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
+                            buttonLabel={
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24px"
+                                    height="16px"
+                                    viewBox="0 0 16 16">
+                                    <path fill="currentColor" d="M7.293 8L3.146 3.854a.5.5 0 1 1 .708-.708L8 7.293l4.146-4.147a.5.5 0 0 1 .708.708L8.707 8l4.147 4.146a.5.5 0 0 1-.708.708L8 8.707l-4.146 4.147a.5.5 0 0 1-.708-.708z" />
+                                </svg>
 
-                    handleClick={handleClick}
-                />
+                            }
+
+                            handleClick={handleClick}
+                        />
+                }
 
                 <p className="text-3xl font-semibold">Room:
                     <span className="font-semibold text-white text-base">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>
@@ -244,32 +264,38 @@ function Chat() {
 
 
 
+
+
             {/*
             *
             * Pop window to ask user if they/them wants to leave the room
             */}
 
-            {closing
-                ?
-                <>
-                    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 "></div>
+            {
+                closing
+                    ?
+                    <>
+                        <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 "></div>
 
-                    <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
+                        <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
 
-                        <div className="bg-white p-6 rounded shadow-lg w-96">
-                            <h2 className="text-2xl mb-4">Are you sure?</h2>
-                            <p>Click yes to leave your current room</p>
-                            <button className="mt-4 px-4 py-2 bg-primary text-white rounded mr-5" onClick={HandleLeaveRoomClick} id={"Yes"}>Yes</button>
-                            <button className="mt-4 px-4 py-2 bg-primary text-white rounded" onClick={HandleLeaveRoomClick} id={"No"}>No</button>
+                            <div className="bg-white p-6 rounded shadow-lg w-96">
+                                <h2 className="text-2xl mb-4">Are you sure?</h2>
+                                <p>Click yes to leave your current room</p>
+                                <button className="mt-4 px-4 py-2 bg-primary text-white rounded mr-5" onClick={HandleLeaveRoomClick} id={"Yes"}>Yes</button>
+                                <button className="mt-4 px-4 py-2 bg-primary text-white rounded" onClick={HandleLeaveRoomClick} id={"No"}>No</button>
+                            </div>
+
                         </div>
+                    </>
 
-                    </div>
-                </>
-                :
-                ""}
+                    : ""
+            }
 
         </div>
     )
 
 }
 export default Chat;
+
+export { socket }

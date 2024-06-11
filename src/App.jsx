@@ -10,8 +10,10 @@ import { login } from "./store/authSlice.js"
 function App() {
 
 
-  const [localToken, setlocalToken] = useState(localStorage.getItem("token"))
+  const [localToken, setlocalToken] = useState(localStorage.getItem("token"));
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+
   useEffect(() => {
 
     const ifLoggedInToken = localStorage.getItem("token");
@@ -43,11 +45,13 @@ function App() {
 
     }
 
+    setLoading(false);
+
   }, [localToken]);
 
 
 
-  return (
+  return loading ? "Code Room ..." : (
 
     <div className='w-full h-screen box-border'>
 
