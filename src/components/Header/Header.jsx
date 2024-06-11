@@ -80,7 +80,7 @@ function Header() {
 
 
                 {/* setting */}
-                < div className='mt-4' >
+                < div className='mt-2' >
                     <Setting />
                 </div >
 
