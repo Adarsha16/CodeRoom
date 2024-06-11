@@ -3,6 +3,7 @@ import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
 import { useDispatch, useSelector } from 'react-redux';
 import { socket } from './Chat.jsx';
+// import useDebounce from '../../custom_fn/debounce.js';
 
 
 function Textbox(
@@ -27,6 +28,9 @@ function Textbox(
   /////////For Room only
   const dispatch = useDispatch();
   const roomStatus = useSelector(state => state.room.roomStatus);
+
+  //Custom debounce
+  // const debouncedInputText = useDebounce(InputText, 300); /////////Debounced
 
 
 
@@ -166,6 +170,7 @@ function Textbox(
   const handleMonacoInstance = (editor, monaco) => {
 
     monacoref.current = monaco;
+    // console.log(monacoref.current.editor.getModels())
 
 
   }
@@ -181,7 +186,7 @@ function Textbox(
       }
 
       if (OutputText !== outputref.current) {
-        monacoref?.current?.editor.getModels()[1].setValue(OutputText || "illegal argument")
+        monacoref.current?.editor.getModels()[1].setValue(OutputText || "illegal argument")
       }
 
 

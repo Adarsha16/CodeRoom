@@ -48,7 +48,7 @@ function Chat() {
     }, [token])
 
 
-  
+
     /**
      * It send message to server 
      * @param {event} e 
@@ -109,12 +109,10 @@ function Chat() {
             return;
         }
 
-        console.log(roomData)
-
         // If user click yes to leave
         setclosing(false);
-        dispatch(leaveRoom);
-        socket.leave(roomData.roomid)
+        dispatch(leaveRoom());
+        socket.emit("unsubscribe", roomData.roomid)
         // window.location.reload();
 
     }

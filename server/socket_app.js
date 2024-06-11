@@ -148,9 +148,21 @@ export const socket_app = async (io) => {
             console.log("data on output", OutputText);
 
             const room = (getUser(socket.id))?.room;
-    
+
             // io.to(room).emit('OutputField', { OutputText })
             socket.broadcast.to(room).emit('OutputField', { OutputText })
+        })
+
+
+
+
+        /**
+         * When user want to leave the room
+         */
+
+        socket.on("unsubscribe", (room) => {
+
+            socket.leave(room);
         })
 
 
