@@ -8,12 +8,12 @@ import Login from './pages/Login.jsx'
 import SignUp from './pages/SignUp.jsx'
 import ErrorPage from "./error-page.jsx"
 
-
 import { Provider } from 'react-redux'
 import store from "./store/store.js"
 import Mode_h from './pages/Mode_horizontal.jsx'
-
+import OTPpage from './pages/OTPpage.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 
 const myrouter = createBrowserRouter([
 
@@ -37,14 +37,18 @@ const myrouter = createBrowserRouter([
         path: "/signup",
         element: <SignUp />
       },
+      {
+        path: "/otp",
+        element: <OTPpage />
+      },
 
       // {
       //   path: "/room/:slug",
       //   element: <Room />
       // }
       {
-        path:"/Mode_horizontal",
-        element:<Mode_h />
+        path: "/Mode_horizontal",
+        element: <Mode_h />
       }
 
 

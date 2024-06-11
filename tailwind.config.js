@@ -30,7 +30,10 @@ export default {
       'blue_hover': '#1434A4',
       'red': '#dc143c',
       'green': '#008000',
-      'dark-green': '#165049'
+      'dark-green': '#165049',
+      'Otp-page-color': '#b0bdfb',
+      'otp-button': '#1a7ccf',
+      'otp-hover': '#0808fe'
 
     }
 
