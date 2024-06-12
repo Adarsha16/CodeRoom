@@ -65,6 +65,16 @@ const Popup = () => {
                         value={roomid}
                         handleChanges={(e) => { setRoomId(e.target.value) }}
                     />
+                    {/* Language selection part */}
+                    <div className=''>
+                        <label>Select a Language: </label>
+                        <select className='bg-black px-8 py-1 rounded-sm hover:bg-slate-700'>
+                            <option>JavaScript</option>
+                            <option>C++</option>
+                            <option>Python</option>
+
+                        </select>
+                    </div>
 
                     <Button
                         buttonLabel={'Initialize Room'}
