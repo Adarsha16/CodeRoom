@@ -4,6 +4,23 @@ import nodemailer from "nodemailer";
 const sendMailThroughNodemailer = (user_email, otp_code) => {
 
 
+    const htmlData = `  
+        <div
+        style="color:white; background-color:black; height:100%; padding:10px;">
+
+        <h1>CODE ROOM</h1>
+        <p>Please use this code to complete your registeration.</p>
+
+        <p style="color:black; background-color: white; padding:10px 30px; border:2px solid blue; border-radius:5px;  ">
+            ${otp_code}</p>
+
+        <p>Valid for ${process.env.OTP_EXPIRY} min</p>
+
+
+
+    </div>`;
+
+
 
     let transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -17,18 +34,7 @@ const sendMailThroughNodemailer = (user_email, otp_code) => {
         from: `${process.env.OTP_EMAIL_SENDER}`,
         bcc: `${user_email}`,
         subject: `OPT-VERFICATION : CODE ROOM`,
-        html: `  
-        <div style="color:#FFFFFF; background-color:#000000; display:flex; flex-wrap: wrap; flex-direction: column;  justify-content: center; align-items: center; text-align:center; padding:20px; font-weight:bold; font-size:15px; border-radius:5px; box-shadow:0px 0px 10px rgba(0,0,0,0.1); font-family: Arial, sans-serif;">
-        <h1 style="font-size:18px">Find Yourself a OTP Code Within This email </h1>
-        <br>
-        
-        <div style="color:#000000; background-color:#FFFFFF; padding:10px">
-        ${otp_code}
-        </div>
-
-        <br>
-        <p style="font-size:14px"> Token will Be Invalid after ${process.env.OTP_EXPIRY} min</p>
-        </div >`
+        html: htmlData
     };
 
 

@@ -1,11 +1,75 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Button from "./Button"
 import Input from "./Inputfield"
 import OTP_pic from './Assets/OTP_code.jpg'
+import { useNavigate, useLocation } from "react-router-dom";
+import callOTPandRegister from "../custom_fn/callOTPandRegister";
+
 
 export default function OTP() {
-    const onSubmit = (e) => {
+
+    const navigate = useNavigate();
+    const [userOtp, setUserOtp] = useState("");
+    const [FormErrors, setFormErrors] = useState();
+    const [Info, setInfo] = useState("");
+
+
+    const Location = useLocation();
+    const User_data = Location.state?.values;
+
+
+    const handleChanges = (e) => {
+        setUserOtp(e.target.value);
+    }
+
+
+    const handleSubmitOTP = async (e) => {
         e.preventDefault();
+
+        if (!userOtp) {
+
+            setFormErrors("Empty Field : This is required!")
+            console.log("No otp entered");
+            return;
+        }
+
+
+
+        User_data.otp = userOtp.trim();
+        console.log(User_data);
+
+        if (!User_data) {
+            setFormErrors("Please Register First!")
+            console.log("cannot request to the server")
+            return;
+        }
+        const response = await callOTPandRegister(User_data);
+        const result = await response?.json();
+
+        console.log(result)
+
+
+        if (!response?.ok) {
+
+            console.log("No response", response.statusText)
+            setFormErrors(`Error :  ${result.error}`)
+            return;
+        }
+
+
+
+
+
+        console.log(response);
+        console.log("result", result)
+
+        setInfo("Redirecting to Login...");
+
+        setTimeout(() => {
+            navigate("/login");
+        }, 1700);
+
+
     }
     return (
         <>
@@ -19,11 +83,11 @@ export default function OTP() {
 
                         <h1 className='fira-sans-bold text-5xl mb-4 '>Code Room</h1>
                         <h5 className=' text-2xl '>Enter your OTP code!</h5>
-                        <p>Check your gmail for OTP code</p>
+                        <p>Four digit code has just been sent to your email</p>
 
                     </div>
 
-                    <form onSubmit={onSubmit}>
+                    <form onSubmit={handleSubmitOTP}>
                         {/**Input filed */}
 
                         <div className='flex flex-col'>
@@ -31,13 +95,22 @@ export default function OTP() {
                             {/*Email field*/}
                             <Input
 
-                                type={'text'}
-                                custom_placeholder={'OTP Code Here'}
+                                type={'number'}
+                                custom_placeholder={'OTP Code Here : 0000'}
                                 name={'OTP'}
+                                value={userOtp}
+                                handleChanges={handleChanges}
+                            // onChange={(e) => setUserOtp(e.target.value)}
                             />
+
+
+                            {FormErrors && <p className='error text-sm/[15px]'>{FormErrors}</p>}
+
+
+
                             <Button
                                 type={"submit"}
-                                buttonLabel={"Enter OTP"}
+                                buttonLabel={"Confirm"}
                                 custom_class=' bg-otp-button py-3 w-80 text-white mt-4 hover:bg-otp-hover  rounded-sm focus:ring'
                             />
                         </div>
@@ -45,17 +118,16 @@ export default function OTP() {
                 </div>  {/* left div end */}
 
                 {/**************************************Right part/////////////////////////// */}
-                <div className='flex justify-center items-center w-1/2 fixed right-0'>
+                <div className='flex justify-center items-center w-1/2 fixed right-0 '>
 
-                    <img src={OTP_pic} alt='Side Login panel' />
+                    <img src={OTP_pic} alt='Side Login panel' className="w-[80%]" />
 
 
-                    {
-
+                    {Info && (
                         <div className='absolute -bottom-10 border-2 text-green p-2 m-0 font-bold shadow-md'>
-
+                            <p>{Info}</p>
                         </div>
-                    }
+                    )}
 
                 </div>
 

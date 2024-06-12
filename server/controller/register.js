@@ -55,9 +55,19 @@ async function register(req, res) {
         console.log(registered_data);
 
 
+        //////Deleting OTP database;
+        const otp_delete_query = `
+             DELETE 
+             FROM ${process.env.DB_NAME}.${process.env.DB_OTP_TABLE_NAME} 
+             WHERE email = ? 
+            ;`
+
+        const OTP_delete_response = await pool.query(otp_delete_query, [email]);
+        console.log("OTP data deleted", OTP_delete_response);
+
 
         //status created
-        res.status(201).json({ "Status: ": "Created successfully" })
+        res.status(201).json({ "Status: ": "Account Registered successfully" })
 
     } catch (error) {
 

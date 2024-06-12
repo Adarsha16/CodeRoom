@@ -14,8 +14,8 @@ function Signup() {
 
 
   const [values, setvalues] = useState({ name: "", email: "", password: "", github: "" });
-  const [FormErrors, setFormErrors] = useState({})
-  const [GitErrors, setGitErrors] = useState({})
+  const [FormErrors, setFormErrors] = useState({});
+  const [GitErrors, setGitErrors] = useState({});
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -99,9 +99,13 @@ function Signup() {
       // dispatch(login({ name: values.name, email: values.email, github: values.github }))
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/otp", {
 
-      }, 1700)
+          state: { values }
+
+        });
+
+      }, 1000)
 
     } catch (error) {
 

@@ -13,6 +13,7 @@ import store from "./store/store.js"
 import Mode_h from './pages/Mode_horizontal.jsx'
 import OTPpage from './pages/OTPpage.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import AuthLayout from './components/AuthLayout.jsx'
 
 
 const myrouter = createBrowserRouter([
@@ -30,12 +31,22 @@ const myrouter = createBrowserRouter([
 
       {
         path: "/login",
-        element: <Login />
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+
+        )
       },
 
       {
         path: "/signup",
-        element: <SignUp />
+        element: (
+          <AuthLayout authentication={false}>
+            <Login />
+          </AuthLayout>
+
+        )
       },
       {
         path: "/otp",
@@ -50,8 +61,6 @@ const myrouter = createBrowserRouter([
         path: "/Mode_horizontal",
         element: <Mode_h />
       }
-
-
     ]
   }
 

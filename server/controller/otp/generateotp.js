@@ -1,7 +1,7 @@
 
 function generateotp() {
 
-    return Math.floor(Math.random() * (9 - 0 + 1) * 700).toString();
+    return Math.floor(1000 + Math.random() * 9000).toString();
 
 }
 

@@ -4,6 +4,7 @@ import pool from "../db/connectDB.js";
 import { emailValidation, bcryptHash } from "./index.js";
 import { generateotp } from "./otp/generateotp.js";
 import { sendMailThroughNodemailer } from "./otp/NodeMailer.js";
+import { CreateOTPTable } from "../models/otp.js";
 
 
 const beforeRegisteration = async (req, res) => {
@@ -34,7 +35,9 @@ const beforeRegisteration = async (req, res) => {
         if (Object.values(if_present_data[0])[0] !== 0) {
             return res.status(400).json({ "statusText": "login", "status": 400, "Error": "Username or Email is already registered!" });
 
-        }
+        };
+
+        
 
 
 
@@ -45,6 +48,8 @@ const beforeRegisteration = async (req, res) => {
         //Expiration time, in ms
         const expires_at = new Date(Date.now() + (Number(process.env.OTP_EXPIRY) * 6000))
 
+        //call database
+        CreateOTPTable();
         //store on database
         const otp_query = `INSERT INTO ${process.env.DB_NAME}.${process.env.DB_OTP_TABLE_NAME} (email, otp, expires_at) VALUES (?,?,?)`
 
@@ -69,4 +74,4 @@ const beforeRegisteration = async (req, res) => {
 
 }
 
-export {beforeRegisteration}
+export { beforeRegisteration }
