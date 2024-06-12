@@ -12,7 +12,7 @@ const Input = React.forwardRef(
                 customcss = "",
                 props = "",
                 inputId,
-                clickHandler
+               
 
 
 

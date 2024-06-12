@@ -14,8 +14,8 @@ function Signup() {
 
 
   const [values, setvalues] = useState({ name: "", email: "", password: "", github: "" });
-  const [FormErrors, setFormErrors] = useState({})
-  const [GitErrors, setGitErrors] = useState({})
+  const [FormErrors, setFormErrors] = useState({});
+  const [GitErrors, setGitErrors] = useState({});
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -63,7 +63,7 @@ function Signup() {
 
 
     //////////////Call Github////////////////////////////////
-    const callGithub_res = (await callGithub(values.github)).GithubData
+    const callGithub_res = (await callGithub(values.github))?.GithubData
 
     /////IF Github error
     if (callGithub_res.status == 404 || callGithub_res.status == 400) {
@@ -93,14 +93,19 @@ function Signup() {
 
 
       setFormErrors({})
-      setInfo("Registeration Success!, Redirecting....")
+      // setInfo("Registeration Success!, Redirecting....")
+      setInfo("Sending OTP...")
       setLoginStatus(true); // User is logged in
       // dispatch(login({ name: values.name, email: values.email, github: values.github }))
 
       setTimeout(() => {
-        navigate("/login");
+        navigate("/otp", {
 
-      }, 1700)
+          state: { values }
+
+        });
+
+      }, 1000)
 
     } catch (error) {
 
@@ -119,7 +124,7 @@ function Signup() {
         {/**Info and Headline */}
         <div className='flex flex-col gap-1 mb-0.5 items-center text-white'>
           <h1 className='fira-sans-bold text-5xl '>Code Room</h1>
-          <h5 className=' text-2xl pt-3'>This is where Coding happens</h5>
+          <h5 className=' text-2xl pt-3'>Welcome to the Code Room!</h5>
           <h5 className=' text-md '>Create an account to continue</h5>
         </div>
 

@@ -107,8 +107,8 @@ function LoginComp() {
         <div className='flex flex-col gap-1.5 mb-4 items-center text-white'>
 
           <h1 className='fira-sans-bold text-5xl mb-4 '>Code Room</h1>
-          <h5 className=' text-2xl '>Welcome to Code Room!</h5>
-          <p className=''>Please sign in to create a room </p>
+          <h5 className=' text-2xl '>This is where Coding happens</h5>
+          <p className=''>Let's take this journey even further </p>
 
         </div>
 
@@ -161,7 +161,7 @@ function LoginComp() {
       {/**************************************Right part/////////////////////////// */}
       <div className='flex justify-center items-center w-1/2 fixed right-0'>
 
-        <img src={Login_right} alt='Side Login panel' className='' />
+        <img src={Login_right} alt='Side Login panel' className='w-[80%]' />
 
 
         {
