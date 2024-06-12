@@ -63,7 +63,7 @@ function Signup() {
 
 
     //////////////Call Github////////////////////////////////
-    const callGithub_res = (await callGithub(values.github)).GithubData
+    const callGithub_res = (await callGithub(values.github))?.GithubData
 
     /////IF Github error
     if (callGithub_res.status == 404 || callGithub_res.status == 400) {
@@ -93,7 +93,8 @@ function Signup() {
 
 
       setFormErrors({})
-      setInfo("Registeration Success!, Redirecting....")
+      // setInfo("Registeration Success!, Redirecting....")
+      setInfo("Sending OTP...")
       setLoginStatus(true); // User is logged in
       // dispatch(login({ name: values.name, email: values.email, github: values.github }))
 
