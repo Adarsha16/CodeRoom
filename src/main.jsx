@@ -43,7 +43,7 @@ const myrouter = createBrowserRouter([
         path: "/signup",
         element: (
           <AuthLayout authentication={false}>
-            <Login />
+            <SignUp />
           </AuthLayout>
 
         )
