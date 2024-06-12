@@ -107,7 +107,7 @@ function LoginComp() {
         <div className='flex flex-col gap-1.5 mb-4 items-center text-white'>
 
           <h1 className='fira-sans-bold text-5xl mb-4 '>Code Room</h1>
-          <h5 className=' text-2xl '>Welcome to the Coders Hub!</h5>
+          <h5 className=' text-2xl '>Welcome to Code Room!</h5>
           <p className=''>Please sign in to create a room </p>
 
         </div>

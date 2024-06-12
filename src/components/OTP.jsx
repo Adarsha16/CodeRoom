@@ -82,8 +82,8 @@ export default function OTP() {
                     <div className='flex flex-col gap-1.5 mb-4 items-center text-white'>
 
                         <h1 className='fira-sans-bold text-5xl mb-4 '>Code Room</h1>
-                        <h5 className=' text-2xl '>Enter your OTP code!</h5>
-                        <p>Four digit code has just been sent to your email</p>
+                        <h5 className=' text-2xl '>Verify your email</h5>
+                        <p>Check your email for OTP code</p>
 
                     </div>
 

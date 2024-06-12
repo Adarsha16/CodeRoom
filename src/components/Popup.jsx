@@ -31,6 +31,10 @@ const Popup = () => {
         setOpen(false)
     };
 
+    const quickJoinFunc = (e) => {
+        e.preventDefault();
+    };
+
 
     useEffect(() => {
 
@@ -65,10 +69,11 @@ const Popup = () => {
                         value={roomid}
                         handleChanges={(e) => { setRoomId(e.target.value) }}
                     />
+
                     {/* Language selection part */}
                     <div className=''>
                         <label>Select a Language: </label>
-                        <select className='bg-black px-8 py-1 rounded-sm hover:bg-slate-700'>
+                        <select className='ml-2 bg-black px-6 py-1 rounded-sm hover:bg-slate-700'>
                             <option>JavaScript</option>
                             <option>C++</option>
                             <option>Python</option>
@@ -81,6 +86,14 @@ const Popup = () => {
                         custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover rounded-sm'
                         type={"submit"}
                         handleClick={handleClick}
+
+                    />
+                    <Button
+                        buttonLabel={'Quick Join'}
+                        custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover rounded-sm'
+                        type={"submit"}
+                        handleClick={quickJoinFunc}
+
 
                     />
                 </div>
