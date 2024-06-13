@@ -5,10 +5,12 @@ const compiler = async (req, res) => {
     try {
 
         const { lang } = req.params;
-        const { InputText } = (req.body);
+        const { InputText, extension } = (req.body);
 
+        console.log(extension)
+        console.log(InputText)
 
-        const input = { "files": [{ "name": "main.py", "content": `${InputText}` }] }
+        const input = { "files": [{ "name": `main${extension.trim()}`, "content": `${InputText}` }] }
 
         const response = await fetch(`https://glot.io/api/run/${lang}/latest`,
             {
