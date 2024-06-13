@@ -6,8 +6,8 @@ import validateForm from '../custom_fn/Validation.js'
 import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
-import { login } from '../store/authSlice.js'
+import { useDispatch } from 'react-redux'
+import { login, setSignup } from '../store/authSlice.js'
 import GitHubUser from './Header/Github.jsx'
 
 function Signup() {
@@ -18,7 +18,7 @@ function Signup() {
   const [GitErrors, setGitErrors] = useState({});
   const [Info, setInfo] = useState("");
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const [loginStatus, setLoginStatus] = useState(false);
   const [githubData, setGithubData] = useState(null);
@@ -97,6 +97,8 @@ function Signup() {
       setInfo("Sending OTP...")
       setLoginStatus(true); // User is logged in
       // dispatch(login({ name: values.name, email: values.email, github: values.github }))
+
+      dispatch(setSignup(true))
 
       setTimeout(() => {
         navigate("/otp", {

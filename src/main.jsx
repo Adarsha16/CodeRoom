@@ -14,6 +14,7 @@ import Mode_h from './pages/Mode_horizontal.jsx'
 import OTPpage from './pages/OTPpage.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AuthLayout from './components/AuthLayout.jsx'
+import OTPLayout from './components/OTPLayout.jsx'
 
 
 const myrouter = createBrowserRouter([
@@ -35,7 +36,6 @@ const myrouter = createBrowserRouter([
           <AuthLayout authentication={false}>
             <Login />
           </AuthLayout>
-
         )
       },
 
@@ -45,12 +45,17 @@ const myrouter = createBrowserRouter([
           <AuthLayout authentication={false}>
             <SignUp />
           </AuthLayout>
+        ),
 
-        )
       },
       {
         path: "/otp",
-        element: <OTPpage />
+        element: (
+
+          <OTPLayout>
+            <OTPpage />
+          </OTPLayout>
+        )
       },
 
       // {
@@ -76,5 +81,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </Provider>
 
 
-  ,
+
 )
