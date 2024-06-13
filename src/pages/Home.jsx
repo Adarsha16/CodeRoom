@@ -69,7 +69,7 @@ function Home() {
                 textarea_name={"inputarea"}
                 disabled={false}
                 // placeholder={"//Some comment"}
-                default_lng={'python'}
+                // default_lng={'python'}
                 custom_theme={'vs-dark'}
                 _grid={'col-start-2 col-end-4'}
 
@@ -93,7 +93,7 @@ function Home() {
                 textarea_name={"outputarea"}
                 disabled={true}
                 // placeholder={"Output"}
-                default_lng={'python'}
+                // default_lng={'python'}
                 custom_theme={'vs-dark'}
                 _grid={'col-start-4 col-end-6'}
             />
