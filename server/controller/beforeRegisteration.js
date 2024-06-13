@@ -37,7 +37,7 @@ const beforeRegisteration = async (req, res) => {
 
         };
 
-        
+
 
 
 
@@ -46,7 +46,7 @@ const beforeRegisteration = async (req, res) => {
         const otp = generateotp();
 
         //Expiration time, in ms
-        const expires_at = new Date(Date.now() + (Number(process.env.OTP_EXPIRY) * 6000))
+        const expires_at = new Date(Date.now() + (Number(process.env.OTP_EXPIRY) * 60000))
 
         //call database
         CreateOTPTable();
