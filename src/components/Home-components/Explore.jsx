@@ -14,7 +14,7 @@ function Explore({ _grid = "" }) {
 
                 {/* Head line */}
                 <div
-                    className='px-6 h-10 border-[2px]  border-r-0 flex items-center border-brown  font-bold '
+                    className='px-6 h-10 border-[2px] mb-0  border-r-0 flex items-center border-brown  font-bold '
                 >
                     Room
                 </div>

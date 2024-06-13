@@ -185,10 +185,10 @@ function Chat() {
 
 
     return loading ? "chat..." : (
-        <div className="flex flex-col m-0 w-full box-content h-full">
+        <div className="relative flex flex-col w-full h-full overflow-hidden">
 
             {/* Info about the Room */}
-            <div className="p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
+            <div className="relative p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
 
                 {/**CLosing room option, available only when room is on */}
 
@@ -198,7 +198,7 @@ function Chat() {
                         ""
                         :
                         <Button
-                            custom_class={'top-2 text-slate-400 hover:scale-90 hover:text-white'}
+                            custom_class={'absolute right-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
                             buttonLabel={
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     width="24px"
@@ -223,7 +223,7 @@ function Chat() {
 
 
             {/* Message Container */}
-            <div id="message_container" className="w-full text-slate-400 h-52 text-sm font-normal overflow-scroll mt-1 px-2 hide-scrollbar text-wrap">
+            <div id="message_container" className="relative w-full text-slate-400 text-sm font-normal h-[calc(100vh-20rem)] overflow-scroll mt-1 px-2 hide-scrollbar text-wrap">
                 {
                     <ul ref={msgRef}>
                     </ul>
@@ -233,7 +233,7 @@ function Chat() {
 
 
             {/* Input Type Message Container */}
-            <div className="w-full h-full">
+            <div className="w-full">
 
                 <form
                     id="send_container"
@@ -245,7 +245,7 @@ function Chat() {
                     <input
                         type="text"
                         placeholder="Start a conversation"
-                        className="p-5 h-10 w-full bg-brown border-none outline-none shadow-2xl text-sm"
+                        className="fixed bottom-0 p-5 h-10 w-full bg-brown border-none outline-none shadow-2xl text-sm"
                         id='message'
                         value={message}
 
