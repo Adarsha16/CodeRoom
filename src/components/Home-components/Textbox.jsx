@@ -3,7 +3,6 @@ import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
 import { useDispatch, useSelector } from 'react-redux';
 import { socket } from './Chat.jsx';
-// import useDebounce from '../../custom_fn/debounce.js';
 
 
 function Textbox(
@@ -13,7 +12,7 @@ function Textbox(
     textarea_id,
     textarea_name,
     disabled,
-    default_lng,
+    // default_lng,
     custom_theme,
     _grid = ""
 
@@ -25,15 +24,18 @@ function Textbox(
   const [InputText, putInputText] = useState('//Comment here');
   const [OutputText, putOutputText] = useState('');
 
-  /////////For Room only
+  const [LanguageSelected, setLanguageSelected] = useState({ extension: ".py", language: "python" })
+
+
+  const outputref = useRef(OutputText);
+  const monacoref = useRef(null);
+
   const dispatch = useDispatch();
+
+
+
+  /////////////////////////////////////Socket/////////////////////////////////////////////
   const roomStatus = useSelector(state => state.room.roomStatus);
-
-  //Custom debounce
-  // const debouncedInputText = useDebounce(InputText, 300); /////////Debounced
-
-
-
 
   useEffect(() => {
 
@@ -93,6 +95,35 @@ function Textbox(
   }, [OutputText, roomStatus])
 
 
+  /////////////////////////////////////Language switch/////////////////////////////////////////////
+
+
+
+
+
+  // useEffect(() => {
+
+  //   console.log("Language selected", LanguageSelected)
+
+  // }, [LanguageSelected])
+
+
+  const handleLanguageSwitch = (button) => {
+
+    const { extension } = button;
+    console.log(extension)
+
+    let language;
+
+    if (extension == ".cpp") language = 'c++';
+    if (extension == ".py") language = 'python';
+    if (extension == ".js") language = "javascript";
+
+    console.log(language)
+
+    setLanguageSelected({ extension, language });
+
+  }
 
 
 
@@ -111,16 +142,11 @@ function Textbox(
 
 
 
-
-
-
-
-  const outputref = useRef(OutputText);
-  const monacoref = useRef(null);
-
+  /////////////////////////////////////Save file//////////////////////////////////////////
   const SaveFileFn = () => {
 
-    let FileName = 'My_file.js';
+
+    let FileName = `My_file${LanguageSelected.extension}`;
     let FileContent = InputText;
 
     const blob = new Blob([FileContent], { type: 'text/html' });
@@ -137,13 +163,14 @@ function Textbox(
   };
 
 
+  /////////////////////////////////////call api to compile////////////////////////////////
 
   const callCompilerApi = async () => {
 
     try {
 
 
-      const response = await fetch(`http://localhost:5001/api/code/python`,
+      const response = await fetch(`http://localhost:5001/api/code/${LanguageSelected.language}`,
         {
           method: 'POST',
           headers: {
@@ -167,10 +194,10 @@ function Textbox(
   };
 
 
+  /////////////////////////////////////Monaco editor//////////////////////////////
   const handleMonacoInstance = (editor, monaco) => {
 
     monacoref.current = monaco;
-    // console.log(monacoref.current.editor.getModels())
 
 
   }
@@ -204,6 +231,7 @@ function Textbox(
 
 
 
+
   return (
     < div className={`text-customWhite bg-secondary w-full ${_grid}`
     }>
@@ -221,7 +249,7 @@ function Textbox(
                 <div className='flex flex-row gap-5'>
 
                   <div>
-                    <LanguageSwitch />
+                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} />
 
                   </div>
 
@@ -275,7 +303,8 @@ function Textbox(
           className={`${textarea_id} overflow-y-scroll no-scrollbar border-[2px] border-t-0 border-r-0  border-brown h-[calc(100vh-96px)] outline-none bg-secondary resize-none overflow-auto scroll-m-0 p-0 w-full`}
 
           loading={"Loading...."}
-          defaultLanguage={default_lng}
+          defaultLanguage={LanguageSelected.language}
+          // defaultLanguage={default_lng}
           // defaultValue={placeholder}
 
           options={{
