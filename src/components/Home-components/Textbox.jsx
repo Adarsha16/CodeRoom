@@ -24,7 +24,7 @@ function Textbox(
   const [InputText, putInputText] = useState('//Comment here');
   const [OutputText, putOutputText] = useState('');
 
-  const [LanguageSelected, setLanguageSelected] = useState({ extension: ".py", language: "python" })
+  const [LanguageSelected, setLanguageSelected] = useState({ extension: ".js", language: "javascript" })
 
 
   const outputref = useRef(OutputText);
@@ -169,7 +169,8 @@ function Textbox(
 
     try {
 
-      let extension = LanguageSelected.extension
+      let extension = LanguageSelected.extension;
+      console.log(extension)
 
       const response = await fetch(`http://localhost:5001/api/code/${LanguageSelected.language}`,
         {
@@ -177,7 +178,7 @@ function Textbox(
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ InputText, extension})
+          body: JSON.stringify({ InputText, extension })
         }
 
       )
