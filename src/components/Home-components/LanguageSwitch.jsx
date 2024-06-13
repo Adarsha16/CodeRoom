@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../Button';
 
-function LanguageSwitch({ handleLanguageSwitch }) {
+function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange }) {
     const buttons = [
         {
             label: <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 256 255"><defs><linearGradient id="logosPython0" x1="12.959%" x2="79.639%" y1="12.039%" y2="78.201%"><stop offset="0%" stopColor="#387eb8" /><stop offset="100%" stopColor="#366994" /></linearGradient><linearGradient id="logosPython1" x1="19.128%" x2="90.742%" y1="20.579%" y2="88.429%"><stop offset="0%" stopColor="#ffe052" /><stop offset="100%" stopColor="#ffc331" /></linearGradient></defs><path fill="url(#logosPython0)" d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072M92.802 19.66a11.12 11.12 0 0 1 11.13 11.13a11.12 11.12 0 0 1-11.13 11.13a11.12 11.12 0 0 1-11.13-11.13a11.12 11.12 0 0 1 11.13-11.13" /><path fill="url(#logosPython1)" d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.518 33.897m34.114-19.586a11.12 11.12 0 0 1-11.13-11.13a11.12 11.12 0 0 1 11.13-11.131a11.12 11.12 0 0 1 11.13 11.13a11.12 11.12 0 0 1-11.13 11.13" /></svg>,
@@ -41,11 +41,12 @@ function LanguageSwitch({ handleLanguageSwitch }) {
     }
 
     return (
-        <div className="relative mt-6 items-center justify-center">
+        <div className="relative  flex items-center justify-center">
 
             <Button
                 handleClick={openMenu}
                 buttonLabel={selected.label}
+                custom_class={`m-0 p-0`}
             />
             {isOpen && (
                 <div className="absolute flex flex-col items-center z-50  py-2 gap-2 w-30 px-2 bg-secondary rounded shadow-lg transition duration-300 ease-in-out transform origin-top">
@@ -58,8 +59,17 @@ function LanguageSwitch({ handleLanguageSwitch }) {
                     ))}
                 </div>
             )}
-            <div className='inline-block px-2'>
-                <p><input type='text' className='mb-5 w-20 bg-secondary focus:outline-none rounded-md opacity-50' placeholder='File name' ></input>{extension}</p>
+            <div className=' px-2 relative'>
+                <p>
+                    <input
+                        type='text'
+                        className='w-20  bg-secondary focus:outline-none rounded-md opacity-50 font-base pl-1'
+                        placeholder='index'
+                        onBlur={handleFileNameInputChange}
+                    >
+                    </input>
+                    <span className='absolute right-2 bottom-0 bg-secondary rounded-md overflow-hidden pr-2'>{extension}</span>
+                </p>
             </div>
         </div>
     );
