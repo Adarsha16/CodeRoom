@@ -24,7 +24,7 @@ function Textbox(
   const [InputText, putInputText] = useState('//Comment here');
   const [OutputText, putOutputText] = useState('');
 
-  const [LanguageSelected, setLanguageSelected] = useState({ extension: ".js", language: "javascript" })
+  const [LanguageSelected, setLanguageSelected] = useState({ extension: ".js", language: "javascript", file_name: "index" })
 
 
   const outputref = useRef(OutputText);
@@ -126,18 +126,18 @@ function Textbox(
   }
 
 
+  /////////////////////////////////////File name change/////////////////////////////////////////////
 
 
+  const handleFileNameInputChange = (e) => {
 
-
-
-
-
-
-
-
-
-
+    let file_name = e.target.value;
+    setLanguageSelected((prev) => {
+      return {
+        ...prev, file_name
+      }
+    })
+  }
 
 
 
@@ -146,7 +146,7 @@ function Textbox(
   const SaveFileFn = () => {
 
 
-    let FileName = `My_file${LanguageSelected.extension}`;
+    let FileName = `${LanguageSelected.file_name || "index"}${LanguageSelected.extension}`;
     let FileContent = InputText;
 
     const blob = new Blob([FileContent], { type: 'text/html' });
@@ -248,16 +248,8 @@ function Textbox(
             (
               <>
                 {/* For Left part of input */}
-                <div className='flex flex-row gap-5'>
-
-                  <div>
-                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} />
-
-                  </div>
-
-
-
-
+                <div className='flex flex-row gap-5 items-center'>
+                  <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} handleFileNameInputChange={handleFileNameInputChange} />
                 </div>
 
 
