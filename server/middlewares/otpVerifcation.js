@@ -44,11 +44,18 @@ const otpVerification = async (req, res, next) => {
         //Checking if otp time is still valid
 
 
-        const Init_Time = new Date(created_at.toString());
-        const Final_Time = new Date(expires_at.toString());
+        // const Current_Time = new Date(`${created_at}`);
+        const Current_Time = new Date();
+        const Final_Time = new Date(`${expires_at}`);
 
-        if (Init_Time > Final_Time) {
-            return res.status(400).json({ "error": "OTP has expired" });
+        console.log(Current_Time, "----------", Final_Time)
+        console.log("compare c>f", Current_Time > Final_Time)
+
+        console.log("if condition", Current_Time > Final_Time && (Math.abs(Current_Time - Final_Time) >= Number(process.env.OTP_EXPIRY) * 60000))
+        if (Current_Time > Final_Time && (Math.abs(Current_Time - Final_Time) >= Number(process.env.OTP_EXPIRY) * 60000)) {
+
+
+            return res.status(400).json({ "error": "OTP has expired, Please try again" });
         }
 
 
