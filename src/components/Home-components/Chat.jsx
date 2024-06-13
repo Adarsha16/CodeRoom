@@ -185,10 +185,10 @@ function Chat() {
 
 
     return loading ? "chat..." : (
-        <div className="absolute bottom-10 flex flex-col m-0 w-full box-content ">
+        <div className="flex flex-col m-0 w-full box-content h-full">
 
             {/* Info about the Room */}
-            <div className="relative p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
+            <div className="p-5 flex flex-col text-primary  border-y-[1px] border-brown rounded-xl" >
 
                 {/**CLosing room option, available only when room is on */}
 
@@ -198,7 +198,7 @@ function Chat() {
                         ""
                         :
                         <Button
-                            custom_class={'absolute end-0 top-2 text-slate-400 hover:scale-90 hover:text-white'}
+                            custom_class={'top-2 text-slate-400 hover:scale-90 hover:text-white'}
                             buttonLabel={
                                 <svg xmlns="http://www.w3.org/2000/svg"
                                     width="24px"
@@ -233,7 +233,7 @@ function Chat() {
 
 
             {/* Input Type Message Container */}
-            <div className="w-full">
+            <div className="w-full h-full">
 
                 <form
                     id="send_container"

@@ -106,7 +106,37 @@ function Setting() {
 
                         <div className="bg-white p-6 rounded shadow-lg w-96">
                             <h2 className="text-2xl mb-4">{popupContent}</h2>
-                            <p>{popupContent === 'Contacts' ? 'Here are the contact details...' : 'About Us details go here...'}</p>
+                            <p>
+    {popupContent === 'Contacts' 
+        
+            ?   (
+            <>
+             
+                Adarsha Pant<br />
+                <a className="text-gray-500 hover:text-darkblue-500 underline hover:no-underline" href="https://github.com/Adarsha16" target="_blank" rel="noopener noreferrer">https://github.com/Adarsha16</a><br />
+                Arjit Chand<br />
+                <a className="text-gray-500 hover:text-darkblue-500 underline hover:no-underline" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">https://github.com/XGPher35</a><br />
+                Pranaya Shrestha<br />
+                <a className="text-gray-500 hover:text-darkblue-500 underline hover:no-underline" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">https://github.com/Pranaya-sht</a><br />
+                Sauhardha Kafla<br />
+                <a className="text-gray-500 hover:text-gray-500 underline hover:no-underline" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer">https://github.com/ostrich-egg</a><br />
+                <br />
+                <em>"Alone, we can do so little; together we can do so much."</em>
+            </>
+        )
+        : (
+            <>
+                A Collaborative University Project by:<br />
+                Adarsha, Arjit, Pranaya, and Sauhardha<br />
+                 <br/>
+                Copyright © Code Room, 2024<br />
+                <br />
+               <em> "Never Gonna Give You Up, Never Gonna Let you Go"</em>
+            </>
+        )
+    }
+</p>
+
                             <button className="mt-4 px-4 py-2 bg-primary text-white rounded" onClick={closePopup}>Close</button>
                         </div>
 

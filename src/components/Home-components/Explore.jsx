@@ -16,11 +16,13 @@ function Explore({ _grid = "" }) {
                 <div
                     className='px-6 h-10 border-[2px]  border-r-0 flex items-center border-brown  font-bold '
                 >
-                    Explorer
+                    Room
                 </div>
 
 
+
                 {/* Chat */}
+
                 {
                     !loginStatus
                         ?

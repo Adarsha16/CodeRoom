@@ -41,7 +41,7 @@ function LanguageSwitch({ handleLanguageSwitch }) {
     }
 
     return (
-        <div className="relative pt-2">
+        <div className="relative mt-6 items-center justify-center">
 
             <Button
                 handleClick={openMenu}
@@ -58,8 +58,8 @@ function LanguageSwitch({ handleLanguageSwitch }) {
                     ))}
                 </div>
             )}
-            <div className='inline-block px-3'>
-                <p>index{extension}</p>
+            <div className='inline-block px-2'>
+                <p><input type='text' className='mb-5 w-20 bg-secondary focus:outline-none rounded-md opacity-50' placeholder='File name' ></input>{extension}</p>
             </div>
         </div>
     );
