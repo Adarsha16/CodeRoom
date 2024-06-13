@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { socket } from './Chat.jsx';
 
 
@@ -20,18 +20,15 @@ function Textbox(
 
 ) {
 
-
-  const [InputText, putInputText] = useState('//Comment here');
-  const [OutputText, putOutputText] = useState('');
-
   const [LanguageSelected, setLanguageSelected] = useState({ extension: ".js", language: "javascript", file_name: "index" })
+
+
+  const [OutputText, putOutputText] = useState('');
+  const [InputText, putInputText] = useState("//comment here");
 
 
   const outputref = useRef(OutputText);
   const monacoref = useRef(null);
-
-  const dispatch = useDispatch();
-
 
 
   /////////////////////////////////////Socket/////////////////////////////////////////////
@@ -97,15 +94,6 @@ function Textbox(
 
   /////////////////////////////////////Language switch/////////////////////////////////////////////
 
-
-
-
-
-  // useEffect(() => {
-
-  //   console.log("Language selected", LanguageSelected)
-
-  // }, [LanguageSelected])
 
 
   const handleLanguageSwitch = (button) => {
@@ -299,7 +287,7 @@ function Textbox(
           loading={"Loading...."}
           defaultLanguage={LanguageSelected.language}
           // defaultLanguage={default_lng}
-          // defaultValue={placeholder}
+          // defaultValue={""}
 
           options={{
             minimap: { enabled: true },
