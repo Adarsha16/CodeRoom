@@ -279,12 +279,14 @@ function Textbox(
 
       {/*NOTE; Input Area */}
       < div>
+        {console.log(LanguageSelected.language)}
         <Editor
           id={textarea_id}
           name={textarea_name}
           className={`${textarea_id} overflow-y-scroll no-scrollbar border-[2px] border-t-0 border-r-0  border-brown h-[calc(100vh-96px)] outline-none bg-secondary resize-none overflow-auto scroll-m-0 p-0 w-full`}
 
           loading={"Loading...."}
+
           defaultLanguage={LanguageSelected.language}
           // defaultLanguage={default_lng}
           // defaultValue={""}
@@ -308,7 +310,6 @@ function Textbox(
           theme={custom_theme}
 
           value={textarea_id === "inputarea" ? InputText : OutputText}
-          // value={(e) => e.target.value}
 
           onChange={textarea_id === "inputarea" ? putInputText : putOutputText}
           onMount={handleMonacoInstance}
