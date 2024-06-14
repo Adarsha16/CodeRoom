@@ -14,9 +14,11 @@ function Explore({ _grid = "" }) {
 
                 {/* Head line */}
                 <div
-                    className='px-6 h-10 border-[2px] mb-0  border-r-0 flex items-center border-brown  font-bold '
+                    className='px-5 h-10 border-[2px] mb-0 pt-1  border-r-0 flex items-center border-brown  font-bold '
                 >
-                    Room
+                    Chat Room
+
+                    
                 </div>
 
 
@@ -26,7 +28,14 @@ function Explore({ _grid = "" }) {
                 {
                     !loginStatus
                         ?
-                        ""
+                        <>
+                        <div className='absolute top-80 items-center text-explore-text text-wrap'>
+                            <p className='mt-0 text-sm'><center><em>Login or Sign up to start creating rooms 
+                             and collaborate with other people......</em></center>
+
+                            </p>
+                        </div>
+                        </>
                         :
 
                         !roomStatus ? "" : <Chat />

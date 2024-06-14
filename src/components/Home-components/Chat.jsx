@@ -214,7 +214,7 @@ function Chat() {
                 }
 
                 <p className="text-3xl font-semibold">Room:
-                    <span className="font-semibold text-white text-base">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>
+                    <span className="font-semibold text-white text-base text-xl">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>
                 </p>
 
                 <p>Profile pics here</p>

@@ -33,7 +33,8 @@ export default {
       'dark-green': '#165049',
       'Otp-page-color': '#b0bdfb',
       'otp-button': '#1a7ccf',
-      'otp-hover': '#0808fe'
+      'otp-hover': '#0808fe',
+      'explore-text':'#777a71'
 
     }
 
