@@ -279,7 +279,6 @@ function Textbox(
 
       {/*NOTE; Input Area */}
       < div>
-        {console.log(LanguageSelected.language)}
         <Editor
           id={textarea_id}
           name={textarea_name}
