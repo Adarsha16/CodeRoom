@@ -45,16 +45,21 @@ export const socket_app = async (io) => {
 
             ///Check if prev room is present;
             const prevRoom = getUser(socket.id)?.room;
-            console.log("prevRoom", prevRoom)
-            if (prevRoom) {
+            console.log("prevRoom", prevRoom);
 
+
+            if (prevRoom) {
                 socket.leave(prevRoom);
+                leaved = true;
                 io.to(prevRoom).emit('message', BuildMsg(ADMIN, `${username} has left the room`))
             }
 
             // Activate User
             const user = ActivateUser(socket.id, username, roomid);
             console.log("Activated user", user)
+
+            ////////////////////////////////////////////////////////////////////////////
+
 
             //Update userlist on Previous room
             if (prevRoom) {

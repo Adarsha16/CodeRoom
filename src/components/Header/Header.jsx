@@ -19,6 +19,7 @@ function Header() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const loginStatus = useSelector(state => state.auth.loginStatus);
+    const roomStatus = useSelector(state => state.room.roomStatus)
     const roomClick = useSelector((state) => state.room.roomClick);
     const userData = useSelector(state => state.auth.userData)
 
@@ -73,10 +74,12 @@ function Header() {
 
 
                 {/* Dynamic Room / if logged in*/}
-                {!loginStatus ? "" : <div className='flex flex-col gap-2'>
-                    <CreateRoom handleClick={handleClick} />
+                {!loginStatus ? "" :
+                    roomStatus ? "" : <div className='flex flex-col gap-2'>
+                        <CreateRoom handleClick={handleClick} />
 
-                </div >}
+                    </div >
+                }
 
 
                 {/* setting */}
