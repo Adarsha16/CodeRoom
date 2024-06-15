@@ -126,7 +126,7 @@ function Signup() {
         {/**Info and Headline */}
         <div className='flex flex-col gap-1 mb-0.5 items-center text-white'>
           <h1 className='fira-sans-bold text-5xl '>Code Room</h1>
-          <h5 className=' text-2xl pt-3'>Welcome to the Code Room!</h5>
+          <h5 className=' text-2xl pt-3'>Welcome to Code Room!</h5>
           <h5 className=' text-md '>Create an account to continue</h5>
         </div>
 

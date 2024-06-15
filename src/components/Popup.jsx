@@ -15,6 +15,24 @@ const Popup = () => {
 
     const dispatch = useDispatch();
 
+    
+    const quickJoinFunc = (e) => {
+        e.preventDefault();
+
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+        const charsL = chars.length;
+
+        let temproomid = '';
+        for (let i = 0; i < 6; i++) {
+            const r = (Math.floor(Math.random() * charsL));
+            temproomid += chars[r];
+        }
+
+        dispatch(setRoomData({ roomid: temproomid }));
+        dispatch(setRoomStatus(true));
+        setOpen(false)
+    };
+
     const handleClick = (e) => {
 
         e.preventDefault();
@@ -31,9 +49,6 @@ const Popup = () => {
         setOpen(false)
     };
 
-    const quickJoinFunc = (e) => {
-        e.preventDefault();
-    };
 
 
     useEffect(() => {
@@ -52,18 +67,19 @@ const Popup = () => {
                     <span className='text-3xl rotate-45 font-mono fixed right-3 top-3 cursor-pointer border-0 p-2 rounded-full hover:bg-tertiary hover:text-2xl' onClick={() => { setOpen(false) }}>+</span>
                     <h1
                         className='font-bold text-4xl'
+                        style={{ marginTop: '-10px', marginBottom: '8px' }}
                     >
-                        Room
+                        Create/Join a Room
                     </h1>
                     <p>
-                        Enter a room id to initialize room
+                        Enter a room ID 
                     </p>
                     <Input
 
                         type={'text'}
                         custom_placeholder=
                         {
-                            "Room ID"
+                            "Enter an ID here"
                         }
                         name={'room'}
                         value={roomid}
@@ -82,7 +98,7 @@ const Popup = () => {
                     </div>
 
                     <Button
-                        buttonLabel={'Initialize Room'}
+                        buttonLabel={'Join Room'}
                         custom_class='py-3 w-80 bg-signupBTN text-white item-center mt-4 font-semibold hover:bg-blue_hover rounded-sm'
                         type={"submit"}
                         handleClick={handleClick}
