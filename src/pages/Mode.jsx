@@ -29,8 +29,8 @@ function Mode() {
   }, []);
 
   return (
-    <div className='fixed grid grid-cols-5 grid-rows-3 gap-0 w-full h-full'>
-      <Explore _grid={'col-start-1 col-end-2 row-span-3'} />
+    <div className='fixed grid grid-cols-5 grid-rows-6 gap-0 w-full h-full'>
+      <Explore _grid={'col-start-1 col-end-2 row-span-6 '} />
 
       {/* Input Text */}
       <TextboxMODE
@@ -40,7 +40,7 @@ function Mode() {
         textarea_name={"inputarea"}
         disabled={false}
         custom_theme={'vs-dark'}
-        _grid={'col-start-2 col-end-6 row-start-1 row-end-2'}
+        _grid={'col-start-2 col-end-6 row-start-1 row-end-3'}
       />
 
       
@@ -53,7 +53,7 @@ function Mode() {
         textarea_name={"outputarea"}
         disabled={true}
         custom_theme={'vs-dark'}
-        _grid={'col-start-2 col-end-6 row-start-3 row-end-4'}
+        _grid={'col-start-2 col-end-6 row-start-4 row-end-5'}
       />
 
       {!roomClick ? "" : <Popup />}

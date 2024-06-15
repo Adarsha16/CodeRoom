@@ -268,9 +268,13 @@ function TextboxMODE(
 
             // Output section
             (
-              <div className=' h-10 border-brown flex items-center font-bold'>
-                Output
-              </div>
+            <div className='absolute w-full flex justify-center items-center' style={{ top: 'calc(100vh / 5)', marginTop: '216px' ,marginLeft:"-24px"}}>
+        <div className='w-full bg-secondary-200 px-4 py-2  bg-secondary border-[2px]  border-r-0 border-l-0 border-brown'>
+          <h1 className='text-1xl font-bold w-full'>Output</h1>
+        </div>
+      </div>
+              
+              
             )
         }
 
@@ -295,6 +299,7 @@ function TextboxMODE(
               vertical: "hidden",
               horizontal: "hidden",
               handleMouseWheel: true,
+              
             },
             cursorBlinking: "expand",
             autoIndent: "full",
@@ -302,6 +307,7 @@ function TextboxMODE(
             formatOnPaste: true,
             smoothScrolling: true,
             readOnly: disabled
+
 
           }}
 
