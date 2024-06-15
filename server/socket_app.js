@@ -164,7 +164,6 @@ function handleConnection(socket, io, ADMIN) {
     
         const room = (getUser(socket.id))?.room;
     
-        // io.to(room).emit('OutputField', { OutputText })
         socket.broadcast.to(room).emit('OutputField', { OutputText })
     })
 
