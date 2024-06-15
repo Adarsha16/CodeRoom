@@ -228,7 +228,7 @@ function TextboxMODE(
 
       {/*NOTE; Tab Area */}
       < div
-        className={`px-6 h-10 border-[2px]  border-r-0 border-brown flex items-center ${customcss.flex_alignment} fira-sans-bold`}
+        className={`h-10 border-[2px] px-6 border-r-0 border-brown flex items-center ${customcss.flex_alignment} fira-sans-bold`}
       >
         {
           type === "input" ?
@@ -268,13 +268,13 @@ function TextboxMODE(
 
             // Output section
             (
-            <div className='absolute w-full flex justify-center items-center' style={{ top: 'calc(100vh / 5)', marginTop: '216px' ,marginLeft:"-24px"}}>
-        <div className='w-full bg-secondary-200 px-4 py-2  bg-secondary border-[2px]  border-r-0 border-l-0 border-brown'>
-          <h1 className='text-1xl font-bold w-full'>Output</h1>
-        </div>
-      </div>
-              
-              
+              <div className='absolute w-full flex justify-center items-center top-[calc(100vh/5)] mt-72 -ml-6 h-16 pb-1'>
+                <div className='w-full bg-secondary-200 px-4 py-2  bg-secondary border-[2px]  border-r-0 border-l-0 border-brown'>
+                  <h1 className='text-1xl font-bold w-full'>Output</h1>
+                </div>
+              </div>
+
+
             )
         }
 
@@ -299,7 +299,7 @@ function TextboxMODE(
               vertical: "hidden",
               horizontal: "hidden",
               handleMouseWheel: true,
-              
+
             },
             cursorBlinking: "expand",
             autoIndent: "full",
