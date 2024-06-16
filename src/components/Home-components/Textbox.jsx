@@ -104,11 +104,21 @@ function Textbox(
 
     let language;
 
-    if (extension == ".cpp") language = 'cpp';
-    if (extension == ".py") language = 'python';
-    if (extension == ".js") language = "javascript";
-
-    console.log(language)
+    switch (extension) {
+      case ".cpp":
+        language = 'cpp';
+        break;
+      case ".py":
+        language = 'python';
+        break;
+      case ".js":
+        language = 'javascript';
+        break;
+      default:
+        language = 'javascript';
+    }
+  
+    monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language);
 
     setLanguageSelected({ extension, language });
 
@@ -289,7 +299,7 @@ function Textbox(
 
           loading={"Loading...."}
 
-          defaultLanguage={LanguageSelected.language}
+          language={LanguageSelected.language}
           // defaultLanguage={default_lng}
           // defaultValue={""}
 
