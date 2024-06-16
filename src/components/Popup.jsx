@@ -65,7 +65,7 @@ const Popup = () => {
                         className='font-bold text-4xl'
                         style={{ marginTop: '-10px', marginBottom: '8px' }}
                     >
-                        Create/Join a Room
+                        Enter Room
                     </h1>
                     <p>
                         Enter a room ID
