@@ -130,6 +130,15 @@ function handleConnection(socket, io, ADMIN) {
         userLeavesApp(socket.id);
         console.log(`User ${socket.id} disconnected`)
 
+    });
+
+    socket.on("userListOnRoom", (data) => {
+
+        console.log("Room list run", data);
+        const Userinrooms = getAllUsersInRoom(data)
+
+        console.log("usersinroom", Userinrooms)
+        io.to(data).emit("userListOnRoom", Userinrooms)
     })
 
 
@@ -150,20 +159,20 @@ function handleConnection(socket, io, ADMIN) {
 
 
     socket.on('InputField', ({ InputText }) => {
-    
+
         console.log("data:", { InputText });
-    
+
         const room = (getUser(socket.id))?.room;
         // console.log("if", room)
         socket.broadcast.to(room).emit("InputField", { InputText });
     })
-    
+
     socket.on('OutputField', ({ OutputText }) => {
-    
+
         console.log("data on output", OutputText);
-    
+
         const room = (getUser(socket.id))?.room;
-    
+
         socket.broadcast.to(room).emit('OutputField', { OutputText })
     })
 

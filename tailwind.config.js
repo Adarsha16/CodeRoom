@@ -34,7 +34,9 @@ export default {
       'Otp-page-color': '#b0bdfb',
       'otp-button': '#1a7ccf',
       'otp-hover': '#0808fe',
-      'explore-text':'#777a71'
+      'explore-text': '#777a71',
+
+
 
     }
 

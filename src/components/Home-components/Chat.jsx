@@ -23,6 +23,7 @@ function Chat() {
 
     const msgRef = useRef("");
     const [message, setMessage] = useState("");
+    const [usersInRoom, setUsersInRoom] = useState("");
 
     useEffect(() => {
 
@@ -30,6 +31,7 @@ function Chat() {
             console.log("No token present")
             return;
         }
+        console.log("connected socket")
 
         socket = io("http://localhost:5001", {
             path: "/api/room",
@@ -42,6 +44,7 @@ function Chat() {
             reconnectionAttempts: 'infinity',
             autoConnect: true
         });
+        // socket = socketInit(token)
 
         setLoading(false);
 
@@ -81,6 +84,7 @@ function Chat() {
      */
     const appendMessage = (msg) => {
 
+        console.log("client state userin room", usersInRoom)
         const node = document.createElement('li');
         node.classList.add("msg_li");
         node.textContent = msg;
@@ -139,12 +143,17 @@ function Chat() {
 
         console.log("chat", username, roomid)
 
+
+
+
         socket.emit("enterroom",
             {
                 username,
                 roomid
             }
         );
+
+
     }, [roomStatus]);
 
 
@@ -152,6 +161,23 @@ function Chat() {
      * It runs on every mount and listen for message event from server
      */
     useEffect(() => {
+
+        socket.emit("userListOnRoom", roomData.roomid);
+
+        socket.on("userListOnRoom", (data) => {
+            console.log("userListOnRoom list", data)
+
+            data.forEach(each =>
+
+                setUsersInRoom((prev) =>
+                    [...prev, each.username]
+                )
+            )
+        })
+
+
+
+
 
         socket.on('forcedisconnect', (data) => {
             appendMessage(data);
@@ -179,7 +205,11 @@ function Chat() {
 
         });
 
+
     }, []);
+
+
+
 
 
 
@@ -214,10 +244,28 @@ function Chat() {
                 }
 
                 <p className="text-3xl font-semibold">Room:
-                    <span className="font-semibold text-white text-base text-xl">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>
+                    <span className="font-semibold text-white text-base">&nbsp;&nbsp;{roomData?.roomid || `no room yet!`}</span>
                 </p>
 
-                <p>Profile pics here</p>
+
+                <div className="inline-flex justify-start items-start align-middle flex-row gap-2">
+                    {
+                        usersInRoom.length != 0
+                            ?
+                            Array.from(new Set(usersInRoom)).map(each => (
+                                <span className={`inline-flex flex-row justify-center items-center bg-signupBTN text-white h-8 w-8 font-bold rounded-full`}>
+                                    {each.split("")[0]}
+                                </span>
+                            ))
+                            :
+                            "profile"
+                    }
+
+                </div>
+
+
+
+
 
             </div>
 
@@ -290,7 +338,7 @@ function Chat() {
                     : ""
             }
 
-        </div>
+        </div >
     )
 
 }

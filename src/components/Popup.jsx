@@ -5,11 +5,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setRoomClick, setRoomData, setRoomStatus } from '../store/roomSlice.js';
 
 const Popup = () => {
-    const roomClick = useSelector(state => state.room.roomClick);
-    console.log("home", roomClick);
+
+    const roomClick = useSelector(state => state.room.roomClick)
+    console.log("home", roomClick)
 
     const [roomid, setRoomId] = useState("");
     const [open, setOpen] = useState(true);
+    // const [langOnRoom, setLangOnRoom] = useState(".js");
 
     const dispatch = useDispatch();
 
@@ -39,12 +41,16 @@ const Popup = () => {
             return;
         }
 
+        // console.log(socket)
+
         e.target.style.border = '0px';
         dispatch(setRoomData({ roomid }));
         dispatch(setRoomStatus(true));
 
         setOpen(false);
     };
+
+
 
     useEffect(() => {
         dispatch(setRoomClick(open));
@@ -59,7 +65,7 @@ const Popup = () => {
                         className='font-bold text-4xl'
                         style={{ marginTop: '-10px', marginBottom: '8px' }}
                     >
-                        Create/Join a Room
+                        Enter Room
                     </h1>
                     <p>
                         Enter a room ID
@@ -81,6 +87,7 @@ const Popup = () => {
                             <option>JavaScript</option>
                             <option>C++</option>
                             <option>Python</option>
+
                         </select>
                     </div>
                     <Button
