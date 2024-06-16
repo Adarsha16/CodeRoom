@@ -67,7 +67,7 @@ function Setting() {
                             <Button buttonLabel={'Modes'} handleClick={() => {
 
 
-                                changepage ? navigate("/Mode_horizontal") : navigate("/");
+                                changepage ? navigate("/mode_vertical") : navigate("/");
                                 setchangepage(!changepage);
                             }} />
 
