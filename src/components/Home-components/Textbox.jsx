@@ -34,6 +34,7 @@ function Textbox(
   /////////////////////////////////////Socket/////////////////////////////////////////////
   const roomStatus = useSelector(state => state.room.roomStatus);
 
+
   useEffect(() => {
 
 
@@ -237,7 +238,9 @@ function Textbox(
               <>
                 {/* For Left part of input */}
                 <div className='flex flex-row gap-5 items-center'>
-                  <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} handleFileNameInputChange={handleFileNameInputChange} />
+                  {
+                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} handleFileNameInputChange={handleFileNameInputChange} />
+                  }
                 </div>
 
 

@@ -34,7 +34,15 @@ export default {
       'Otp-page-color': '#b0bdfb',
       'otp-button': '#1a7ccf',
       'otp-hover': '#0808fe',
-      'explore-text':'#777a71'
+      'explore-text': '#777a71',
+      'random': {
+        0: '#2F4F4F', // Dark Slate Gray
+        1: '#191970', // Midnight Blue
+        2: '#556B2F', // Dark Olive Green
+        3: '#483D8B', // Dark Slate Blue
+        4: '#800000'  // Maroon'
+      }
+
 
     }
 

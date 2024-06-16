@@ -12,7 +12,7 @@ const Input = React.forwardRef(
                 customcss = "",
                 props = "",
                 inputId,
-               
+
 
 
 
@@ -31,7 +31,7 @@ const Input = React.forwardRef(
             `}
                 placeholder={custom_placeholder}
                 ref={ref}
-                onBlur={handleChanges}
+                onChange={handleChanges}
 
                 {...props}
 

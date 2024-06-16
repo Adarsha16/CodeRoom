@@ -7,15 +7,17 @@ import { setRoomClick, setRoomData, setRoomStatus } from '../store/roomSlice.js'
 
 const Popup = () => {
 
-    const roomClick = useSelector(state => state.room.roomClick)
+    const roomClick = useSelector(state => state.room.roomClick);
+    // const token = useSelector(state => state.auth.token)
     console.log("home", roomClick)
 
     const [roomid, setRoomId] = useState("");
     const [open, setOpen] = useState(true);
+    // const [langOnRoom, setLangOnRoom] = useState(".js");
 
     const dispatch = useDispatch();
 
-    
+
     const quickJoinFunc = (e) => {
         e.preventDefault();
 
@@ -42,12 +44,15 @@ const Popup = () => {
             return;
         }
 
+        // console.log(socket)
+
         e.target.style.border = '0px';
         dispatch(setRoomData({ roomid }));
         dispatch(setRoomStatus(true));
 
         setOpen(false)
     };
+
 
 
 
@@ -72,7 +77,7 @@ const Popup = () => {
                         Create/Join a Room
                     </h1>
                     <p>
-                        Enter a room ID 
+                        Enter a room ID
                     </p>
                     <Input
 
@@ -89,10 +94,16 @@ const Popup = () => {
                     {/* Language selection part */}
                     <div className=''>
                         <label>Select a Language: </label>
-                        <select className='ml-2 bg-black px-6 py-1 rounded-sm hover:bg-slate-700'>
-                            <option>JavaScript</option>
-                            <option>C++</option>
-                            <option>Python</option>
+                        <select
+                            className='ml-2 bg-black px-6 py-1 rounded-sm hover:bg-slate-700'
+
+                            onChange={(e) =>
+                                setLangOnRoom(e.target.selectedOptions[0].id)
+                            }>
+
+                            <option id={'.js'}>JavaScript</option>
+                            <option id={'.cpp'}>C++</option>
+                            <option id={'.py'}>Python</option>
 
                         </select>
                     </div>
