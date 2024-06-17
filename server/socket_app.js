@@ -189,9 +189,11 @@ function handleConnection(socket, io, ADMIN) {
 
         //Emit disconnection messages to the room
         const user = getUser(socket.id);
+        const allUsersInRoom = getAllUsersInRoom(room);
         if (user) {
             io.to(room).emit('message', BuildMsg(ADMIN, `${user.username} has left the room`));
-            io.to(room).emit('userList', { users: getAllUsersInRoom(room) });
+            io.to(room).emit('userListAfterLeave', { users: allUsersInRoom });
+            // io.to(room).emit('userListOnRoom', allUsersInRoom)
             io.emit('roomList', { rooms: getAllActiveRooms() });
         }
 
