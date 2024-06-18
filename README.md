@@ -18,11 +18,11 @@ Code Room is an unbelievably fast online code editor and compiler which allows y
 
 ### Get Started
 
-*Ensure NodeJS is installed on your machine*
+*Ensure NodeJS and MySQL is installed on your machine*
 
 
 ```sh
-git clone <link>
+git clone <link of this repo>
 cd CodeRoom
 ```
 
@@ -47,7 +47,7 @@ http://localhost:5173/
 
 ### Under the hood
 - **React**  In front end
-- **Nodejs** server on backend
+- **Nodejs** and **Express** server on backend
 - **MySQL** for Database Management
 - **Tailwind** for Style
 - Password Encryption using **bcrypt** hashing
@@ -61,7 +61,7 @@ http://localhost:5173/
 
 - **Server is running on port :``` 5001```**<br>
 
-**Make sure your .env file inside directory server  looks something like this:**
+**Make sure your .env file inside server directory looks something like this:**
 ```
 #For MYSQL Database
 DB_HOST = localhost
