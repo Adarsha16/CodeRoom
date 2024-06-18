@@ -1,4 +1,4 @@
-# <span style="color:'#238579'; animation: blinker 1s linear infinite; font:bold">CODE ROOM</span>
+# +CODE ROOM
 
 Code Room is an unbelievably fast online code editor and compiler which allows you for real time collaboration.
 
