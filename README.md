@@ -1,19 +1,20 @@
-# CODE ROOM
+# <span style="color:blue; animation: blinker 1s linear infinite;">CODE ROOM</span>
+
 Code Room is an unbelievably fast online code editor and compiler which allows you for real time collaboration.
 
 ![](./readmePicture.png)
 
 ### Features
 
-- Support Multiple language code compilation.
-- Uses Monaco Editor (the same that VS Code uses) for Indentation, Code Coloration, IntelliSense.
-- Allows you to Code Collaborate with multiple uses in real time.
-- Allows you to chat with your fellow collaborators.
+- **Multi-language Support**: Compile code in multiple programming languages.
+- **Monaco Editor**: Enjoy the same code editing experience as in VS Code, with features like indentation, syntax highlighting, and IntelliSense.
+- **Real-time Collaboration**: Code together with others in real-time.
+- **Integrated Chat**: Communicate seamlessly with your fellow collaborators.
 
 
 ### Get Started
 
-*Make sure Node is installed on your machine*
+*Ensure NodeJS is installed on your machine*
 
 
 ```sh
@@ -80,8 +81,8 @@ JWT_LIFETIME = '1hr'
 
 ### Developers
 
-[Ostrich-egg](https://github.com/ostrich-egg)
-[Adarsha](https://github.com/Adarsha16)
-[Pranaya-sht](https://github.com/Pranaya-sht)
-[XGPher35](https://github.com/XGPher35)
-> This was Third semister project.
+[Ostrich-egg](https://github.com/ostrich-egg)<br>
+[Adarsha](https://github.com/Adarsha16)<br>
+[Pranaya-sht](https://github.com/Pranaya-sht)<br>
+[XGPher35](https://github.com/XGPher35)<br>
+> This is Third semister project.<br>
