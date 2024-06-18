@@ -1,4 +1,4 @@
-<h1 style="color:#238579; font:bold; "><blink>CODE ROOM</blink>-182</h1>
+<h1 style="color:#238579; font:bold; "></h1>
 
 Code Room is an unbelievably fast online code editor and compiler which allows you for real time collaboration.
 
