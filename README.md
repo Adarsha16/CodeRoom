@@ -1,4 +1,4 @@
-# <span style="color:blue; animation: blinker 1s linear infinite;">CODE ROOM</span>
+# <span style="color:'#238579'; animation: blinker 1s linear infinite; font:bold">CODE ROOM</span>
 
 Code Room is an unbelievably fast online code editor and compiler which allows you for real time collaboration.
 
@@ -42,15 +42,15 @@ http://localhost:5173/
 >voilà! You are ready to swing.
 
 ### Under the hood
-- React  In front end
-- Nodejs server on backend
-- MySQL for Database Management
-- Tailwind for Style
-- Password Encryption using bcrypt hashing
-- Authentication using JWT, with ft. like OTP using NodeMailer.
-- Monaco Editor for code IntelliSense and edit
-- Glot API for Code Compilation
-- Socket.io for websocket (Real time communication)
+- **React**  In front end
+- **Nodejs** server on backend
+- **MySQL** for Database Management
+- **Tailwind** for Style
+- Password Encryption using **bcrypt** hashing
+- Authentication using **JWT**, with ft. like OTP using NodeMailer.
+- **Monaco Editor** for code IntelliSense and edit
+- **Glot API** for Code Compilation
+- Socket.io for **websocket** (Real time communication)
 - Some Common sense
 
 ### Before you Start
