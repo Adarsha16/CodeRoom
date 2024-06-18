@@ -13,6 +13,7 @@ Code Room is an unbelievably fast online code editor and compiler which allows y
 - **Monaco Editor**: Enjoy the same code editing experience as in VS Code, with features like indentation, syntax highlighting, and IntelliSense.
 - **Real-time Collaboration**: Code together with others in real-time.
 - **Integrated Chat**: Communicate seamlessly with your fellow collaborators.
+- **Supported Language** : JavaScript, Python, C++
 
 
 ### Get Started
