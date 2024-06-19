@@ -44,23 +44,47 @@ function Textbox(
       return;
     };
 
+
     socket.emit("InputField", { InputText });
 
     ////////////
 
     const handleSocketInputFieldForInputText = ({ InputText }) => {
 
-      console.log("server to client", { InputText })
+      console.log("server to client input", { InputText })
       putInputText(InputText);
     }
 
+
     socket.on("InputField", handleSocketInputFieldForInputText);
+
 
     return () => {
       socket.off("InputField", handleSocketInputFieldForInputText);
     };
 
-  }, [InputText, roomStatus])
+  }, [InputText, roomStatus]);
+
+
+  // useEffect(() => {
+
+  //   if (!roomStatus) {
+  //     return;
+  //   }
+
+  //   const handleFirstRoomInputText = ({ InputText }) => {
+  //     console.log("Room enter input terxt", InputText)
+  //     putInputText(InputText);
+
+  //   }
+
+  //   socket.on("room_InputText", handleFirstRoomInputText);
+
+  //   return () => {
+  //     socket.off("room_InputText", handleFirstRoomInputText)
+  //   }
+
+  // }, [roomStatus])
 
 
 
@@ -81,10 +105,10 @@ function Textbox(
       console.log("server to client output", { OutputText })
       putOutputText(OutputText);
     }
+
     // if (OutputText && roomStatus) {
     socket.on("OutputField", handleSocketOutputFieldForOutputText)
     // }
-
 
     return () => {
       socket.off("OutputField", handleSocketOutputFieldForOutputText);

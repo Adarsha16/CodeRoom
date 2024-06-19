@@ -13,6 +13,8 @@ const UserState = {
 
 };
 
+let Server_InputText;
+
 
 export const socket_app = async (io) => {
 
@@ -88,8 +90,15 @@ function handleConnection(socket, io, ADMIN) {
         // Join Room
         socket.join(user.room);
 
+
+
         // To those other than the users joined
         socket.to(user.room).emit('message', BuildMsg(ADMIN, `${user.username} has just joined`));
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////if BUG comment this out/////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        socket.emit("InputField", { InputText: Server_InputText }); //Updates the room data to the new user
 
 
         //Update the user list for just joined room
@@ -114,6 +123,7 @@ function handleConnection(socket, io, ADMIN) {
 
         const user = getUser(socket.id);
 
+
         if (user) {
             io.to(user.room).emit('message', BuildMsg(ADMIN, `${user.username} has disconnected`));
 
@@ -124,6 +134,7 @@ function handleConnection(socket, io, ADMIN) {
             // io.emit('roomList', {
             //     rooms: getAllActiveRooms()
             // })
+            handleUserLeavefn(user, user.room);
         }
 
         // Remove user from current state
@@ -161,6 +172,7 @@ function handleConnection(socket, io, ADMIN) {
     socket.on('InputField', ({ InputText }) => {
 
         console.log("data:", { InputText });
+        Server_InputText = InputText;
 
         const room = (getUser(socket.id))?.room;
         // console.log("if", room)
@@ -174,7 +186,22 @@ function handleConnection(socket, io, ADMIN) {
         const room = (getUser(socket.id))?.room;
 
         socket.broadcast.to(room).emit('OutputField', { OutputText })
-    })
+    });
+
+
+
+
+    function handleUserLeavefn(user, room) {
+
+        const allUsersInRoom = getAllUsersInRoom(room);
+        const OnlyUsersPresentOnRoom = allUsersInRoom.filter(each => each.username !== user.username)
+
+        if (user) {
+            io.to(room).emit('userListAfterLeave', { users: OnlyUsersPresentOnRoom });
+
+        }
+
+    };
 
 
 
@@ -189,12 +216,13 @@ function handleConnection(socket, io, ADMIN) {
 
         //Emit disconnection messages to the room
         const user = getUser(socket.id);
-        const allUsersInRoom = getAllUsersInRoom(room);
-        const OnlyUsersPresentOnRoom = allUsersInRoom.filter(each => each.username !== user.username)
+        handleUserLeavefn(user, room)
+        // const allUsersInRoom = getAllUsersInRoom(room);
+        // const OnlyUsersPresentOnRoom = allUsersInRoom.filter(each => each.username !== user.username)
 
         if (user) {
             io.to(room).emit('message', BuildMsg(ADMIN, `${user.username} has left the room`));
-            io.to(room).emit('userListAfterLeave', { users: OnlyUsersPresentOnRoom });
+            // io.to(room).emit('userListAfterLeave', { users: OnlyUsersPresentOnRoom });
 
             // io.emit('roomList', { rooms: getAllActiveRooms() });
         }
