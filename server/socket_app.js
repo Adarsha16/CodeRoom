@@ -93,14 +93,14 @@ function handleConnection(socket, io, ADMIN) {
 
 
         //Update the user list for just joined room
-        io.to(user.room).emit('userList', {
-            users: getAllUsersInRoom(user.room)
-        })
+        // io.to(user.room).emit('userList', {
+        //     users: getAllUsersInRoom(user.room)
+        // })
 
         // Update room list for everyone
-        io.emit('roomList', {
-            rooms: getAllActiveRooms()
-        })
+        // io.emit('roomList', {
+        //     rooms: getAllActiveRooms()
+        // })
 
         console.log("reached to bottom")
 
@@ -117,13 +117,13 @@ function handleConnection(socket, io, ADMIN) {
         if (user) {
             io.to(user.room).emit('message', BuildMsg(ADMIN, `${user.username} has disconnected`));
 
-            io.to(user.room).emit('userList', {
-                users: getAllUsersInRoom(user.room)
-            })
+            // io.to(user.room).emit('userList', {
+            //     users: getAllUsersInRoom(user.room)
+            // })
 
-            io.emit('roomList', {
-                rooms: getAllActiveRooms()
-            })
+            // io.emit('roomList', {
+            //     rooms: getAllActiveRooms()
+            // })
         }
 
         // Remove user from current state
@@ -137,7 +137,7 @@ function handleConnection(socket, io, ADMIN) {
         console.log("Room list run", data);
         const Userinrooms = getAllUsersInRoom(data)
 
-        console.log("usersinroom", Userinrooms)
+        console.log("usersinroom on req", Userinrooms)
         io.to(data).emit("userListOnRoom", Userinrooms)
     })
 
@@ -190,11 +190,13 @@ function handleConnection(socket, io, ADMIN) {
         //Emit disconnection messages to the room
         const user = getUser(socket.id);
         const allUsersInRoom = getAllUsersInRoom(room);
+        const OnlyUsersPresentOnRoom = allUsersInRoom.filter(each => each.username !== user.username)
+
         if (user) {
             io.to(room).emit('message', BuildMsg(ADMIN, `${user.username} has left the room`));
-            io.to(room).emit('userListAfterLeave', { users: allUsersInRoom });
-            // io.to(room).emit('userListOnRoom', allUsersInRoom)
-            io.emit('roomList', { rooms: getAllActiveRooms() });
+            io.to(room).emit('userListAfterLeave', { users: OnlyUsersPresentOnRoom });
+
+            // io.emit('roomList', { rooms: getAllActiveRooms() });
         }
 
     });
