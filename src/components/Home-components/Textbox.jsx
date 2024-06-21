@@ -141,7 +141,7 @@ function Textbox(
       default:
         language = 'javascript';
     }
-  
+
     monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language);
 
     setLanguageSelected({ extension, language });
