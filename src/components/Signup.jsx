@@ -23,6 +23,8 @@ function Signup() {
   const [loginStatus, setLoginStatus] = useState(false);
   const [githubData, setGithubData] = useState(null);
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const handleChanges = (e) => {
 
     const { value, name } = e.target
@@ -33,8 +35,17 @@ function Signup() {
       [name]: value
 
     }))
+
+    if (name === 'password' && !value) {
+      setIsPasswordVisible(false);
+    }
   }
 
+  ///For password hiding////
+
+  const changePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
 
   const ValidateAndSetErrors = () => {
@@ -45,7 +56,7 @@ function Signup() {
   };
 
 
-
+//console.log("password visibility: ", isPasswordVisible);
 
 
   const handleSubmit = async (e) => {
@@ -59,7 +70,6 @@ function Signup() {
 
       return;
     };
-
 
 
     //////////////Call Github////////////////////////////////
@@ -125,9 +135,9 @@ function Signup() {
 
         {/**Info and Headline */}
         <div className='flex flex-col gap-1 mb-0.5 items-center text-white'>
-          <h1 className='fira-sans-bold text-5xl '>Code Room</h1>
-          <h5 className=' text-2xl pt-3'>Welcome to Code Room!</h5>
-          <h5 className=' text-md '>Create an account to continue</h5>
+          <h1 className='fira-sans-bold text-5xl mb-2 '>Code Room</h1><br />
+          <h5 className=' text-2xl pt-3'>Welcome to Code Room!</h5><br />
+          <h5 className=' text-md mb-5 '>Create an account to continue</h5>
         </div>
 
         {/**Input filed */}
@@ -173,15 +183,34 @@ function Signup() {
               {(FormErrors.github || GitErrors.github) && <p className='error text-sm/[15px]'>{FormErrors.github || GitErrors.github}</p>}
 
               {/*password field*/}
-              <Input
+              <div style={{ position: 'relative', display: 'inline-block' }}>
 
-                type={'password'}
-                custom_placeholder={'Password'}
-                name={'password'}
-                value={values.password}
-                handleChanges={handleChanges}
+                  <Input
+                    type={isPasswordVisible ? 'text' : 'password'}
+                    custom_placeholder={'Password'}
+                    name={'password'}
+                    value={values.password}
+                    handleChanges={handleChanges}
+                  />
 
-              />
+                  {values.password && (
+                    <span
+                      onClick={changePasswordVisibility}
+                      style={{
+                        position: 'absolute',
+                        right: '10px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        cursor: 'pointer',
+                        userSelect: 'none',
+                        color: 'black',
+                      }}
+                    >
+                      {isPasswordVisible ? 'Hide' : 'Show'}
+                    </span>
+                  )}
+
+                </div>
               {(FormErrors?.password) && <p className='error text-sm/[15px]'>{FormErrors?.password}</p>}
               {(FormErrors?.register) && <p className='error text-sm/[15px]'>{FormErrors?.register}</p>}
 
