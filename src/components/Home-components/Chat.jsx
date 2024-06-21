@@ -9,6 +9,7 @@ import { leaveRoom } from "../../store/roomSlice.js";
 let socket;
 function Chat() {
 
+
     const [loading, setLoading] = useState(true);
 
     const dispatch = useDispatch();
@@ -107,16 +108,17 @@ function Chat() {
 
         // If user click not to leave
         if (e.target.id == "No") {
-
-
             setclosing(false);
             return;
         }
 
         // If user click yes to leave
+        // fn_listUserOnRoom();
         setclosing(false);
         dispatch(leaveRoom());
         socket.emit("unsubscribe", roomData.roomid)
+
+
         // window.location.reload();
 
     }
@@ -153,14 +155,16 @@ function Chat() {
             }
         );
 
+  
+
 
     }, [roomStatus]);
 
-
     /**
-     * It runs on every mount and listen for message event from server
+     * To list the user
      */
-    useEffect(() => {
+
+    const fn_listUserOnRoom = () => {
 
         socket.emit("userListOnRoom", roomData.roomid);
 
@@ -174,10 +178,29 @@ function Chat() {
                 )
             )
         })
+    }
 
 
+    /**
+     * It runs on every mount and listen for message event from server
+     */
+    useEffect(() => {
+
+        fn_listUserOnRoom();
 
 
+        socket.on('userListAfterLeave', ({ users }) => {
+
+            console.log("User leaved room", users);
+
+            users.forEach(each =>
+
+                setUsersInRoom(() =>
+                    [each.username]
+                )
+            )
+
+        })
 
         socket.on('forcedisconnect', (data) => {
             appendMessage(data);
@@ -185,6 +208,7 @@ function Chat() {
             return;
         }
         );
+
 
 
         socket.on("message", (data) => {
@@ -248,6 +272,7 @@ function Chat() {
                 </p>
 
 
+                {/*///////////// Showing userlist ///////////// */}
                 <div className="inline-flex justify-start items-start align-middle flex-row gap-2">
                     {
                         usersInRoom.length != 0

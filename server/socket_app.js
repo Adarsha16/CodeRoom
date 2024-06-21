@@ -13,6 +13,8 @@ const UserState = {
 
 };
 
+let Server_InputText;
+
 
 export const socket_app = async (io) => {
 
@@ -88,19 +90,26 @@ function handleConnection(socket, io, ADMIN) {
         // Join Room
         socket.join(user.room);
 
+
+
         // To those other than the users joined
         socket.to(user.room).emit('message', BuildMsg(ADMIN, `${user.username} has just joined`));
 
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////if BUG comment this out/////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        socket.emit("InputField", { InputText: Server_InputText }); //Updates the room data to the new user
+
 
         //Update the user list for just joined room
-        io.to(user.room).emit('userList', {
-            users: getAllUsersInRoom(user.room)
-        })
+        // io.to(user.room).emit('userList', {
+        //     users: getAllUsersInRoom(user.room)
+        // })
 
         // Update room list for everyone
-        io.emit('roomList', {
-            rooms: getAllActiveRooms()
-        })
+        // io.emit('roomList', {
+        //     rooms: getAllActiveRooms()
+        // })
 
         console.log("reached to bottom")
 
@@ -114,16 +123,18 @@ function handleConnection(socket, io, ADMIN) {
 
         const user = getUser(socket.id);
 
+
         if (user) {
             io.to(user.room).emit('message', BuildMsg(ADMIN, `${user.username} has disconnected`));
 
-            io.to(user.room).emit('userList', {
-                users: getAllUsersInRoom(user.room)
-            })
+            // io.to(user.room).emit('userList', {
+            //     users: getAllUsersInRoom(user.room)
+            // })
 
-            io.emit('roomList', {
-                rooms: getAllActiveRooms()
-            })
+            // io.emit('roomList', {
+            //     rooms: getAllActiveRooms()
+            // })
+            handleUserLeavefn(user, user.room);
         }
 
         // Remove user from current state
@@ -137,7 +148,7 @@ function handleConnection(socket, io, ADMIN) {
         console.log("Room list run", data);
         const Userinrooms = getAllUsersInRoom(data)
 
-        console.log("usersinroom", Userinrooms)
+        console.log("usersinroom on req", Userinrooms)
         io.to(data).emit("userListOnRoom", Userinrooms)
     })
 
@@ -161,6 +172,7 @@ function handleConnection(socket, io, ADMIN) {
     socket.on('InputField', ({ InputText }) => {
 
         console.log("data:", { InputText });
+        Server_InputText = InputText;
 
         const room = (getUser(socket.id))?.room;
         // console.log("if", room)
@@ -174,7 +186,22 @@ function handleConnection(socket, io, ADMIN) {
         const room = (getUser(socket.id))?.room;
 
         socket.broadcast.to(room).emit('OutputField', { OutputText })
-    })
+    });
+
+
+
+
+    function handleUserLeavefn(user, room) {
+
+        const allUsersInRoom = getAllUsersInRoom(room);
+        const OnlyUsersPresentOnRoom = allUsersInRoom.filter(each => each.username !== user.username)
+
+        if (user) {
+            io.to(room).emit('userListAfterLeave', { users: OnlyUsersPresentOnRoom });
+
+        }
+
+    };
 
 
 
@@ -189,10 +216,15 @@ function handleConnection(socket, io, ADMIN) {
 
         //Emit disconnection messages to the room
         const user = getUser(socket.id);
+        handleUserLeavefn(user, room)
+        // const allUsersInRoom = getAllUsersInRoom(room);
+        // const OnlyUsersPresentOnRoom = allUsersInRoom.filter(each => each.username !== user.username)
+
         if (user) {
             io.to(room).emit('message', BuildMsg(ADMIN, `${user.username} has left the room`));
-            io.to(room).emit('userList', { users: getAllUsersInRoom(room) });
-            io.emit('roomList', { rooms: getAllActiveRooms() });
+            // io.to(room).emit('userListAfterLeave', { users: OnlyUsersPresentOnRoom });
+
+            // io.emit('roomList', { rooms: getAllActiveRooms() });
         }
 
     });
