@@ -180,7 +180,7 @@ function handleConnection(socket, io, ADMIN) {
     /**
     * Language change for all users in a room
     * 
-    */
+     */
 
 
     socket.on('roomUpdate', ({ roomLanguages }) => {
@@ -230,23 +230,31 @@ function handleConnection(socket, io, ADMIN) {
     socket.on('InputField', ({ InputText }) => {
 
         console.log("data:", { InputText });
-        Server_InputText = InputText;
 
-        const room = (getUser(socket.id))?.room;
+        /*const room = (getUser(socket.id))?.room;
         // console.log("if", room)
-        socket.broadcast.to(room).emit("InputField", { InputText });
+        socket.broadcast.to(room).emit("InputField", { InputText });*/
+        const user = getUser(socket.id);
+        if (user && user.room) {
+            roomInputText[user.room] = InputText;
+            socket.broadcast.to(user.room).emit("InputField", { InputText });
+        }
     })
 
     socket.on('OutputField', ({ OutputText }) => {
 
         console.log("data on output", OutputText);
 
-        const user = (getUser(socket.id));
+        /*const room = (getUser(socket.id))?.room;
+
+        socket.broadcast.to(room).emit('OutputField', { OutputText })*/
+
+        const user = getUser(socket.id);
         if (user && user.room) {
-            roomInputText[user.room] = InputText;
-            socket.broadcast.to(user.room).emit("InputField", { InputText });
+            roomOutputText[user.room] = OutputText;
+            socket.broadcast.to(user.room).emit("OutputField", { OutputText });
         }
-    });
+    })
 
 
 
