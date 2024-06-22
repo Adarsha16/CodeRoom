@@ -57,7 +57,7 @@ function Setting() {
     const handleSendReport = () => {
         if (reportEmail && reportContent) {
             emailjs.send('service_d0mqmni', 'template_llp76vz', {
-                to_email: 'adarshapant350@gmail.com', // Replace with your email address
+                to_email: 'adarshapant350@gmail.com', //  your email address (of developer)
                 from_email: reportEmail,
                 message: reportContent,
             }, 'JOqRMVlQFwtkby774')
@@ -122,7 +122,7 @@ function Setting() {
                                 {popupContent === 'Contacts'
                                     ? <>
                                       
-                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank">Adarsha Pant</a><br />
+                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank" rel="noopener noreferrer">Adarsha Pant</a><br />
                                         <a className="hover-effect" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">Arjit Chand</a><br />
                                         <a className="hover-effect" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">Pranaya Shrestha</a><br />
                                         <a className="hover-effect" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer">Sauhardha Kafle</a><br />
