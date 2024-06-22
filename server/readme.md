@@ -27,6 +27,8 @@ JWT_LIFETIME = <jwt_lifetime>
 
 COMPILER_PATH = ./controller/docker_compiler
 PYTHON_PATH = ./controller/docker_compiler/python
+JS_PATH = ./controller/docker_compiler/javascript
+CPP_PATH = ./controller/docker_compiler/cpp
 
 
 ```
