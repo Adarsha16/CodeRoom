@@ -11,11 +11,9 @@ const Python_docker = async () => {
         return new Promise((resolve, reject) => {
 
             console.log("Building")
-            const image = execFileSync("docker", ["build", "-q", `${process.env.PYTHON_PATH}`]).toString().trim();
-
+            // const image = execFileSync("docker", ["build", "-q", `${process.env.PYTHON_PATH}`]).toString().trim();
             console.log("Running")
-            console.log("image", image)
-            const child = spawn("docker", ["run", image]);
+            const child = spawn("docker", ["run", "-v", `${process.env.PYTHON_PATH}:/app`, "sha256:cf2cc275b16ff627ec194e286545ca9598ebc0eb652f72f61715e8d4280f981c"]);
 
             let output = '';
 

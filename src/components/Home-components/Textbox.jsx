@@ -158,10 +158,11 @@ function Textbox(
 
   /////////////////////////////////////call api to compile////////////////////////////////
 
-  const callCompilerApi = async () => {
+  const callCompilerApi = async (e) => {
 
     try {
 
+      e.preventDefault();
       let extension = LanguageSelected.extension;
       console.log(extension)
 
@@ -171,7 +172,7 @@ function Textbox(
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ InputText, extension })
+          body: JSON.stringify({ InputText, extension }),
         })
 
       console.log("vanilla response", response)

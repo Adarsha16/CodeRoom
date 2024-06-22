@@ -12,11 +12,11 @@ const Cpp_docker = async () => {
         return new Promise((resolve, reject) => {
 
             console.log("Building")
-            const image = execFileSync("docker", ["build", "-q", `${path.join(process.env.COMPILER_PATH, "cpp")}`]).toString().trim();
+            // const image = execFileSync("docker", ["build", "-q", `${path.join(process.env.COMPILER_PATH, "cpp")}`]).toString().trim();
 
             console.log("Running")
-            console.log("image", image)
-            const child = spawn("docker", ["run", image]);
+            const child = spawn("docker", ["run", "-v", `${process.env.CPP_PATH}:/usr/src/app`, "sha256:df11e1bb8f648c21e7207cd9eb55845e44213dbd09039068302ed481098e8d1e"]);
+
 
             let output = '';
 
@@ -48,7 +48,7 @@ const Cpp_docker = async () => {
 
         console.log("error from cpp_docker", error);
 
-    }   
+    }
 
 };
 

@@ -6,15 +6,15 @@
 
 # Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
 
-ARG NODE_VERSION=18.19.1
+# ARG NODE_VERSION=18.19.1
 
-FROM node:${NODE_VERSION}-alpine
+FROM node:latest
 
 # Use production node environment by default.
-ENV NODE_ENV production
+# ENV NODE_ENV production
 
 
-WORKDIR /usr/src/app
+WORKDIR /usr/source/app
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.npm to speed up subsequent builds.
@@ -30,7 +30,7 @@ WORKDIR /usr/src/app
 
 
 # Run the application as a non-root user.
-USER node
+# USER node
 
 # Copy the rest of the source files into the image.
 COPY . .
@@ -39,4 +39,4 @@ COPY . .
 EXPOSE 8000
 
 # Run the application.
-CMD node app.js
+CMD ["node", "myapp.js"]

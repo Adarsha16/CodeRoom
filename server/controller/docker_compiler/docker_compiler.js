@@ -8,26 +8,31 @@ dotenv.config();
 
 
 
-const python = async (InputText = "", extension) => {
+const docker_compiler = async (InputText = "", extension) => {
 
     try {
 
-        console.log("Run")
+        console.log("Run", InputText, extension)
 
-        let PATH = process.env.COMPILER_PATH;
+        let PATH;
 
         if (extension == ".py") {
-            PATH = path.join(PATH, "python");
-        } else if (extension == ".js") {
-            PATH = path.join(PATH, "javascript");
-        } else if (extension == ".cpp") {
-            PATH = path.join(PATH, "cpp");
+            PATH = path.join(process.env.PYTHON_PATH);
         }
+        else
+            if (extension == ".js") {
+                console.log("path run")
+                PATH = path.join(process.env.JS_PATH);
+            }
+            else
+                if (extension == ".cpp") {
+                    PATH = path.join(process.env.CPP_PATH);
+                }
 
 
         console.log("Selected path", PATH)
 
-        const file = fs.writeFileSync(`${PATH}/app${extension}`, InputText)
+        const file = fs.writeFileSync(`${PATH}/myapp${extension}`, InputText)
         console.log("File after created", file);
 
         let data;
@@ -35,6 +40,7 @@ const python = async (InputText = "", extension) => {
             data = (await Python_docker()).toString();
         }
         if (extension == ".js") {
+            console.log("docker run")
             data = (await JavaScript_docker()).toString();
         }
         if (extension == ".cpp") {
@@ -45,8 +51,9 @@ const python = async (InputText = "", extension) => {
 
 
 
+
         // delete file
-        fs.unlinkSync(`${PATH}/app${extension}`, (err) => {
+        fs.unlinkSync(`${PATH}/myapp${extension}`, (err) => {
             if (err) {
                 console.log("error on deleting file in python.js ", err)
             }
@@ -62,4 +69,4 @@ const python = async (InputText = "", extension) => {
     }
 }
 
-export { python }
+export { docker_compiler }

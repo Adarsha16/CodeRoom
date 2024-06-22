@@ -1,27 +1,21 @@
-import { python } from "./docker_compiler/docker_compiler.js";
+import { docker_compiler } from "./docker_compiler/docker_compiler.js";
 
 const compiler = async (req, res) => {
 
     try {
 
+        console.log("run")
         // const { lang } = req.params;////////////////////////////////////to be deleted
         const { InputText, extension } = (req.body);
 
         console.log(extension)
         console.log(InputText)
 
-        const Output = await python(InputText, extension);
+        const Output = await docker_compiler(InputText, extension);
 
         console.log("Output from compiler", Output);
 
         return res.status(200).json({ Output })
-
-
-
-
-
-
-
         /***
          * GLOT API version 
         */

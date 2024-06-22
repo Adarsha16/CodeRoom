@@ -13,4 +13,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["sh","-c","g++ -o myapp app.cpp && ./myapp"]
+CMD ["sh","-c","g++ -o myapp myapp.cpp && ./myapp"]

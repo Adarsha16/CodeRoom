@@ -1,7 +1,6 @@
 
 import { execFileSync, spawn } from 'node:child_process';
 import dotenv from "dotenv";
-import path from 'node:path';
 dotenv.config();
 
 
@@ -11,13 +10,14 @@ const JavaScript_docker = async () => {
 
         return new Promise((resolve, reject) => {
 
-            console.log("Building")
-            const image = execFileSync("docker", ["build", "-q", `${path.join(process.env.COMPILER_PATH, "javascript")}`]).toString().trim();
-
+            console.log("Building image js")
+            // const image = execFileSync("docker", ["build", "-q", `${process.env.JS_PATH}`]).toString().trim();
             console.log("Running")
-            console.log("image", image)
-            const child = spawn("docker", ["run", image]);
+            // console.log("image", image);
+            const child = spawn("docker", ["run", "-v", `${process.env.JS_PATH}:/usr/source/app`, "sha256:e9b0a4e801c26af8b65691dbc03fbefa603c280b50822d1a161bcb28bd9ccdb2"]);
+            // const child = spawn("docker", ["run", image]);
 
+            console.log("checking")
             let output = '';
 
             child.stdout.on("data", data => {
@@ -34,20 +34,14 @@ const JavaScript_docker = async () => {
 
             child.on("close", code => {
 
-
                 resolve(output);
-
-
             })
-
         })
 
 
 
     } catch (error) {
-
-        console.log("error from javascript_docker", error);
-
+        console.log("error from docker js", error);
     }
 
 };

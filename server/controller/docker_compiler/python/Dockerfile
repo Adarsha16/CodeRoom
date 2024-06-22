@@ -45,10 +45,14 @@ RUN adduser \
 USER appuser
 
 # Copy the source code into the container.
+
+##################### For copying file ##
 COPY . .
+## For copying file #####################
+
 
 # Expose the port that the application listens on.
 EXPOSE 8000
 
 # Run the application.
-CMD python3 ./app.py
+CMD python3 ./myapp.py
