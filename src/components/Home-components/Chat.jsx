@@ -77,6 +77,7 @@ function Chat() {
         socket.emit("message", data);
         setMessage("");
 
+
     };
 
     /**
@@ -155,7 +156,7 @@ function Chat() {
             }
         );
 
-  
+
 
 
     }, [roomStatus]);

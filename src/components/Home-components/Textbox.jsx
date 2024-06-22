@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { socket } from './Chat.jsx';
+import { selectModeClick } from '../../store/modeSlice.js';
 
 
 function Textbox(
@@ -18,6 +19,8 @@ function Textbox(
 
   }
 
+
+
 ) {
 
   const [LanguageSelected, setLanguageSelected] = useState({ extension: ".js", language: "javascript", file_name: "index" })
@@ -29,6 +32,7 @@ function Textbox(
 
   const outputref = useRef(OutputText);
   const monacoref = useRef(null);
+  let isVertical = useSelector(selectModeClick);
 
 
   /////////////////////////////////////Socket/////////////////////////////////////////////
@@ -110,6 +114,8 @@ function Textbox(
     socket.on("OutputField", handleSocketOutputFieldForOutputText)
     // }
 
+
+
     return () => {
       socket.off("OutputField", handleSocketOutputFieldForOutputText);
     };
@@ -145,7 +151,6 @@ function Textbox(
     monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language);
 
     setLanguageSelected({ extension, language });
-
   }
 
 
@@ -304,11 +309,18 @@ function Textbox(
             :
 
             // Output section
-            (
+            isVertical ? (
               <div className='px-6 h-10 border-brown flex items-center font-bold'>
                 Output
               </div>
-            )
+            ) :
+              (
+                <div className='absolute w-full flex justify-center items-center top-[calc(100vh/5)] mt-64 -ml-6 h-16 pb-1'>
+                  <div className='w-full bg-secondary-200 px-4 py-2  bg-secondary border-[2px]  border-r-0 border-l-0 border-brown'>
+                    <h1 className='text-1xl font-bold w-full'>Output</h1>
+                  </div>
+                </div>
+              )
         }
 
       </div >

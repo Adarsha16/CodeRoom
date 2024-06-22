@@ -113,6 +113,9 @@ function handleConnection(socket, io, ADMIN) {
 
         console.log("reached to bottom")
 
+        // if (room) {
+        //     io.emit('LanguageSwitched', extension, language);
+        // }
     });
 
     /**
