@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import Button from "../Button.jsx";
 import '../../App.css';
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clickButton, selectModeClick } from "../../store/modeSlice.js";
 import emailjs from 'emailjs-com';
 
 function Setting() {
     const loginStatus = useSelector(state => state.auth.loginStatus)
+    const mode = useSelector(selectModeClick);
+    const dispatch = useDispatch();
     const [isOpen, setOpen] = useState(false);
     const [isTilted, setIsTilted] = useState(false);
     const [isPreferenceOpen, setPreferenceOpen] = useState(false);
@@ -93,8 +95,11 @@ function Setting() {
                     {isPreferenceOpen && (
                         <div className="absolute flex flex-col z-50 mt-4 h-10 p-1 gap-1 w-52 right-40 bg-secondary border border-gray-200  shadow-lg transition duration-300 ease-in-out transform origin-top hover:bg-primary rounded-sm">
                             <Button buttonLabel={'Modes'} handleClick={() => {
-                                changepage ? navigate("/mode_vertical") : navigate("/");
-                                setchangepage(!changepage);
+
+
+                                dispatch(clickButton(!mode));
+
+
                             }} />
                         </div>
                     )}
@@ -121,7 +126,7 @@ function Setting() {
                             <p>
                                 {popupContent === 'Contacts'
                                     ? <>
-                                      
+
                                         <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank">Adarsha Pant</a><br />
                                         <a className="hover-effect" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">Arjit Chand</a><br />
                                         <a className="hover-effect" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">Pranaya Shrestha</a><br />
