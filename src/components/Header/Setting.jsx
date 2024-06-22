@@ -46,6 +46,7 @@ function Setting() {
 
     const handleReportClick = () => {
         setReportPopupOpen(true);
+        setOpen(!isOpen);
     };
 
     const closeReportPopup = () => {
@@ -57,7 +58,7 @@ function Setting() {
     const handleSendReport = () => {
         if (reportEmail && reportContent) {
             emailjs.send('service_d0mqmni', 'template_llp76vz', {
-                to_email: 'adarshapant350@gmail.com', // Replace with your email address
+                to_email: 'email_to_use@gmail.com', // Replace with your email address
                 from_email: reportEmail,
                 message: reportContent,
             }, 'JOqRMVlQFwtkby774')
@@ -87,11 +88,11 @@ function Setting() {
                 }
             />
             {isOpen &&
-                <div className={`absolute flex flex-col z-50 mt-2 gap-2 w-52 right-0 bg-secondary border border-gray-200 rounded shadow-lg transition duration-300 ease-in-out transform origin-top ${popupContent ? 'blur' : ''}`}>
+                <div className={`absolute flex flex-col z-50 mt-2 gap-1 w-52 right-0 bg-black border border-brown rounded-md ${popupContent ? 'blur' : ''}`}>
                     <Button buttonLabel={'Preference'} handleClick={togglePreference} custom_class={'hover:bg-primary rounded-sm mt-2'} />
 
                     {isPreferenceOpen && (
-                        <div className="absolute flex flex-col z-50 mt-4 h-10 p-1 gap-1 w-52 right-40 bg-secondary border border-gray-200  shadow-lg transition duration-300 ease-in-out transform origin-top hover:bg-primary rounded-sm">
+                        <div className="fixed flex flex-col z-50  items-center pt-1 w-44 right-40 bg-secondary border border-brown  hover:bg-primary rounded-sm">
                             <Button buttonLabel={'Modes'} handleClick={() => {
 
 
@@ -102,9 +103,9 @@ function Setting() {
                         </div>
                     )}
 
-                    <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} />
-                    <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} />
-                    <Button buttonLabel={'Report '} handleClick={handleReportClick} />
+                    <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} custom_class={'hover:bg-primary'} />
+                    <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} custom_class={'hover:bg-primary'} />
+                    <Button buttonLabel={'Report '} handleClick={handleReportClick} custom_class={'hover:bg-primary'} />
 
                     {loginStatus
                         ? <Button
