@@ -1,9 +1,10 @@
+//textbox
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { socket } from './Chat.jsx';
-import { selectModeClick } from '../../store/modeSlice.js';
+
 
 
 function Textbox(
@@ -19,29 +20,25 @@ function Textbox(
 
   }
 
-
-
 ) {
 
   const [LanguageSelected, setLanguageSelected] = useState({ extension: ".js", language: "javascript", file_name: "index" })
 
-
   const [OutputText, putOutputText] = useState('');
   const [InputText, putInputText] = useState("//comment here");
+  const [horizontalMode, setHorizontalMode] = useState(true); // State to toggle between layouts
 
   const roomStatus = useSelector(state => state.room.roomStatus);
-  const roomLanguages = useSelector(state => state.room.roomLanguages);
+  const roomData = useSelector(state => state.room.roomData);
+  const roomLanguages = useSelector(state => state.room.roomLanguages); // Access roomLanguages from Redux state
 
 
   const outputref = useRef(OutputText);
   const monacoref = useRef(null);
-  let isVertical = useSelector(selectModeClick);
-
-
 
 
   /////////////////////////////////////Socket/////////////////////////////////////////////
- 
+
 
   useEffect(() => { //change to default display text when user is not in a room
     if (roomStatus) return;
@@ -55,7 +52,8 @@ function Textbox(
     }
   }, [roomStatus]);
 
-  
+
+
   useEffect(() => {
 
 
@@ -64,29 +62,23 @@ function Textbox(
     if (!roomStatus) {
       return;
     };
-
-
     socket.emit("InputField", { InputText });
 
     ////////////
 
     const handleSocketInputFieldForInputText = ({ InputText }) => {
 
-      console.log("server to client input", { InputText })
+      console.log("server to client", { InputText })
       putInputText(InputText);
     }
 
-
     socket.on("InputField", handleSocketInputFieldForInputText);
-
 
     return () => {
       socket.off("InputField", handleSocketInputFieldForInputText);
     };
 
-  }, [InputText, roomStatus]);
-
-
+  }, [InputText, roomStatus])
 
 
 
@@ -106,18 +98,18 @@ function Textbox(
       console.log("server to client output", { OutputText })
       putOutputText(OutputText);
     }
-
     // if (OutputText && roomStatus) {
     socket.on("OutputField", handleSocketOutputFieldForOutputText)
     // }
-
 
 
     return () => {
       socket.off("OutputField", handleSocketOutputFieldForOutputText);
     };
 
-  }, [OutputText, roomStatus])
+  }, [OutputText, roomStatus]);
+
+
 
 
   /////////////////////////////////////Language switch/////////////////////////////////////////////
@@ -250,56 +242,28 @@ function Textbox(
 
   /////////////////////////////////////call api to compile////////////////////////////////
 
-  const callCompilerApi = async (e) => {
+  const callCompilerApi = async () => {
 
     try {
 
-      e.preventDefault();
       let extension = LanguageSelected.extension;
       console.log(extension)
 
-      const response = await fetch(`http://localhost:5001/api/code`,
+      const response = await fetch(`http://localhost:5001/api/code/${LanguageSelected.language}`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ InputText, extension }),
-        })
+          body: JSON.stringify({ InputText, extension })
+        }
 
-      console.log("vanilla response", response)
-      const { Output } = await response.json();
-
-      console.log("no  jsoned Output", response);
-      console.log("jsoned Output", Output);
-
-      putOutputText(Output || "");
+      )
 
 
+      const data = await response.json();
 
-      /***
-       * GLOT API version 
-      */
-
-      /*
-         const response = await fetch(`http://localhost:5001/api/code/${LanguageSelected.language}`,
-           {
-             method: 'POST',
-             headers: {
-               'Content-Type': 'application/json'
-             },
-             body: JSON.stringify({ InputText, extension })
-           }
-   
-         )
-   
-   
-         const data = await response.json();
-   
-         console.log("data", data)
-   
-         putOutputText(data.output?.stdout || data?.output?.stderr || data.python_output);
-         */
+      putOutputText(data.output.stdout || data.output.stderr);
 
     } catch (error) {
 
@@ -345,8 +309,6 @@ function Textbox(
 
 
 
-
-
   return (
     < div className={`text-customWhite bg-secondary w-full ${_grid}`
     }>
@@ -360,12 +322,19 @@ function Textbox(
 
             (
               <>
-                {/* For Left part of input */}
+                {/* For Left part of input *  !roomStatus ? (
+                      <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} handleFileNameInputChange={handleFileNameInputChange} />
+                    ) : (
+                      <div>
+                        <h6>Current room language:  {roomLanguage}</h6>
+                      </div>
+                    )/}*/}
                 <div className='flex flex-row gap-5 items-center'>
                   {
-                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} 
-                    handleFileNameInputChange={handleFileNameInputChange} 
-                    currentLanguage={LanguageSelected}/>
+                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch}
+                     handleFileNameInputChange={handleFileNameInputChange} 
+                     currentLanguage={LanguageSelected}
+                     />
                   }
                 </div>
 
@@ -396,16 +365,11 @@ function Textbox(
             :
 
             // Output section
-            isVertical ? (
+            (
               <div className='px-6 h-10 border-brown flex items-center font-bold'>
                 Output
               </div>
-            ) :
-              (
-                <div className='z-50 border border-brown w-screen bg-secondary py-2 -mx-6' >
-                  <p className='pl-4'>Output</p>
-                </div>
-              )
+            )
         }
 
       </div >
@@ -425,7 +389,7 @@ function Textbox(
           // defaultValue={""}
 
           options={{
-            minimap: { enabled: true },
+            minimap: { enabled: false },
             scrollbar: {
               vertical: "hidden",
               horizontal: "hidden",
@@ -458,4 +422,4 @@ function Textbox(
   )
 }
 
-export { Textbox }
+export { Textbox };

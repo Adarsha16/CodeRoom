@@ -76,7 +76,7 @@ function Signup() {
     const callGithub_res = (await callGithub(values.github))?.GithubData
 
     /////IF Github error
-    if (callGithub_res.status == 404 || callGithub_res.status == 400) {
+    if (callGithub_res?.status == 404 || callGithub_res?.status == 400) {
 
       setGitErrors(() => ({
         github: `Github : ${callGithub_res.status_info}`
@@ -86,8 +86,7 @@ function Signup() {
 
     ////reseting github error
     setGitErrors({})
-    setGithubData(callGithub_res.GithubData);
-
+    setGithubData(callGithub_res?.GithubData);
     /////////////////////////Calling Register//////////////////
 
     try {
