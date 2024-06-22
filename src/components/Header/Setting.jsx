@@ -3,6 +3,7 @@ import Button from "../Button.jsx";
 import '../../App.css';
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import emailjs from 'emailjs-com';
 
 function Setting() {
     const loginStatus = useSelector(state => state.auth.loginStatus)
@@ -11,6 +12,9 @@ function Setting() {
     const [isPreferenceOpen, setPreferenceOpen] = useState(false);
     const [popupContent, setPopupContent] = useState(null);
     const [changepage, setchangepage] = useState(false);
+    const [reportContent, setReportContent] = useState('');
+    const [reportEmail, setReportEmail] = useState('');
+    const [isReportPopupOpen, setReportPopupOpen] = useState(false);
     const navigate = useNavigate();
 
     const openMenu = () => {
@@ -22,7 +26,6 @@ function Setting() {
         }, 200); // Reset the tilt effect after 200ms
     };
 
-
     const togglePreference = () => {
         setPreferenceOpen(!isPreferenceOpen);
     };
@@ -32,17 +35,42 @@ function Setting() {
     };
 
     const closePopup = () => {
-
         setPopupContent(null);
     };
 
-
     const Handlelogout = (e) => {
-
         e.preventDefault();
         localStorage.removeItem('token');
         window.location.reload();
     }
+
+    const handleReportClick = () => {
+        setReportPopupOpen(true);
+    };
+
+    const closeReportPopup = () => {
+        setReportPopupOpen(false);
+        setReportContent('');
+        setReportEmail('');
+    };
+
+    const handleSendReport = () => {
+        if (reportEmail && reportContent) {
+            emailjs.send('service_d0mqmni', 'template_llp76vz', {
+                to_email: 'adarshapant350@gmail.com', // Replace with your email address
+                from_email: reportEmail,
+                message: reportContent,
+            }, 'JOqRMVlQFwtkby774')
+                .then((response) => {
+                    console.log('SUCCESS!', response.status, response.text);
+                }, (error) => {
+                    console.log('FAILED...', error);
+                });
+            closeReportPopup();
+        } else {
+            alert("Please enter both email and report content.");
+        }
+    };
 
     return (
         <div className="relative mr-5">
@@ -65,86 +93,86 @@ function Setting() {
                     {isPreferenceOpen && (
                         <div className="absolute flex flex-col z-50 mt-4 h-10 p-1 gap-1 w-52 right-40 bg-secondary border border-gray-200  shadow-lg transition duration-300 ease-in-out transform origin-top hover:bg-primary rounded-sm">
                             <Button buttonLabel={'Modes'} handleClick={() => {
-
-
                                 changepage ? navigate("/mode_vertical") : navigate("/");
                                 setchangepage(!changepage);
                             }} />
-
                         </div>
                     )}
 
-
                     <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} />
                     <Button buttonLabel={'About Us'} handleClick={() => showPopup('About Us')} />
+                    <Button buttonLabel={'Report '} handleClick={handleReportClick} />
 
-
-                    {/**
-                     * When user logout
-                     */}
-                    {
-                        loginStatus
-                            ?
-                            <Button
-                                buttonLabel={'Logout'}
-                                custom_class={'border-t-[2px] py-2 border-brown'}
-                                handleClick={Handlelogout}
-                            />
-                            :
-                            ""
-                    }
-
-
-
+                    {loginStatus
+                        ? <Button
+                            buttonLabel={'Logout'}
+                            custom_class={'border-t-[2px] py-2 border-brown'}
+                            handleClick={Handlelogout}
+                        />
+                        : ""}
                 </div>}
 
             {popupContent && (
                 <>
                     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 "></div>
-
                     <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
-
                         <div className="bg-white p-6 rounded shadow-lg w-96">
                             <h2 className="text-2xl mb-4">{popupContent}</h2>
                             <p>
                                 {popupContent === 'Contacts'
-
-                                    ? (
-                                        <>
-
-                                            Adarsha Pant<br />
-                                            <a className="text-gray-500 hover:text-darkblue-500 underline hover:no-underline" href="https://github.com/Adarsha16" target="_blank" rel="noopener noreferrer">https://github.com/Adarsha16</a><br />
-                                            Arjit Chand<br />
-                                            <a className="text-gray-500 hover:text-darkblue-500 underline hover:no-underline" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">https://github.com/XGPher35</a><br />
-                                            Pranaya Shrestha<br />
-                                            <a className="text-gray-500 hover:text-darkblue-500 underline hover:no-underline" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">https://github.com/Pranaya-sht</a><br />
-                                            Sauhardha Kafla<br />
-                                            <a className="text-gray-500 hover:text-gray-500 underline hover:no-underline" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer">https://github.com/ostrich-egg</a><br />
-                                            <br />
-                                            <em>"Alone, we can do so little; together we can do so much."</em>
-                                        </>
-                                    )
-                                    : (
-                                        <>
-                                            A Collaborative University Project by:<br />
-                                            Adarsha, Arjit, Pranaya, and Sauhardha<br />
-                                            <br />
-                                            Copyright © Code Room, 2024<br />
-                                            <br />
-                                            <em> "Never Gonna Give You Up, Never Gonna Let you Go"</em>
-                                        </>
-                                    )
-                                }
+                                    ? <>
+                                      
+                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank">Adarsha Pant</a><br />
+                                        <a className="hover-effect" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">Arjit Chand</a><br />
+                                        <a className="hover-effect" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">Pranaya Shrestha</a><br />
+                                        <a className="hover-effect" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer">Sauhardha Kafle</a><br />
+                                        <br />
+                                        <em>"Alone, we can do so little; together we can do so much."</em>
+                                    </>
+                                    : <>
+                                        A Collaborative University Project by:<br />
+                                        Adarsha, Arjit, Pranaya, and Sauhardha<br />
+                                        <br />
+                                        Copyright © Code Room, 2024<br />
+                                        <br />
+                                        <em>"Never Gonna Give You Up, Never Gonna Let you Go"</em>
+                                    </>}
                             </p>
-
                             <button className="mt-4 px-4 py-2 bg-primary text-white rounded" onClick={closePopup}>Close</button>
                         </div>
+                    </div>
+                </>
+            )}
 
+            {isReportPopupOpen && (
+                <>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"></div>
+                    <div className="fixed inset-0 flex items-center justify-center z-50 text-black">
+                        <div className="bg-white p-6 rounded shadow-lg w-96">
+                            <h2 className="text-2xl mb-4">Report</h2>
+                            <textarea
+                                className="w-full p-2 border border-gray-300 rounded"
+                                rows="4"
+                                value={reportContent}
+                                onChange={(e) => setReportContent(e.target.value)}
+                                placeholder="Report here..."
+                            ></textarea>
+                            <input
+                                type="email"
+                                className="w-full p-2 mt-4 border border-gray-300 rounded"
+                                value={reportEmail}
+                                onChange={(e) => setReportEmail(e.target.value)}
+                                placeholder="Enter your email"
+                            />
+                            <div className="mt-4 flex justify-end ">
+                                <button className="px-4 py-2 bg-primary text-white rounded" onClick={handleSendReport}>Send</button>
+                                <button className="px-4 py-2 bg-primary text-white rounded" onClick={closeReportPopup}>Close</button>
+                            </div>
+                        </div>
                     </div>
                 </>
             )}
         </div>
-
     );
 }
 
