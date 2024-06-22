@@ -353,7 +353,7 @@ function Chat() {
 
                             <div className="bg-white p-6 rounded shadow-lg w-96">
                                 <h2 className="text-2xl mb-4">Are you sure?</h2>
-                                <p>Click yes to leave your current room</p>
+                                <p>Click yes to leave your current room.</p>
                                 <button className="mt-4 px-4 py-2 bg-primary text-white rounded mr-5" onClick={HandleLeaveRoomClick} id={"Yes"}>Yes</button>
                                 <button className="mt-4 px-4 py-2 bg-primary text-white rounded" onClick={HandleLeaveRoomClick} id={"No"}>No</button>
                             </div>

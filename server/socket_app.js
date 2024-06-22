@@ -5,6 +5,10 @@ import jwt from 'jsonwebtoken'
 
 //State
 
+let roomInputText = {};
+let roomOutputText = {};
+let roomLanguagesObj = {};
+
 const UserState = {
 
     users: [],
@@ -56,41 +60,35 @@ function handleConnection(socket, io, ADMIN) {
 
         console.log("room", username, roomid);
 
-        /*///Check if prev room is present;
-        const prevRoom = getUser(socket.id)?.room;
-
-        console.log("prevRoom", prevRoom)
-        if (prevRoom) {
-
-            socket.leave(prevRoom);
-            io.to(prevRoom).emit('message', BuildMsg(ADMIN, `${username} has left the room`))
-        }*/
-
         // Activate User
         const user = ActivateUser(socket.id, username, roomid);
         console.log("Activated user ", user)
 
-        /*//Update userlist on Previous room
-        if (prevRoom) {
-
-            const prev_users = getAllUsersInRoom(prevRoom);
-            io.to(prevRoom).emit('userList', { users: prev_users });
-
-        };*/
 
         // Check if there are existing users in the room
         const existingUsers = getAllUsersInRoom(user.room);
-        if (existingUsers.length > 1) { // If users are already joined
-            // Send a message to the user who joined
-            socket.emit('message', BuildMsg(ADMIN, `You have joined room ${user.room}`));
-        } else {
-            // If no other users are in the room
+        if (existingUsers.length === 1) { // If this user is the first to join the room
+
             socket.emit('message', BuildMsg(ADMIN, `You have created and joined room ${user.room}`));
+
+            // Initialize InputField and OutputField for the new user
+            socket.emit("InputField", { InputText: "//comment here" });
+            socket.emit("OutputField", { OutputText: "" });
+
+        } else {  // If other users are already in the room
+            socket.emit('message', BuildMsg(ADMIN, `You have joined room ${user.room}`));
         }
 
         // Join Room
         socket.join(user.room);
 
+
+        if (roomInputText[user.room]) {
+            socket.emit("InputField", { InputText: roomInputText[user.room] });
+        }
+        if (roomOutputText[user.room]) {
+            socket.emit("OutputField", { OutputText: roomOutputText[user.room] });
+        }
 
 
         // To those other than the users joined
@@ -101,7 +99,14 @@ function handleConnection(socket, io, ADMIN) {
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        socket.emit("InputField", { InputText: Server_InputText }); //Updates the room data to the new user
+        //socket.emit("InputField", { InputText: Server_InputText }); //Updates the room data to the new user
+
+        if (roomInputText[user.room]) {
+            socket.emit("InputField", { InputText: roomInputText[user.room] });
+        }
+        if (roomOutputText[user.room]) {
+            socket.emit("OutputField", { OutputText: roomOutputText[user.room] });
+        }
 
 
         //Update the user list for just joined room
@@ -116,9 +121,6 @@ function handleConnection(socket, io, ADMIN) {
 
         console.log("reached to bottom")
 
-        // if (room) {
-        //     io.emit('LanguageSwitched', extension, language);
-        // }
     });
 
     /**
@@ -175,23 +177,77 @@ function handleConnection(socket, io, ADMIN) {
     });
 
 
+    /**
+    * Language change for all users in a room
+    * 
+    */
+
+
+    socket.on('roomUpdate', ({ roomLanguages }) => {
+        Object.keys(roomLanguages).forEach(roomId => {
+            if (!roomLanguagesObj[roomId]) { // Check if roomid doesn't exist in roomLanguagesObj
+                roomLanguagesObj[roomId] = roomLanguages[roomId]; // Add roomid and its language to roomLanguagesObj
+                console.log(`Added room ${roomId} to roomLanguagesObj with language ${roomLanguages[roomId].language}`);
+            } else {
+                console.log(`Room ${roomId} already exists in roomLanguagesObj. Skipping update.`);
+            }
+        });
+
+        console.log("Updated roomLanguagesObj:", roomLanguagesObj);
+
+    });
+
+    socket.on('languageRetrieval', ({ roomLanguages }) => {
+        Object.keys(roomLanguages).forEach(roomId => {
+            const { language } = roomLanguages[roomId];
+            console.log(`Room ID: ${roomId}, Language: ${language}`);
+        });
+
+    });
+
+
+    socket.on('languageChange', ({ language_ }) => {
+
+        console.log("NOT CHANGING TO THIS: ", language_)
+        const user = getUser(socket.id)
+        const roomid = user?.room;
+        console.log("check: ", roomLanguagesObj[roomid]);
+        if (roomLanguagesObj[roomid]) {
+            const { language } = roomLanguagesObj[roomid];
+            console.log("ROOM ALREADY EXISTS HEHE. SEE THIS: ", language)
+            console.log("Now changing the language of user: ", language);
+            io.to(roomid).emit("languageChange", { language_: language });
+        }
+    });
+
+
+
+    /**
+ * Displaying Input and Output
+ */
+
+
     socket.on('InputField', ({ InputText }) => {
 
         console.log("data:", { InputText });
         Server_InputText = InputText;
 
-        const room = (getUser(socket.id))?.room;
-        // console.log("if", room)
-        socket.broadcast.to(room).emit("InputField", { InputText });
+        const user = (getUser(socket.id));
+        if (user && user.room) {
+            roomInputText[user.room] = InputText;
+            socket.broadcast.to(user.room).emit("InputField", { InputText });
+        }
     })
 
     socket.on('OutputField', ({ OutputText }) => {
 
         console.log("data on output", OutputText);
 
-        const room = (getUser(socket.id))?.room;
-
-        socket.broadcast.to(room).emit('OutputField', { OutputText })
+        const user = getUser(socket.id);
+        if (user && user.room) {
+            roomOutputText[user.room] = OutputText;
+            socket.broadcast.to(user.room).emit("OutputField", { OutputText });
+        }
     });
 
 
