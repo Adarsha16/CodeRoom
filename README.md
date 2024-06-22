@@ -81,6 +81,11 @@ OTP_EXPIRY = 5* #In mins
 #For json web token
 JWT_SECRET = <IHaveNoSecrets>
 JWT_LIFETIME = '1hr'
+
+COMPILER_PATH = ./controller/docker_compiler
+PYTHON_PATH = ./controller/docker_compiler/python
+
+
 ```
 
 ### Developers
