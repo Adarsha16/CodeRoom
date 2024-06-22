@@ -24,6 +24,11 @@ OTP_EXPIRY = 5 #mins
 
 JWT_SECRET = <jwt_secret_key>
 JWT_LIFETIME = <jwt_lifetime>
+
+COMPILER_PATH = ./controller/docker_compiler
+PYTHON_PATH = ./controller/docker_compiler/python
+
+
 ```
 
 **Note**

@@ -70,26 +70,6 @@ function Textbox(
   }, [InputText, roomStatus]);
 
 
-  // useEffect(() => {
-
-  //   if (!roomStatus) {
-  //     return;
-  //   }
-
-  //   const handleFirstRoomInputText = ({ InputText }) => {
-  //     console.log("Room enter input terxt", InputText)
-  //     putInputText(InputText);
-
-  //   }
-
-  //   socket.on("room_InputText", handleFirstRoomInputText);
-
-  //   return () => {
-  //     socket.off("room_InputText", handleFirstRoomInputText)
-  //   }
-
-  // }, [roomStatus])
-
 
 
 
@@ -193,28 +173,56 @@ function Textbox(
 
   /////////////////////////////////////call api to compile////////////////////////////////
 
-  const callCompilerApi = async () => {
+  const callCompilerApi = async (e) => {
 
     try {
 
+      e.preventDefault();
       let extension = LanguageSelected.extension;
       console.log(extension)
 
-      const response = await fetch(`http://localhost:5001/api/code/${LanguageSelected.language}`,
+      const response = await fetch(`http://localhost:5001/api/code`,
         {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ InputText, extension })
-        }
+          body: JSON.stringify({ InputText, extension }),
+        })
 
-      )
+      console.log("vanilla response", response)
+      const { Output } = await response.json();
+
+      console.log("no  jsoned Output", response);
+      console.log("jsoned Output", Output);
+
+      putOutputText(Output || "");
 
 
-      const data = await response.json();
 
-      putOutputText(data.output.stdout || data.output.stderr);
+      /***
+       * GLOT API version 
+      */
+
+      /*
+         const response = await fetch(`http://localhost:5001/api/code/${LanguageSelected.language}`,
+           {
+             method: 'POST',
+             headers: {
+               'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({ InputText, extension })
+           }
+   
+         )
+   
+   
+         const data = await response.json();
+   
+         console.log("data", data)
+   
+         putOutputText(data.output?.stdout || data?.output?.stderr || data.python_output);
+         */
 
     } catch (error) {
 

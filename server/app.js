@@ -1,5 +1,4 @@
 import express from 'express'
-import http from 'http'
 const app = express();
 import router from './router/route.js';
 import pool from './db/connectDB.js';
@@ -17,13 +16,19 @@ import helmet from "helmet"
 import cors from 'cors'
 
 
-
-
-
 app.use(express.json());  //To parse the json file
-app.use(cors());          //For cross origin resource sharing
-app.use(helmet());        //Secure express apps by setting response header
 
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+
+
+// app.use(cors());          //For cross origin resource sharing
+app.use(helmet());        //Secure express apps by setting response header
 
 
 /**
@@ -93,7 +98,7 @@ const io = new Server(expressServer, {
 
     path: '/api/room',
     cors: {
-        origin: process.env.NODE_ENV === "production" ? false : ["http://localhost:5173", "http://127.0.0.1:5173"]
+        origin: process.env.NODE_ENV === "production" ? false : ["http://localhost:5173", "http://192.168.1.75:5173/"]
     }
 
 });

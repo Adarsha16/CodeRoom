@@ -1,4 +1,5 @@
 //import { Server } from "socket.io";
+import { text } from 'express';
 import jwt from 'jsonwebtoken'
 
 
@@ -98,6 +99,8 @@ function handleConnection(socket, io, ADMIN) {
         //////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////if BUG comment this out/////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
         socket.emit("InputField", { InputText: Server_InputText }); //Updates the room data to the new user
 
 
@@ -290,6 +293,7 @@ function getAllUsersInRoom(room) {
     return UserState.users.filter((user) => user.room === room)
 
 };
+
 
 
 function getAllActiveRooms() {

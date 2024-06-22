@@ -15,7 +15,7 @@ const limiter = rateLimit({
 })
 
 router.post("/github", Github);
-router.route("/code/:lang").post(compiler);
+router.route("/code").post(compiler);
 router.route("/auth/login").post(limiter, login);
 
 // router.route("/auth/register").post(register);
