@@ -126,7 +126,7 @@ function Setting() {
                                 {popupContent === 'Contacts'
                                     ? <>
 
-                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank">Adarsha Pant</a><br />
+                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank" rel="noopener noreferrer">Adarsha Pant</a><br />
                                         <a className="hover-effect" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">Arjit Chand</a><br />
                                         <a className="hover-effect" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">Pranaya Shrestha</a><br />
                                         <a className="hover-effect" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer">Sauhardha Kafle</a><br />
