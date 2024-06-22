@@ -31,6 +31,8 @@ function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange }) {
     const [selected, setSelected] = useState(buttons[2]);
     const [extension, setExtension] = useState(buttons[2].extension);
 
+    const roomStatus = useSelector(state => state.room.roomStatus);
+
     const openMenu = () => {
 
 
@@ -53,15 +55,16 @@ function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange }) {
     }
 
     return (
-        <div className="relative  flex items-center justify-center ">
+        <div className="relative flex items-center justify-center">
+
             <Button
                 handleClick={openMenu}
                 buttonLabel={selected.label}
                 custom_class={`m-0 p-0`}
             />
             {
-                isOpen && (
-                    <div className="absolute flex flex-col items-center z-50  py-2 gap-2 w-30 px-2 bg-secondary  shadow-lg transition duration-300 ease-in-out transform origin-top rounded-full">
+                !roomStatus && isOpen && (
+                    <div className="absolute flex flex-col items-center z-50  py-2 gap-2 w-30 px-2 bg-secondary rounded shadow-lg transition duration-300 ease-in-out transform origin-top">
                         {buttons.filter(btn => btn.id !== selected.id).map((btn, index) => (
                             <Button
                                 key={index}

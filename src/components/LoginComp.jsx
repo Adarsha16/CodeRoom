@@ -16,6 +16,8 @@ function LoginComp() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const handleChanges = (e) => {
 
     const { value, name } = e.target
@@ -27,7 +29,17 @@ function LoginComp() {
 
     }))
 
+    if (name === 'password' && !value) {
+      setIsPasswordVisible(false);
+    }
+
   }
+
+  ///For password hiding////
+
+  const changePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const ValidateAndSetErrors = () => {
 
@@ -107,8 +119,8 @@ function LoginComp() {
         <div className='flex flex-col gap-1.5 mb-4 items-center text-white'>
 
           <h1 className='fira-sans-bold text-5xl mb-4 '>Code Room</h1>
-          <h5 className=' text-2xl '>This is where Coding happens</h5>
-          <p className=''>Let's take this journey even further </p>
+          <h5 className=' text-2xl '>This is where Coding happens.</h5>
+          <p className=''>Let's take this journey even further! </p>
 
         </div>
 
@@ -131,14 +143,46 @@ function LoginComp() {
 
 
             {/*password field*/}
-            <Input
-              type={'password'}
-              custom_placeholder={'Password'}
-              name={'password'}
-              value={values.password}
-              handleChanges={handleChanges}
+            {/*password field*/}
+            <div style={{ position: 'relative', display: 'inline-block' }}>
 
-            />
+              <Input
+                type={isPasswordVisible ? 'text' : 'password'}
+                custom_placeholder={'Password'}
+                name={'password'}
+                value={values.password}
+                handleChanges={handleChanges}
+              />
+
+              {values.password && (
+                <span
+                  onClick={changePasswordVisibility}
+                  style={{
+                    position: 'absolute',
+                    right: '10px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    color: 'black',
+                  }}
+                >
+                  {isPasswordVisible ? <svg xmlns="http://www.w3.org/2000/svg"
+                    width="24px"
+                    height="24px"
+                    viewBox="0 0 32 32">
+                    <path fill="currentColor" d="M28.034 17.29c.13.43.53.71.96.71v-.01a.993.993 0 0 0 .96-1.28C29.923 16.61 26.613 6 15.995 6S2.07 16.61 2.04 16.72c-.16.53.14 1.08.67 1.24s1.09-.14 1.25-.67C4.069 16.91 6.889 8 15.996 8c9.105 0 11.915 8.903 12.038 9.29M10 18a6 6 0 1 1 12 0a6 6 0 0 1-12 0" />
+                  </svg> :
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      width="24px"
+                      height="24px"
+                      viewBox="0 0 32 32">
+                      <path fill="currentColor" d="M28.034 17.29c.13.43.53.71.96.71v-.01a.993.993 0 0 0 .96-1.28C29.923 16.61 26.613 6 15.995 6S2.07 16.61 2.04 16.72c-.16.53.14 1.08.67 1.24s1.09-.14 1.25-.67C4.069 16.91 6.889 8 15.996 8c9.105 0 11.915 8.903 12.038 9.29M12 18a4 4 0 1 1 8 0a4 4 0 0 1-8 0m4-6a6 6 0 1 0 0 12a6 6 0 0 0 0-12" />
+                    </svg>}
+                </span>
+              )}
+
+            </div>
             {(FormErrors?.password) && <p className='error text-sm/[15px]'>{FormErrors?.password}</p>}
             {(FormErrors?.login) && <p className='error text-sm/[15px]'>{FormErrors?.login}</p>}
 

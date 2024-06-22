@@ -10,7 +10,6 @@ import ErrorPage from "./error-page.jsx"
 
 import { Provider } from 'react-redux'
 import store from "./store/store.js"
-import Mode from './pages/Mode.jsx'
 import OTPpage from './pages/OTPpage.jsx'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import AuthLayout from './components/AuthLayout.jsx'
@@ -62,10 +61,6 @@ const myrouter = createBrowserRouter([
       //   path: "/room/:slug",
       //   element: <Room />
       // }
-      {
-        path: "/mode_vertical",
-        element: <Mode />
-      }
     ]
   }
 

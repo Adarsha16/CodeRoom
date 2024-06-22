@@ -7,7 +7,7 @@ import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { login, setSignup } from '../store/authSlice.js'
+import { setSignup } from '../store/authSlice.js'
 import GitHubUser from './Header/Github.jsx'
 
 function Signup() {
@@ -23,6 +23,8 @@ function Signup() {
   const [loginStatus, setLoginStatus] = useState(false);
   const [githubData, setGithubData] = useState(null);
 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const handleChanges = (e) => {
 
     const { value, name } = e.target
@@ -33,8 +35,17 @@ function Signup() {
       [name]: value
 
     }))
+
+    if (name === 'password' && !value) {
+      setIsPasswordVisible(false);
+    }
   }
 
+  ///For password hiding////
+
+  const changePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
 
   const ValidateAndSetErrors = () => {
@@ -45,7 +56,7 @@ function Signup() {
   };
 
 
-
+  //console.log("password visibility: ", isPasswordVisible);
 
 
   const handleSubmit = async (e) => {
@@ -59,7 +70,6 @@ function Signup() {
 
       return;
     };
-
 
 
     //////////////Call Github////////////////////////////////
@@ -125,9 +135,9 @@ function Signup() {
 
         {/**Info and Headline */}
         <div className='flex flex-col gap-1 mb-0.5 items-center text-white'>
-          <h1 className='fira-sans-bold text-5xl '>Code Room</h1>
-          <h5 className=' text-2xl pt-3'>Welcome to Code Room!</h5>
-          <h5 className=' text-md '>Create an account to continue</h5>
+          <h1 className='fira-sans-bold text-5xl mb-2 '>Code Room</h1><br />
+          <h5 className=' text-2xl pt-3'>Welcome to Code Room!</h5><br />
+          <h5 className=' text-md mb-5 '>Create an account to continue</h5>
         </div>
 
         {/**Input filed */}
@@ -173,15 +183,45 @@ function Signup() {
               {(FormErrors.github || GitErrors.github) && <p className='error text-sm/[15px]'>{FormErrors.github || GitErrors.github}</p>}
 
               {/*password field*/}
-              <Input
+              <div style={{ position: 'relative', display: 'inline-block' }}>
 
-                type={'password'}
-                custom_placeholder={'Password'}
-                name={'password'}
-                value={values.password}
-                handleChanges={handleChanges}
+                <Input
+                  type={isPasswordVisible ? 'text' : 'password'}
+                  custom_placeholder={'Password'}
+                  name={'password'}
+                  value={values.password}
+                  handleChanges={handleChanges}
+                />
 
-              />
+                {values.password && (
+                  <span
+                    onClick={changePasswordVisibility}
+                    style={{
+                      position: 'absolute',
+                      right: '10px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      cursor: 'pointer',
+                      userSelect: 'none',
+                      color: 'black',
+                    }}
+                  >
+                    {isPasswordVisible ? <svg xmlns="http://www.w3.org/2000/svg"
+                      width="24px"
+                      height="24px"
+                      viewBox="0 0 32 32">
+                      <path fill="currentColor" d="M28.034 17.29c.13.43.53.71.96.71v-.01a.993.993 0 0 0 .96-1.28C29.923 16.61 26.613 6 15.995 6S2.07 16.61 2.04 16.72c-.16.53.14 1.08.67 1.24s1.09-.14 1.25-.67C4.069 16.91 6.889 8 15.996 8c9.105 0 11.915 8.903 12.038 9.29M10 18a6 6 0 1 1 12 0a6 6 0 0 1-12 0" />
+                    </svg> :
+                      <svg xmlns="http://www.w3.org/2000/svg"
+                        width="24px"
+                        height="24px"
+                        viewBox="0 0 32 32">
+                        <path fill="currentColor" d="M28.034 17.29c.13.43.53.71.96.71v-.01a.993.993 0 0 0 .96-1.28C29.923 16.61 26.613 6 15.995 6S2.07 16.61 2.04 16.72c-.16.53.14 1.08.67 1.24s1.09-.14 1.25-.67C4.069 16.91 6.889 8 15.996 8c9.105 0 11.915 8.903 12.038 9.29M12 18a4 4 0 1 1 8 0a4 4 0 0 1-8 0m4-6a6 6 0 1 0 0 12a6 6 0 0 0 0-12" />
+                      </svg>}
+                  </span>
+                )}
+
+              </div>
               {(FormErrors?.password) && <p className='error text-sm/[15px]'>{FormErrors?.password}</p>}
               {(FormErrors?.register) && <p className='error text-sm/[15px]'>{FormErrors?.register}</p>}
 
