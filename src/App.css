@@ -60,15 +60,21 @@
 }
 
 .hover-effect {
-  color: gray;
-  text-decoration: underline;
+  color: black;
+ 
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .hover-effect:hover {
-  color: darkblue;
-  text-decoration: none;
+  color: rgba(3, 3, 202, 0.929);
+  text-decoration: underline;
+ 
 }
+/* App.css */
+.blur {
+  filter: blur(5px);
+}
+
 
 
 
