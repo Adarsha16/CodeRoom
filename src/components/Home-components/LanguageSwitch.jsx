@@ -53,8 +53,7 @@ function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange }) {
     }
 
     return (
-        <div className="relative  flex items-center justify-center">
-
+        <div className="relative  flex items-center justify-center ">
             <Button
                 handleClick={openMenu}
                 buttonLabel={selected.label}
@@ -62,7 +61,7 @@ function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange }) {
             />
             {
                 isOpen && (
-                    <div className="absolute flex flex-col items-center z-50  py-2 gap-2 w-30 px-2 bg-secondary rounded shadow-lg transition duration-300 ease-in-out transform origin-top">
+                    <div className="absolute flex flex-col items-center z-50  py-2 gap-2 w-30 px-2 bg-secondary  shadow-lg transition duration-300 ease-in-out transform origin-top rounded-full">
                         {buttons.filter(btn => btn.id !== selected.id).map((btn, index) => (
                             <Button
                                 key={index}

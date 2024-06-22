@@ -20,8 +20,8 @@ import cors from 'cors'
 
 
 
-app.use(express.json());  //To parse the json file
 app.use(cors());          //For cross origin resource sharing
+app.use(express.json());  //To parse the json file
 app.use(helmet());        //Secure express apps by setting response header
 
 
@@ -93,6 +93,7 @@ const io = new Server(expressServer, {
 
     path: '/api/room',
     cors: {
+        // origin: "*",
         origin: process.env.NODE_ENV === "production" ? false : ["http://localhost:5173", "http://127.0.0.1:5173"]
     }
 

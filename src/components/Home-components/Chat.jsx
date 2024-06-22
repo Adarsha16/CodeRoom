@@ -155,7 +155,7 @@ function Chat() {
             }
         );
 
-  
+
 
 
     }, [roomStatus]);
@@ -275,7 +275,7 @@ function Chat() {
                 {/*///////////// Showing userlist ///////////// */}
                 <div className="inline-flex justify-start items-start align-middle flex-row gap-2">
                     {
-                        usersInRoom.length != 0
+                        usersInRoom?.length != 0
                             ?
                             Array.from(new Set(usersInRoom)).map(each => (
                                 <span className={`inline-flex flex-row justify-center items-center bg-signupBTN text-white h-8 w-8 font-bold rounded-full`}>
