@@ -6,7 +6,7 @@ function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange, curre
 
     // const roomData = useSelector(state => state.room.roomData);
 
-    console.log("LANGUAGE SWITCH HERE: CURRENT LANUGAGE: ", currentLanguage.language)
+    console.log("LANGUAGE SWITCH HERE: CURRENT LANUGAGE: ", currentLanguage)
 
     const roomStatus = useSelector(state => state.room.roomStatus);
 
@@ -67,7 +67,7 @@ function LanguageSwitch({ handleLanguageSwitch, handleFileNameInputChange, curre
     }
 
     return (
-        <div className="relative  flex items-center justify-center">
+        <div className="relative flex items-center justify-center">
 
             <Button
                 handleClick={openMenu}

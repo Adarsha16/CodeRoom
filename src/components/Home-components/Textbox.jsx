@@ -16,7 +16,7 @@ function Textbox(
     // default_lng,
     custom_theme,
     _grid = ""
-
+     
   }
 
 
@@ -41,7 +41,7 @@ function Textbox(
 
 
   /////////////////////////////////////Socket/////////////////////////////////////////////
- 
+
 
   useEffect(() => { //change to default display text when user is not in a room
     if (roomStatus) return;
@@ -55,7 +55,7 @@ function Textbox(
     }
   }, [roomStatus]);
 
-  
+
   useEffect(() => {
 
 
@@ -127,7 +127,7 @@ function Textbox(
   const handleLanguageSwitch = (button) => {
 
     const { extension } = button;
-    console.log(extension)
+    console.log("EXTENSION: ", extension)
 
     let language;
 
@@ -171,17 +171,18 @@ function Textbox(
 
       setLanguageSelected(prev => ({
         ...prev,
-        language: language,
-        extension: getExtension(language)
+        extension: getExtension(language),
+        language: language
       }));
     });
 
     const handleLanguageChange = ({ language_ }) => {
       console.log("Received language change from server:", language_);
+
       setLanguageSelected(prev => ({
         ...prev,
-        language: language_,
-        extension: getExtension(language_) // Function to get extension based on language
+        extension: getExtension(language_),
+        language: language_
       }));
     };
 
@@ -316,7 +317,32 @@ function Textbox(
 
 
   }
+  useEffect(() => {
+    // Function to determine file extension based on language
+    const getExtension_ = (language) => {
+      switch (language) {
+        case "cpp":
+          console.log("yaya1")
+          return ".cpp";
+        case "python":
+          console.log("yaya2")
+          return ".py";
+        case "javascript":
+          console.log("yaya3")
+          return ".js";
+        default:
+          console.log("yaya4")
+          return ".js"; // Default to ".js" if the language is not recognized
+      }
+    };
 
+    // Set extension based on current language
+    setLanguageSelected(prev => ({
+      ...prev,
+      extension: getExtension_(prev.language),
+    }));
+
+  }, [LanguageSelected.language]);
 
 
   useEffect(() => {
@@ -344,8 +370,9 @@ function Textbox(
   }, [OutputText]);
 
 
-
-
+  useEffect(() => {
+    console.log("CURRENT VALUES: ", LanguageSelected)
+  }, [LanguageSelected]);
 
   return (
     < div className={`text-customWhite bg-secondary w-full ${_grid}`
@@ -363,9 +390,9 @@ function Textbox(
                 {/* For Left part of input */}
                 <div className='flex flex-row gap-5 items-center'>
                   {
-                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} 
-                    handleFileNameInputChange={handleFileNameInputChange} 
-                    currentLanguage={LanguageSelected}/>
+                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch}
+                      handleFileNameInputChange={handleFileNameInputChange}
+                      currentLanguage={LanguageSelected} />
                   }
                 </div>
 

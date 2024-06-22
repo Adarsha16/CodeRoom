@@ -90,9 +90,9 @@ const Popup = () => {
                         <select className='ml-2 bg-black px-6 py-1 rounded-sm hover:bg-slate-700'
                             value={roomLang}
                             onChange={handleLanguageChange}>
-                            <option>JavaScript</option>
-                            <option>C++</option>
-                            <option>Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="cpp">C++</option>
+                            <option value="python">Python</option>
 
                         </select>
                     </div>
