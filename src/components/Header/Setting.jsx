@@ -13,11 +13,9 @@ function Setting() {
     const [isTilted, setIsTilted] = useState(false);
     const [isPreferenceOpen, setPreferenceOpen] = useState(false);
     const [popupContent, setPopupContent] = useState(null);
-    const [changepage, setchangepage] = useState(false);
     const [reportContent, setReportContent] = useState('');
     const [reportEmail, setReportEmail] = useState('');
     const [isReportPopupOpen, setReportPopupOpen] = useState(false);
-    const navigate = useNavigate();
 
     const openMenu = () => {
         setOpen(!isOpen);
