@@ -323,10 +323,8 @@ function Textbox(
               </div>
             ) :
               (
-                <div className='absolute w-full flex justify-center items-center top-[calc(100vh/5)] mt-64 -ml-6 h-16 pb-1'>
-                  <div className='w-full bg-secondary-200 px-4 py-2  bg-secondary border-[2px]  border-r-0 border-l-0 border-brown'>
-                    <h1 className='text-1xl font-bold w-full'>Output</h1>
-                  </div>
+                <div className='z-50 border border-brown w-screen bg-secondary py-2 -mx-6' >
+                  <p className='pl-4'>Output</p>
                 </div>
               )
         }

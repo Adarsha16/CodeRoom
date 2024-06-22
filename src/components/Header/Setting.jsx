@@ -94,11 +94,7 @@ function Setting() {
                     {isPreferenceOpen && (
                         <div className="fixed flex flex-col z-50  items-center pt-1 w-44 right-40 bg-secondary border border-brown  hover:bg-primary rounded-sm">
                             <Button buttonLabel={'Modes'} handleClick={() => {
-
-
                                 dispatch(clickButton(!mode));
-
-
                             }} />
                         </div>
                     )}
