@@ -7,7 +7,7 @@ import callGithub from '../custom_fn/callGithub.js'
 import callRegister from '../custom_fn/callRegister.js'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { login, setSignup } from '../store/authSlice.js'
+import { setSignup } from '../store/authSlice.js'
 import GitHubUser from './Header/Github.jsx'
 
 function Signup() {

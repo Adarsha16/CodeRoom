@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Editor from '@monaco-editor/react';
 import LanguageSwitch from './LanguageSwitch';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { socket } from './Chat.jsx';
 import { selectModeClick } from '../../store/modeSlice.js';
 
