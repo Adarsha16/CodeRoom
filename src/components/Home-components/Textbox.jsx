@@ -16,7 +16,7 @@ function Textbox(
     // default_lng,
     custom_theme,
     _grid = ""
-
+     
   }
 
 
@@ -29,14 +29,31 @@ function Textbox(
   const [OutputText, putOutputText] = useState('');
   const [InputText, putInputText] = useState("//comment here");
 
+  const roomStatus = useSelector(state => state.room.roomStatus);
+  const roomLanguages = useSelector(state => state.room.roomLanguages);
+
 
   const outputref = useRef(OutputText);
   const monacoref = useRef(null);
   let isVertical = useSelector(selectModeClick);
 
 
+
+
   /////////////////////////////////////Socket/////////////////////////////////////////////
-  const roomStatus = useSelector(state => state.room.roomStatus);
+
+
+  useEffect(() => { //change to default display text when user is not in a room
+    if (roomStatus) return;
+    if (!roomStatus) {
+      console.log("USER IS NOT IN A ROOM NOW CHANGING: \n")
+      console.log("Room status changed to ", roomStatus);
+      console.log("Current language: ", LanguageSelected);
+      putInputText("//comment here");
+      putOutputText("");
+      setLanguageSelected({ extension: ".js", language: "javascript", file_name: "index" });
+    }
+  }, [roomStatus]);
 
 
   useEffect(() => {
@@ -110,7 +127,7 @@ function Textbox(
   const handleLanguageSwitch = (button) => {
 
     const { extension } = button;
-    console.log(extension)
+    console.log("EXTENSION: ", extension)
 
     let language;
 
@@ -128,10 +145,71 @@ function Textbox(
         language = 'javascript';
     }
 
-    monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language);
-
+    //monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language);
     setLanguageSelected({ extension, language });
+
+    console.log(`Changed language to ${language}`);
   }
+
+
+  useEffect(() => {
+    if (!roomStatus) return;
+
+    console.log("roomLanguages:", roomLanguages);
+
+    socket.emit('roomUpdate', { roomLanguages });
+    socket.emit('languageRetrieval', { roomLanguages });
+
+    Object.keys(roomLanguages).forEach(roomId => {
+      const { language } = roomLanguages[roomId];
+      console.log(`Room ID: ${roomId}, Language: ${language}`);
+      let language_ = language;
+      socket.emit('languageChange', { language_ })
+
+      console.log("CREATED A ROOM. CHANGING LANGUAGE TO: ", language);
+
+
+      setLanguageSelected(prev => ({
+        ...prev,
+        extension: getExtension(language),
+        language: language
+      }));
+    });
+
+    const handleLanguageChange = ({ language_ }) => {
+      console.log("Received language change from server:", language_);
+
+      setLanguageSelected(prev => ({
+        ...prev,
+        extension: getExtension(language_),
+        language: language_
+      }));
+    };
+
+    // Listen for languageChange events from server
+    socket.on('languageChange', handleLanguageChange);
+
+    // Clean up event listener when component unmounts
+    return () => {
+      socket.off('languageChange', handleLanguageChange);
+    };
+
+  }, [roomLanguages, roomStatus])
+
+
+
+  const getExtension = (language) => {
+    switch (language) {
+      case "cpp":
+        return ".cpp";
+      case "python":
+        return ".py";
+      case "javascript":
+        return ".js";
+      default:
+        return ".js";
+    }
+  };
 
 
   /////////////////////////////////////File name change/////////////////////////////////////////////
@@ -239,7 +317,32 @@ function Textbox(
 
 
   }
+  useEffect(() => {
+    // Function to determine file extension based on language
+    const getExtension_ = (language) => {
+      switch (language) {
+        case "cpp":
+          console.log("yaya1")
+          return ".cpp";
+        case "python":
+          console.log("yaya2")
+          return ".py";
+        case "javascript":
+          console.log("yaya3")
+          return ".js";
+        default:
+          console.log("yaya4")
+          return ".js"; // Default to ".js" if the language is not recognized
+      }
+    };
 
+    // Set extension based on current language
+    setLanguageSelected(prev => ({
+      ...prev,
+      extension: getExtension_(prev.language),
+    }));
+
+  }, [LanguageSelected.language]);
 
 
   useEffect(() => {
@@ -267,8 +370,9 @@ function Textbox(
   }, [OutputText]);
 
 
-
-
+  useEffect(() => {
+    console.log("CURRENT VALUES: ", LanguageSelected)
+  }, [LanguageSelected]);
 
   return (
     < div className={`text-customWhite bg-secondary w-full ${_grid}`
@@ -286,7 +390,9 @@ function Textbox(
                 {/* For Left part of input */}
                 <div className='flex flex-row gap-5 items-center'>
                   {
-                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch} handleFileNameInputChange={handleFileNameInputChange} />
+                    <LanguageSwitch handleLanguageSwitch={handleLanguageSwitch}
+                      handleFileNameInputChange={handleFileNameInputChange}
+                      currentLanguage={LanguageSelected} />
                   }
                 </div>
 

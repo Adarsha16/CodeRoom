@@ -77,6 +77,7 @@ function Signup() {
 
     /////IF Github error
     if (callGithub_res?.status == 404 || callGithub_res?.status == 400) {
+    if (callGithub_res?.status == 404 || callGithub_res?.status == 400) {
 
       setGitErrors(() => ({
         github: `Github : ${callGithub_res.status_info}`
@@ -87,7 +88,6 @@ function Signup() {
     ////reseting github error
     setGitErrors({})
     setGithubData(callGithub_res?.GithubData);
-
     /////////////////////////Calling Register//////////////////
 
     try {
@@ -275,5 +275,5 @@ function Signup() {
 
   )
 }
-
+}
 export default Signup

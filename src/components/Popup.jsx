@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Input from './Inputfield.jsx';
 import Button from './Button.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { setRoomClick, setRoomData, setRoomStatus } from '../store/roomSlice.js';
+import { setRoomClick, setRoomData, setRoomStatus, setRoomLanguage } from '../store/roomSlice.js';
 
 const Popup = () => {
 
@@ -11,7 +11,7 @@ const Popup = () => {
 
     const [roomid, setRoomId] = useState("");
     const [open, setOpen] = useState(true);
-    // const [langOnRoom, setLangOnRoom] = useState(".js");
+    const [roomLang, setroomLang] = useState("javascript");
 
     const dispatch = useDispatch();
 
@@ -29,6 +29,7 @@ const Popup = () => {
         }
 
         dispatch(setRoomData({ roomid: temproomid }));
+        dispatch(setRoomLanguage({ roomId: temproomid, roomLanguage: roomLang }));
         dispatch(setRoomStatus(true));
         setOpen(false)
     };
@@ -45,12 +46,15 @@ const Popup = () => {
 
         e.target.style.border = '0px';
         dispatch(setRoomData({ roomid }));
+        dispatch(setRoomLanguage({ roomId: roomid, roomLanguage: roomLang }));
         dispatch(setRoomStatus(true));
 
         setOpen(false);
     };
 
-
+    const handleLanguageChange = (e) => {
+        setroomLang(e.target.value);
+    };
 
     useEffect(() => {
         dispatch(setRoomClick(open));
@@ -65,10 +69,10 @@ const Popup = () => {
                         className='font-bold text-4xl'
                         style={{ marginTop: '-10px', marginBottom: '8px' }}
                     >
-                        Enter Room
+                        Room Initialization
                     </h1>
-                    <p>
-                        Enter a room ID
+                    <p style={{ marginBottom: '20px' }}>
+                        Enter a room ID below <br />
                     </p>
                     <Input
                         type={'text'}
@@ -83,10 +87,12 @@ const Popup = () => {
                     {/* Language selection part */}
                     <div className='mt-4'>
                         <label>Select a Language: </label>
-                        <select className='ml-2 bg-black px-6 py-1 rounded-sm hover:bg-slate-700'>
-                            <option>JavaScript</option>
-                            <option>C++</option>
-                            <option>Python</option>
+                        <select className='ml-2 bg-black px-6 py-1 rounded-sm hover:bg-slate-700'
+                            value={roomLang}
+                            onChange={handleLanguageChange}>
+                            <option value="javascript">JavaScript</option>
+                            <option value="cpp">C++</option>
+                            <option value="python">Python</option>
 
                         </select>
                     </div>

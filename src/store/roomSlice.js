@@ -5,6 +5,7 @@ const initialState = {
     roomClick: false,
     roomStatus: false,
     roomData: {},
+    roomLanguages: {},
 }
 
 
@@ -59,8 +60,21 @@ const roomSlice = createSlice({
 
             console.log("after Roomdata payload", state.roomData)
 
-        }
+        },
 
+        setRoomLanguage: (state, action) => {
+            const { roomId, roomLanguage } = action.payload;
+
+            return { 
+                ...state,
+                roomLanguages: {
+                    ...state.roomLanguages,
+                    [roomId]: {
+                        language: roomLanguage,
+                    },
+                },
+            };
+        },
 
 
     }
@@ -73,5 +87,6 @@ export const {
     leaveRoom,
     setRoomClick,
     setRoomStatus,
-    setRoomData
+    setRoomData,
+    setRoomLanguage
 } = roomSlice.actions;
