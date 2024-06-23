@@ -96,7 +96,7 @@ function Setting() {
                             <Button 
                             className="fixed flex flex-col z-50  items-center pt-1 w-44 right-40 bg-secondary border border-brown  hover:bg-primary rounded-sm"
                             custom_class={'hover:bg-primary'}
-                            buttonLabel={'Modes'} handleClick={() => {
+                            buttonLabel={'Change Mode'} handleClick={() => {
 
 
                                 dispatch(clickButton(!mode));

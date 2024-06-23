@@ -40,7 +40,7 @@ function Chat() {
                 token: `${token}`
             },
             transports: ["websocket"],
-            reconnectionDelayMax: 10000,
+            reconnectionDelayMax: 30000,
             'force new connection': true,
             reconnectionAttempts: 'infinity',
             autoConnect: true
