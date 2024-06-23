@@ -324,7 +324,7 @@ function Textbox(
             ) :
               (
                 <div className='z-50 border border-brown w-screen bg-secondary py-2 -mx-6' >
-                  <p className='pl-4'>Output</p>
+                  <h1 className='pl-4'>Output</h1>
                 </div>
               )
         }

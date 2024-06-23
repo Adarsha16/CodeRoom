@@ -92,11 +92,18 @@ function Setting() {
                     <Button buttonLabel={'Preference'} handleClick={togglePreference} custom_class={'hover:bg-primary rounded-sm mt-2'} />
 
                     {isPreferenceOpen && (
-                        <div className="fixed flex flex-col z-50  items-center pt-1 w-44 right-40 bg-secondary border border-brown  hover:bg-primary rounded-sm">
-                            <Button buttonLabel={'Modes'} handleClick={() => {
+                       
+                            <Button 
+                            className="fixed flex flex-col z-50  items-center pt-1 w-44 right-40 bg-secondary border border-brown  hover:bg-primary rounded-sm"
+                            custom_class={'hover:bg-primary'}
+                            buttonLabel={'Modes'} handleClick={() => {
+
+
                                 dispatch(clickButton(!mode));
+
+
                             }} />
-                        </div>
+                     
                     )}
 
                     <Button buttonLabel={'Contacts'} handleClick={() => showPopup('Contacts')} custom_class={'hover:bg-primary'} />
@@ -106,8 +113,9 @@ function Setting() {
                     {loginStatus
                         ? <Button
                             buttonLabel={'Logout'}
-                            custom_class={'border-t-[2px] py-2 border-brown'}
+                            custom_class={' border-t-[2px]  border-brown hover:bg-primary'}
                             handleClick={Handlelogout}
+                     
                         />
                         : ""}
                 </div>}
@@ -122,7 +130,7 @@ function Setting() {
                                 {popupContent === 'Contacts'
                                     ? <>
 
-                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank" rel="noopener noreferrer">Adarsha Pant</a><br />
+                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank"rel="noopener noreferrer">Adarsha Pant</a><br />
                                         <a className="hover-effect" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer">Arjit Chand</a><br />
                                         <a className="hover-effect" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer">Pranaya Shrestha</a><br />
                                         <a className="hover-effect" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer">Sauhardha Kafle</a><br />
@@ -131,7 +139,11 @@ function Setting() {
                                     </>
                                     : <>
                                         A Collaborative University Project by:<br />
-                                        Adarsha, Arjit, Pranaya, and Sauhardha<br />
+                                        <a className="hover-effect" href="https://github.com/Adarsha16" target="_blank"rel="noopener noreferrer">Adarsha</a>,
+                                        <a className="hover-effect" href="https://github.com/XGPher35" target="_blank" rel="noopener noreferrer"> Arjit</a>,
+                                        <a className="hover-effect" href="https://github.com/Pranaya-sht" target="_blank" rel="noopener noreferrer"> Pranaya</a>, 
+                                        and 
+                                        <a className="hover-effect" href="https://github.com/ostrich-egg" target="_blank" rel="noopener noreferrer"> Sauhardha</a><br /><br />
                                         <br />
                                         Copyright © Code Room, 2024<br />
                                         <br />
