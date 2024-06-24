@@ -15,7 +15,7 @@ const Cpp_docker = async () => {
             // const image = execFileSync("docker", ["build", "-q", `${path.join(process.env.COMPILER_PATH, "cpp")}`]).toString().trim();
 
             console.log("Running")
-            const child = spawn("docker", ["run", "-v", `${process.env.CPP_PATH}:/usr/src/app`, "sha256:31ba980b8f688bcef1102dfd4af844e11f9871da977df8dda29019dbeb893520"]);
+            const child = spawn("docker", ["run", "-v", `${process.env.CPP_PATH}:/usr/src/app`, "sha256:df11e1bb8f648c21e7207cd9eb55845e44213dbd09039068302ed481098e8d1e"]);
 
 
             let output = '';

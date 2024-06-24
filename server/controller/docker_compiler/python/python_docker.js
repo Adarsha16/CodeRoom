@@ -13,7 +13,7 @@ const Python_docker = async () => {
             console.log("Building")
             // const image = execFileSync("docker", ["build", "-q", `${process.env.PYTHON_PATH}`]).toString().trim();
             console.log("Running")
-            const child = spawn("docker", ["run", "-v", `${process.env.PYTHON_PATH}:/app`, "sha256:61ef04b925fd295571e45c062336804095493795d7857bad225d1a11b5a98aa3"]);
+            const child = spawn("docker", ["run", "-v", `${process.env.PYTHON_PATH}:/app`, "sha256:cf2cc275b16ff627ec194e286545ca9598ebc0eb652f72f61715e8d4280f981c"]);
 
             let output = '';
 
