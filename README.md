@@ -83,7 +83,7 @@ JWT_SECRET = <IHaveNoSecrets>
 JWT_LIFETIME = '1hr'
 
 
-
+#For docker setup
 COMPILER_PATH = ./controller/docker_compiler
 PYTHON_PATH = ./controller/docker_compiler/python
 CPP_PATH = ./controller/docker_compiler/cpp
@@ -95,7 +95,7 @@ JS_PATH = ./controller/docker_compiler/javascript
 `Go to COMPILER_PATH as mentioned in .env`<br>
 `Go to each folder, and build image mannualy`<br>
 `After creating image, copy and replace image tag inside the *_docker.js file`<br>
-`To create image`,```docker build .```<br>
+`To create image`, ``` docker build . ```<br>
 
 
 ### Developers
