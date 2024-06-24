@@ -91,11 +91,11 @@ JS_PATH = ./controller/docker_compiler/javascript
 
 ```
 
-**How to Setup Docker**
+**How to Setup Docker** <br>
 `Go to COMPILER_PATH as mentioned in .env`<br>
 `Go to each folder, and build image mannualy`<br>
 `After creating image, copy and replace image tag inside the *_docker.js file`<br>
-`To create image`,`docker build .`<br>
+`To create image`,```docker build .```<br>
 
 
 ### Developers
