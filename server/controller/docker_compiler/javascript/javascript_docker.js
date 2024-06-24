@@ -14,7 +14,7 @@ const JavaScript_docker = async () => {
             // const image = execFileSync("docker", ["build", "-q", `${process.env.JS_PATH}`]).toString().trim();
             console.log("Running")
             // console.log("image", image);
-            const child = spawn("docker", ["run", "-v", `${process.env.JS_PATH}:/usr/source/app`, "sha256:2e875c567bf6bbb51a3e65cfe8d91440bb232029d76d76092ffa0a3a939b03bb"]);
+            const child = spawn("docker", ["run", "-v", `${process.env.JS_PATH}:/usr/source/app`, "sha256:e9b0a4e801c26af8b65691dbc03fbefa603c280b50822d1a161bcb28bd9ccdb2"]);
             // const child = spawn("docker", ["run", image]);
 
             console.log("checking")
